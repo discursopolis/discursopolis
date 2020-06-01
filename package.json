@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/BrunoSalerno/ctrlf/issues"
   },
-  "homepage": "https://github.com/BrunoSalerno/ctrlf#readme"
+  "homepage": "https://github.com/BrunoSalerno/ctrlf#readme",
+  "dependencies": {
+    "express": "4.17.1"
+  }
 }
