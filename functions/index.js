@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
       const els = [];
       snapshot.forEach(doc => {
         data = doc.data();
-        els.push('<li><a href="/text?id='+doc.id+'">' + doc.name + '</a></li>');
+        els.push('<li><a href="/text/' + data.id + '">' + data.name + '</a></li>');
       });
       res.status(200).send(
         `<!doctype html>
