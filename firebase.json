@@ -12,8 +12,8 @@
     ],
     "rewrites": [
       {
-        "source": "/discourse",
-        "function": "discourse"
+        "source": "**",
+        "function": "index"
       }
     ]
   },
