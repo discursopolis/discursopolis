@@ -25,7 +25,7 @@ const html = content => `<!doctype html>
                   </head>
                   <body>
                     <div id='root'>${content}</div>
-                    <script type="text/javascript" src="bundle.js"></script>
+                    <script type="text/javascript" src="/bundle.js"></script>
                   </body>
                 </html>`;
 
@@ -54,7 +54,6 @@ app.get('/api/texts', (req, res) => {
   }).catch(err => console.log(err));
 });
 app.get('**', (req, res) => {
-  console.log(req.originalUrl);
   res.status(200).send(html(render(h(_app.default, null))));
 });
 exports.index = functions.https.onRequest(app);
