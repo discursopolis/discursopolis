@@ -1,6 +1,7 @@
 {
   "plugins": [
     ["transform-react-jsx", { "pragma": "h" }],
-    ["@babel/plugin-transform-modules-commonjs"]
+    ["@babel/plugin-transform-modules-commonjs"],
+    ["@babel/plugin-proposal-object-rest-spread"]
   ]
 }

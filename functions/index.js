@@ -36,6 +36,7 @@ app.get('/api/text/:docId', (req, res) => {
       name: doc.data().name,
       text: doc.data().text
     });
+    return true;
   }).catch(err => console.log(err));
 });
 app.get('/api/texts', (req, res) => {
@@ -49,6 +50,7 @@ app.get('/api/texts', (req, res) => {
     res.json({
       texts: texts
     });
+    return true;
   }).catch(err => console.log(err));
 });
 app.get('**', (req, res) => {
