@@ -13,15 +13,21 @@ var _appStore = _interopRequireDefault(require("./stores/app-store"));
 
 var _text = _interopRequireDefault(require("./text"));
 
+var _topbar = _interopRequireDefault(require("./topbar"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class App extends _preact.Component {
   render(props) {
-    return (0, _preact.h)("div", null, (0, _preact.h)("div", null, "CtrlF"), (0, _preact.h)("div", null, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
+    return (0, _preact.h)("div", null, (0, _preact.h)(_topbar.default, null), (0, _preact.h)("div", {
+      className: "main pure-g"
+    }, (0, _preact.h)("div", {
+      className: "l-box pure-u-1"
+    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
       path: "/"
     }), (0, _preact.h)(_text.default, {
       path: "/text/:docId"
-    }))));
+    })))));
   }
 
 }
@@ -50,9 +56,16 @@ class Home extends _preact.Component {
   }
 
   render(props, state) {
-    return (0, _preact.h)("ul", null, state.texts.map(el => (0, _preact.h)("li", null, " ", (0, _preact.h)(_preactRouter.Link, {
+    return (0, _preact.h)("div", null, (0, _preact.h)("span", {
+      className: "pure-menu-heading"
+    }, " Discursos disponibles "), (0, _preact.h)("ul", {
+      className: "pure-menu-list"
+    }, state.texts.map(el => (0, _preact.h)("li", {
+      className: "pure-menu-item"
+    }, (0, _preact.h)(_preactRouter.Link, {
+      className: "pure-menu-link",
       href: '/text/' + el.id
-    }, " ", el.name, " "))));
+    }, " ", el.name, " ")))));
   }
 
 }

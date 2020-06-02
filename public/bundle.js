@@ -977,15 +977,21 @@ var _appStore = _interopRequireDefault(__webpack_require__(/*! ./stores/app-stor
 
 var _text = _interopRequireDefault(__webpack_require__(/*! ./text */ "./src/text.jsx"));
 
+var _topbar = _interopRequireDefault(__webpack_require__(/*! ./topbar */ "./src/topbar.jsx"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class App extends _preact.Component {
   render(props) {
-    return (0, _preact.h)("div", null, (0, _preact.h)("div", null, "CtrlF"), (0, _preact.h)("div", null, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
+    return (0, _preact.h)("div", null, (0, _preact.h)(_topbar.default, null), (0, _preact.h)("div", {
+      className: "main pure-g"
+    }, (0, _preact.h)("div", {
+      className: "l-box pure-u-1"
+    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
       path: "/"
     }), (0, _preact.h)(_text.default, {
       path: "/text/:docId"
-    }))));
+    })))));
   }
 
 }
@@ -1014,9 +1020,16 @@ class Home extends _preact.Component {
   }
 
   render(props, state) {
-    return (0, _preact.h)("ul", null, state.texts.map(el => (0, _preact.h)("li", null, " ", (0, _preact.h)(_preactRouter.Link, {
+    return (0, _preact.h)("div", null, (0, _preact.h)("span", {
+      className: "pure-menu-heading"
+    }, " Discursos disponibles "), (0, _preact.h)("ul", {
+      className: "pure-menu-list"
+    }, state.texts.map(el => (0, _preact.h)("li", {
+      className: "pure-menu-item"
+    }, (0, _preact.h)(_preactRouter.Link, {
+      className: "pure-menu-link",
       href: '/text/' + el.id
-    }, " ", el.name, " "))));
+    }, " ", el.name, " ")))));
   }
 
 }
@@ -1228,12 +1241,47 @@ class Text extends _preact.Component {
   }
 
   render(props, state) {
-    return (0, _preact.h)("div", null, state.text);
+    return (0, _preact.h)("p", null, state.text);
   }
 
 }
 
 var _default = Text;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./src/topbar.jsx":
+/*!************************!*\
+  !*** ./src/topbar.jsx ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+
+var _preactRouter = __webpack_require__(/*! preact-router */ "./node_modules/preact-router/dist/preact-router.es.js");
+
+const TopBar = () => {
+  return (0, _preact.h)("div", {
+    className: "header"
+  }, (0, _preact.h)("div", {
+    className: "home-menu pure-menu pure-menu-horizontal pure-menu-fixed"
+  }, (0, _preact.h)(_preactRouter.Link, {
+    className: "pure-menu-heading",
+    href: "/"
+  }, (0, _preact.h)("h3", null, 'Discursópolis'))));
+};
+
+var _default = TopBar;
 exports.default = _default;
 
 /***/ })

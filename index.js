@@ -13,6 +13,10 @@ const db = admin.firestore();
 const html = content => `<!doctype html>
                   <head>
                     <title>CtrlF</title>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+                    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+                    <link rel="stylesheet" href="/style.css">
                   </head>
                   <body>
                     <div id='root'>${content}</div>

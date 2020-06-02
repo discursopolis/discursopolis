@@ -23,7 +23,7 @@ class Text extends Component {
   }
 
   render(props, state) {
-    return <div>{state.text}</div>;
+    return <p>{state.text}</p>;
   }
 }
 

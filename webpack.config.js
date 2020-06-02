@@ -24,6 +24,10 @@ module.exports = {
           ['transform-react-jsx', {pragma: 'h'}]
         ]
       }
+    },
+    {
+      test: /\.css$/i,
+      use: ['style-loader', 'css-loader'],
     }
     ]
   }

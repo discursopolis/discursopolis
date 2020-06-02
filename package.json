@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "babel": "babel src --out-dir functions/components && babel index.js --out-dir functions",
     "build_client": "webpack --config webpack.config.js",
@@ -36,6 +37,8 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "babel-core": "^7.0.0-bridge.0",
+    "css-loader": "^3.5.3",
+    "style-loader": "^1.2.1",
     "webpack-cli": "^3.3.11"
   }
 }

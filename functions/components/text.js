@@ -35,7 +35,7 @@ class Text extends _preact.Component {
   }
 
   render(props, state) {
-    return (0, _preact.h)("div", null, state.text);
+    return (0, _preact.h)("p", null, state.text);
   }
 
 }
