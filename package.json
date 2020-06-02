@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "babel": "babel src --out-dir functions",
+    "build_client": "webpack --config webpack.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,21 @@
   },
   "homepage": "https://github.com/BrunoSalerno/ctrlf#readme",
   "dependencies": {
-    "express": "4.17.1",
-    "firebase": "^7.14.6"
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "express": "^4.17.1",
+    "firebase": "^7.14.6",
+    "firebase-admin": "^8.12.1",
+    "firebase-functions": "^3.6.2",
+    "preact": "^10.4.4",
+    "preact-render-to-string": "^5.1.9",
+    "webpack": "^4.43.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.10.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "webpack-cli": "^3.3.11"
   }
 }
