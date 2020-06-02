@@ -29,6 +29,7 @@
     "firebase-functions": "^3.6.2",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.9",
+    "preact-router": "^3.2.1",
     "webpack": "^4.43.0"
   },
   "devDependencies": {

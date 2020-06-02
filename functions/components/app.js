@@ -1,46 +1,61 @@
 "use strict";
 
-const {
-  Component,
-  h
-} = require('preact'); //const render = require('preact-render-to-string');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
 
+var _preact = require("preact");
 
-const html = content => `<!doctype html>
-                  <head>
-                    <title>CtrlF</title>
-                  </head>
-                  <body>
-                    ${content}
-                  </body>
-                </html>`;
+var _preactRouter = _interopRequireDefault(require("preact-router"));
 
-const TabBar = props => h('div', null, 'CtrlF');
+var _appStore = _interopRequireDefault(require("./stores/app-store"));
 
-class App extends Component {
+var _text = _interopRequireDefault(require("./text"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class App extends _preact.Component {
   render(props) {
-    return h('div', null, h(TabBar), h('div', null, props.children));
+    return (0, _preact.h)("div", null, (0, _preact.h)("div", null, "CtrlF"), (0, _preact.h)("div", null, (0, _preact.h)(_preactRouter.default, null, (0, _preact.h)(Home, {
+      path: "/"
+    }), (0, _preact.h)(_text.default, {
+      path: "/text/:docId"
+    }))));
   }
 
 }
 
-class MainList extends Component {
-  render(props) {
-    const els = [];
-    return h(App, null, h('ul', null, props.els.map(el => h('li', null, h('a', {
+class Home extends _preact.Component {
+  constructor(props) {
+    super(props);
+    this.bindedOnChange = this.onChange.bind(this);
+    this.state = {
+      texts: []
+    };
+  }
+
+  componentWillMount(props, state) {
+    _appStore.default.addChangeListener(this.bindedOnChange);
+
+    _appStore.default.loadData();
+  }
+
+  componentWillUnmount(props, state) {
+    _appStore.default.removeChangeListener(this.bindedOnChange);
+  }
+
+  onChange() {
+    this.setState(_appStore.default.getState());
+  }
+
+  render(props, state) {
+    return (0, _preact.h)("ul", null, state.texts.map(el => (0, _preact.h)("li", null, " ", (0, _preact.h)("a", {
       href: '/text/' + el.id
-    }, el.name)))));
+    }, " ", el.name, " "))));
   }
 
 }
 
-class Text extends Component {
-  render(props) {
-    return h(App, null, h('div', null, props.text));
-  }
-
-}
-
-exports.MainList = MainList;
-exports.Text = Text;
-exports.html = html;
+var _default = App;
+exports.default = _default;

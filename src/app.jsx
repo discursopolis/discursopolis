@@ -1,36 +1,52 @@
-const { Component, h } = require('preact');
-//const render = require('preact-render-to-string');
-
-const html = content => `<!doctype html>
-                  <head>
-                    <title>CtrlF</title>
-                  </head>
-                  <body>
-                    ${content}
-                  </body>
-                </html>`;
-
-const TabBar = props => h('div', null, 'CtrlF');
+import { Component, h } from 'preact';
+import Router from 'preact-router';
+import AppStore from './stores/app-store';
+import Text from './text';
 
 class App extends Component {
   render(props) {
-    return h('div', null, h(TabBar), h('div', null, props.children));
+    return (
+      <div>
+        <div>CtrlF</div>
+        <div>
+        <Router>
+		      <Home path="/" />
+		      <Text path="/text/:docId" />
+	      </Router>
+        </div>
+      </div>
+    );
   }
 }
 
-class MainList extends Component {
-  render(props) {
-    const els = [];
-    return h(App, null, h('ul', null, props.els.map(el => h('li', null, h('a', { href: '/text/' + el.id }, el.name)))));
+class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.bindedOnChange = this.onChange.bind(this);
+    this.state = {texts: []};
+  }
+
+  componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
+    AppStore.loadData();
+  }
+
+  componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
+  }
+
+  onChange() {
+    this.setState(AppStore.getState())
+  }
+
+  render(props, state) {
+    return (
+      <ul>
+        { state.texts.map(el => <li> <a href={'/text/' + el.id}> {el.name} </a></li>) }
+      </ul>
+    );
   }
 }
 
-class Text extends Component {
-  render(props) {
-    return h(App, null, h('div', null, props.text));
-  }
-}
-
-exports.MainList = MainList;
-exports.Text = Text;
-exports.html = html;
+export default App
