@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import Router from 'preact-router';
+import {Link, Router} from 'preact-router';
 import AppStore from './stores/app-store';
 import Text from './text';
 
@@ -43,7 +43,7 @@ class Home extends Component {
   render(props, state) {
     return (
       <ul>
-        { state.texts.map(el => <li> <a href={'/text/' + el.id}> {el.name} </a></li>) }
+        { state.texts.map(el => <li> <Link href={'/text/' + el.id}> {el.name} </Link></li>) }
       </ul>
     );
   }

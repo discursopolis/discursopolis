@@ -971,7 +971,7 @@ exports.default = void 0;
 
 var _preact = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
 
-var _preactRouter = _interopRequireDefault(__webpack_require__(/*! preact-router */ "./node_modules/preact-router/dist/preact-router.es.js"));
+var _preactRouter = __webpack_require__(/*! preact-router */ "./node_modules/preact-router/dist/preact-router.es.js");
 
 var _appStore = _interopRequireDefault(__webpack_require__(/*! ./stores/app-store */ "./src/stores/app-store.js"));
 
@@ -981,7 +981,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class App extends _preact.Component {
   render(props) {
-    return (0, _preact.h)("div", null, (0, _preact.h)("div", null, "CtrlF"), (0, _preact.h)("div", null, (0, _preact.h)(_preactRouter.default, null, (0, _preact.h)(Home, {
+    return (0, _preact.h)("div", null, (0, _preact.h)("div", null, "CtrlF"), (0, _preact.h)("div", null, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
       path: "/"
     }), (0, _preact.h)(_text.default, {
       path: "/text/:docId"
@@ -1014,7 +1014,7 @@ class Home extends _preact.Component {
   }
 
   render(props, state) {
-    return (0, _preact.h)("ul", null, state.texts.map(el => (0, _preact.h)("li", null, " ", (0, _preact.h)("a", {
+    return (0, _preact.h)("ul", null, state.texts.map(el => (0, _preact.h)("li", null, " ", (0, _preact.h)(_preactRouter.Link, {
       href: '/text/' + el.id
     }, " ", el.name, " "))));
   }
@@ -1042,7 +1042,7 @@ var _app = _interopRequireDefault(__webpack_require__(/*! ./app */ "./src/app.js
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _preact.render)((0, _preact.h)(_app.default, null), document.getElementById('root'));
+(0, _preact.hydrate)((0, _preact.h)(_app.default, null), document.getElementById('root'));
 
 /***/ }),
 

@@ -54,6 +54,7 @@ app.get('/api/texts', (req, res) => {
   }).catch(err => console.log(err));
 });
 app.get('**', (req, res) => {
+  console.log(req.originalUrl);
   res.status(200).send(html(render(h(_app.default, null))));
 });
 exports.index = functions.https.onRequest(app);

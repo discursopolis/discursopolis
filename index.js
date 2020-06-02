@@ -47,6 +47,7 @@ app.get('/api/texts', (req, res) => {
 });
 
 app.get('**', (req, res) => {
+  console.log(req.originalUrl)
     res.status(200).send(html(
         render(<App />)
       )

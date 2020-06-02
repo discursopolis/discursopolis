@@ -1,5 +1,5 @@
-import { h, render } from 'preact';
+import { h, hydrate } from 'preact';
 
 import App from './app';
 
-render(<App />, document.getElementById('root'));
+hydrate(<App />, document.getElementById('root'));
