@@ -67,3 +67,4 @@ node_modules/
 # Generated files:
 /public/bundle.*
 /functions/index.*
+/functions/components
