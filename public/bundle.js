@@ -1248,7 +1248,12 @@ class Text extends _preact.Component {
   buildAnotatedText() {
     const notes = this.state.notes;
     const words = this.state.text.split(' ').map(word => (0, _preact.h)("span", {
-      className: 'word'
+      className: 'word',
+      onClick: () => {
+        this.setState({
+          selected: null
+        });
+      }
     }, word));
     notes.sort(function (a, b) {
       return a.from - b.from;
@@ -1258,18 +1263,23 @@ class Text extends _preact.Component {
         className: 'words-note',
         style: {
           borderBottom: '1px solid gray'
-        }
+        },
+        onClick: () => this.setState({
+          selected: note.note
+        })
       }, words.slice(note.from, note.to)));
-      console.log(words);
     });
-    console.log(words);
     return words;
   }
 
   render(props, state) {
     return (0, _preact.h)("div", {
-      className: 'text-container'
-    }, this.buildAnotatedText());
+      className: 'l-box pure-u-1'
+    }, (0, _preact.h)("div", {
+      className: 'l-box pure-u-1'
+    }, this.buildAnotatedText()), this.state.selected && (0, _preact.h)("div", {
+      className: 'l-box pure-u-1 note'
+    }, this.state.selected));
   }
 
 }

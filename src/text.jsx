@@ -28,14 +28,24 @@ class Text extends Component {
 
   buildAnotatedText() {
     const notes = this.state.notes;
-    const words = this.state.text.split(' ').map(word => <span className='word'>{word}</span>);
+    const words = this.state.text.split(' ').map(word =>
+      <span className='word' onClick={() => {this.setState({selected:null})}}>
+        {word}
+      </span>
+    );
 
     notes.sort(function(a,b){return a.from - b.from;});
 
     notes.map(note => {
       words.splice(
         note.from,note.to,
-        <span className='words-note' style={{borderBottom:'1px solid gray'}}>{words.slice(note.from,note.to)}</span>
+        <span
+          className='words-note'
+          style={{borderBottom:'1px solid gray'}}
+          onClick={() => this.setState({selected: note.note})}
+        >
+        {words.slice(note.from,note.to)}
+        </span>
       )
     });
 
@@ -43,8 +53,15 @@ class Text extends Component {
   }
 
   render(props, state) {
-    return <div className='text-container'>
+    return <div className='l-box pure-u-1'>
+      <div className='l-box pure-u-1'>
       {this.buildAnotatedText()}
+      </div>
+      {this.state.selected &&
+        <div className='l-box pure-u-1 note'>
+        {this.state.selected}
+        </div>
+      }
     </div>;
   }
 }

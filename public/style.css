@@ -8,10 +8,13 @@
   box-shadow:0px 1px 3px 0 rgba(0,0,0,0.1);
 }
 
-.text-container {
-  max-width:80%;
-  height:auto;
-  overflow:hidden;
+.note {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid black;
+  box-shadow:0px 1px 3px 0 rgba(0,0,0,0.1);
+  width:90%;
+  border-radius:3px;
 }
 
 span.word {
