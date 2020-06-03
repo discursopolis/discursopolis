@@ -40,3 +40,7 @@ span.words-note:hover{
   margin-top:20px;
   margin-left:10px;
 }
+
+.header .pure-menu-heading {
+  text-transform: none;
+}
