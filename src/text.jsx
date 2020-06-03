@@ -34,16 +34,15 @@ class Text extends Component {
       </span>
     );
 
-    notes.sort(function(a,b){return a.from - b.from;});
-
     notes.map(note => {
+      const highlight = words.slice(note.from,note.to);
       words.splice(
-        note.from,note.to,
+        note.from, note.to - note.from,
         <span
           className='words-note'
           onClick={() => this.setState({selected: note.note})}
         >
-        {words.slice(note.from,note.to)}
+        {highlight}
         </span>
       )
     });

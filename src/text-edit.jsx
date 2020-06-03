@@ -34,8 +34,6 @@ class TextEdit extends Component {
       </span>
     );
 
-    notes.sort(function(a,b){return a.from - b.from;});
-
     notes.map(note => {
       const highlight = words.slice(note.from,note.to);
       words.splice(
@@ -66,6 +64,13 @@ class TextEdit extends Component {
     this.setState({notes: notes, _submitDisabled:false});
   }
 
+  addNote(e) {
+    e.preventDefault();
+    const notes = [...this.state.notes];
+    notes.push({from:0,to:0,note:'A note'});
+    this.setState({notes: notes, _submitDisabled:false});
+  }
+
   updateText(e) {
     e.preventDefault();
     this.setState({_submitDisabled:true}, () => {
@@ -89,6 +94,7 @@ class TextEdit extends Component {
           {state.notes.map((note,i) =>
             <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} />
           )}
+          <button className="pure-button pure-button-primary" onClick={this.addNote.bind(this)}>AddNote</button>
         </fieldset>
         <button onClick={this.updateText.bind(this)} className="pure-button pure-input-1 pure-button-primary" disabled={state._submitDisabled}>Update</button>
       </form>
