@@ -5,7 +5,7 @@ import TextStore from './stores/text-store';
 class TextEdit extends Component {
   constructor(props) {
     super(props);
-
+    this.state = {_submitDisabled: true};
     this.bindedOnChange = this.onChange.bind(this);
   }
 
@@ -51,17 +51,41 @@ class TextEdit extends Component {
     return words;
   }
 
+  handleChangeName(e) {
+    this.setState({name: e.target.value, _submitDisabled:false})
+  }
+
+  handleChangeText(e) {
+    this.setState({text: e.target.value, _submitDisabled:false})
+  }
+
+  updateText(e) {
+    e.preventDefault();
+    this.setState({_submitDisabled:true}, () => {
+      const data = {name: this.state.name, text: this.state.text}
+      TextStore.updateText(this.props.docId, data);
+    });
+  }
+
   render(props, state) {
     if (!state.text || !state.notes) return '';
 
     return <div className='l-box pure-u-1'>
-      <h3>{this.state.name}</h3>
+      <h3>{state.name}</h3>
+      <form className="pure-form">
+        <fieldset className="pure-group">
+          <input type="text" className="pure-input-1" value={state.name} onInput={this.handleChangeName.bind(this)}/>
+          <textarea className="pure-input-1" value={state.text} rows="10" onInput={this.handleChangeText.bind(this)}></textarea>
+        </fieldset>
+        <button onClick={this.updateText.bind(this)} className="pure-button pure-input-1 pure-button-primary" disabled={state._submitDisabled}>Update</button>
+      </form>
+      <h3>Preview</h3>
       <div className='l-box pure-u-1'>
       {this.buildAnotatedText()}
       </div>
-      {this.state.selected &&
+      {state.selected &&
         <div className='l-box pure-u-1 note'>
-        {this.state.selected}
+        {state.selected}
         </div>
       }
       <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/`}>Volver</Link></div>

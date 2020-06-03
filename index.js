@@ -26,6 +26,28 @@ const html = content => `<!doctype html>
 
 import App from './components/app';
 
+app.put('/api/text/:docId', (req, res) => {
+  console.log('REQ.BODY')
+  console.log(req.body);
+
+  const doc = db.collection("texts").doc(req.params.docId);
+  doc.update({
+    name: req.body.name,
+    text: req.body.text
+  }).then(() => {
+    doc.get().then(doc => {
+      res.json({
+          id: doc.id,
+          name: doc.data().name,
+          text: doc.data().text,
+          notes: doc.data().notes
+      });
+      return true;
+    }).catch(err => console.log(err));
+    return true;
+  }).catch(err => console.log(err));
+});
+
 app.get('/api/text/:docId', (req, res) => {
     db.collection('texts').doc(req.params.docId).get().then(doc => {
       res.json({

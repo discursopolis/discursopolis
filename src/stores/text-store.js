@@ -7,16 +7,25 @@ const TextStore = {...Store, ...{
     return this.state;
   },
 
-  async refreshState(docId) {
+  async loadData(docId) {
+    if (this.state.id != docId) {
       const res = await fetch(`/api/text/${docId}`)
       const json = await res.json();
       this.state = {...this.state, ...json};
+    }
+    this.emitChangeEvent();
   },
 
-  async loadData(docId) {
-    if (this.state.id != docId) {
-      await this.refreshState(docId);
-    }
+  async updateText(docId, data) {
+    const res = await fetch(`/api/text/${docId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await res.json();
+    this.state = {...this.state, ...json};
     this.emitChangeEvent();
   }
 }};
