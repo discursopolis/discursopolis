@@ -126,7 +126,9 @@ class TextEdit extends Component {
         {state.selected}
         </div>
       }
+      {props.docId &&
       <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/`}>Volver</Link></div>
+      }
     </div>;
   }
 }
