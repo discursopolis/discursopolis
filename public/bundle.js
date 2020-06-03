@@ -973,9 +973,11 @@ var _preact = __webpack_require__(/*! preact */ "./node_modules/preact/dist/prea
 
 var _preactRouter = __webpack_require__(/*! preact-router */ "./node_modules/preact-router/dist/preact-router.es.js");
 
-var _appStore = _interopRequireDefault(__webpack_require__(/*! ./stores/app-store */ "./src/stores/app-store.js"));
+var _home = _interopRequireDefault(__webpack_require__(/*! ./home */ "./src/home.jsx"));
 
 var _text = _interopRequireDefault(__webpack_require__(/*! ./text */ "./src/text.jsx"));
+
+var _textEdit = _interopRequireDefault(__webpack_require__(/*! ./text-edit */ "./src/text-edit.jsx"));
 
 var _topbar = _interopRequireDefault(__webpack_require__(/*! ./topbar */ "./src/topbar.jsx"));
 
@@ -987,14 +989,44 @@ class App extends _preact.Component {
       className: "main pure-g"
     }, (0, _preact.h)("div", {
       className: "l-box pure-u-1"
-    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
+    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(_home.default, {
       path: "/"
     }), (0, _preact.h)(_text.default, {
       path: "/text/:docId"
+    }), (0, _preact.h)(_textEdit.default, {
+      path: "/text/:docId/edit"
     })))));
   }
 
 }
+
+var _default = App;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./src/home.jsx":
+/*!**********************!*\
+  !*** ./src/home.jsx ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+
+var _preactRouter = __webpack_require__(/*! preact-router */ "./node_modules/preact-router/dist/preact-router.es.js");
+
+var _homeStore = _interopRequireDefault(__webpack_require__(/*! ./stores/home-store */ "./src/stores/home-store.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class Home extends _preact.Component {
   constructor(props) {
@@ -1006,17 +1038,17 @@ class Home extends _preact.Component {
   }
 
   componentWillMount(props, state) {
-    _appStore.default.addChangeListener(this.bindedOnChange);
+    _homeStore.default.addChangeListener(this.bindedOnChange);
 
-    _appStore.default.loadData();
+    _homeStore.default.loadData();
   }
 
   componentWillUnmount(props, state) {
-    _appStore.default.removeChangeListener(this.bindedOnChange);
+    _homeStore.default.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(_appStore.default.getState());
+    this.setState(_homeStore.default.getState());
   }
 
   render(props, state) {
@@ -1034,7 +1066,7 @@ class Home extends _preact.Component {
 
 }
 
-var _default = App;
+var _default = Home;
 exports.default = _default;
 
 /***/ }),
@@ -1059,10 +1091,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ "./src/stores/app-store.js":
-/*!*********************************!*\
-  !*** ./src/stores/app-store.js ***!
-  \*********************************/
+/***/ "./src/stores/home-store.js":
+/*!**********************************!*\
+  !*** ./src/stores/home-store.js ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1084,7 +1116,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const AppStore = _objectSpread(_objectSpread({}, _store.default), {
+const HomeStore = _objectSpread(_objectSpread({}, _store.default), {
   state: {
     texts: []
   },
@@ -1104,7 +1136,7 @@ const AppStore = _objectSpread(_objectSpread({}, _store.default), {
 
 });
 
-var _default = AppStore;
+var _default = HomeStore;
 exports.default = _default;
 
 /***/ }),
@@ -1192,6 +1224,96 @@ const TextStore = _objectSpread(_objectSpread({}, _store.default), {
 });
 
 var _default = TextStore;
+exports.default = _default;
+
+/***/ }),
+
+/***/ "./src/text-edit.jsx":
+/*!***************************!*\
+  !*** ./src/text-edit.jsx ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _preact = __webpack_require__(/*! preact */ "./node_modules/preact/dist/preact.module.js");
+
+var _textStore = _interopRequireDefault(__webpack_require__(/*! ./stores/text-store */ "./src/stores/text-store.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+class TextEdit extends _preact.Component {
+  constructor(props) {
+    super(props);
+    this.bindedOnChange = this.onChange.bind(this);
+    this.state = {
+      text: '',
+      notes: []
+    };
+  }
+
+  componentWillMount(props, state) {
+    _textStore.default.addChangeListener(this.bindedOnChange);
+
+    _textStore.default.loadData(this.props.docId);
+  }
+
+  componentWillUnmount(props, state) {
+    _textStore.default.removeChangeListener(this.bindedOnChange);
+  }
+
+  onChange() {
+    this.setState(_textStore.default.getState());
+  }
+
+  fromNote(idx) {
+    return this.state.notes.find(note => note.from == idx);
+  }
+
+  buildAnotatedText() {
+    const notes = this.state.notes;
+    const words = this.state.text.split(' ').map(word => (0, _preact.h)("span", {
+      className: 'word',
+      onClick: () => {
+        this.setState({
+          selected: null
+        });
+      }
+    }, word));
+    notes.sort(function (a, b) {
+      return a.from - b.from;
+    });
+    notes.map(note => {
+      words.splice(note.from, note.to, (0, _preact.h)("span", {
+        className: 'words-note',
+        onClick: () => this.setState({
+          selected: note.note
+        })
+      }, words.slice(note.from, note.to)));
+    });
+    return words;
+  }
+
+  render(props, state) {
+    return (0, _preact.h)("div", {
+      className: 'l-box pure-u-1'
+    }, (0, _preact.h)("h3", null, this.state.name), (0, _preact.h)("div", {
+      className: 'l-box pure-u-1'
+    }, this.buildAnotatedText()), this.state.selected && (0, _preact.h)("div", {
+      className: 'l-box pure-u-1 note'
+    }, this.state.selected));
+  }
+
+}
+
+var _default = TextEdit;
 exports.default = _default;
 
 /***/ }),

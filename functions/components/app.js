@@ -9,9 +9,11 @@ var _preact = require("preact");
 
 var _preactRouter = require("preact-router");
 
-var _appStore = _interopRequireDefault(require("./stores/app-store"));
+var _home = _interopRequireDefault(require("./home"));
 
 var _text = _interopRequireDefault(require("./text"));
+
+var _textEdit = _interopRequireDefault(require("./text-edit"));
 
 var _topbar = _interopRequireDefault(require("./topbar"));
 
@@ -23,49 +25,13 @@ class App extends _preact.Component {
       className: "main pure-g"
     }, (0, _preact.h)("div", {
       className: "l-box pure-u-1"
-    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(Home, {
+    }, (0, _preact.h)(_preactRouter.Router, null, (0, _preact.h)(_home.default, {
       path: "/"
     }), (0, _preact.h)(_text.default, {
       path: "/text/:docId"
+    }), (0, _preact.h)(_textEdit.default, {
+      path: "/text/:docId/edit"
     })))));
-  }
-
-}
-
-class Home extends _preact.Component {
-  constructor(props) {
-    super(props);
-    this.bindedOnChange = this.onChange.bind(this);
-    this.state = {
-      texts: []
-    };
-  }
-
-  componentWillMount(props, state) {
-    _appStore.default.addChangeListener(this.bindedOnChange);
-
-    _appStore.default.loadData();
-  }
-
-  componentWillUnmount(props, state) {
-    _appStore.default.removeChangeListener(this.bindedOnChange);
-  }
-
-  onChange() {
-    this.setState(_appStore.default.getState());
-  }
-
-  render(props, state) {
-    return (0, _preact.h)("div", null, (0, _preact.h)("span", {
-      className: "pure-menu-heading"
-    }, " Discursos disponibles "), (0, _preact.h)("ul", {
-      className: "pure-menu-list"
-    }, state.texts.map(el => (0, _preact.h)("li", {
-      className: "pure-menu-item"
-    }, (0, _preact.h)(_preactRouter.Link, {
-      className: "pure-menu-link",
-      href: '/text/' + el.id
-    }, " ", el.name, " ")))));
   }
 
 }

@@ -1,7 +1,9 @@
 import { Component, h } from 'preact';
 import {Link, Router} from 'preact-router';
-import AppStore from './stores/app-store';
+
+import Home from './home';
 import Text from './text';
+import TextEdit from './text-edit';
 
 import TopAppBar from './topbar';
 
@@ -15,6 +17,7 @@ class App extends Component {
               <Router>
                 <Home path="/" />
                 <Text path="/text/:docId" />
+                <TextEdit path="/text/:docId/edit" />
               </Router>
             </div>
           </div>
@@ -23,37 +26,5 @@ class App extends Component {
   }
 }
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.bindedOnChange = this.onChange.bind(this);
-    this.state = {texts: []};
-  }
-
-  componentWillMount(props, state) {
-    AppStore.addChangeListener(this.bindedOnChange);
-    AppStore.loadData();
-  }
-
-  componentWillUnmount(props, state) {
-    AppStore.removeChangeListener(this.bindedOnChange);
-  }
-
-  onChange() {
-    this.setState(AppStore.getState())
-  }
-
-  render(props, state) {
-    return (
-      <div>
-        <span className="pure-menu-heading"> Discursos disponibles </span>
-        <ul className="pure-menu-list">
-          { state.texts.map(el => <li className="pure-menu-item"><Link className="pure-menu-link" href={'/text/' + el.id}> {el.name} </Link></li>) }
-        </ul>
-      </div>
-    );
-  }
-}
 
 export default App

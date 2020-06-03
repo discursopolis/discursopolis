@@ -1,6 +1,6 @@
 import Store from './store';
 
-const AppStore = {...Store, ...{
+const HomeStore = {...Store, ...{
   state: {texts: []},
 
   getState() {
@@ -15,4 +15,4 @@ const AppStore = {...Store, ...{
   }
 }};
 
-export default AppStore
+export default HomeStore
