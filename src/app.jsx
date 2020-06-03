@@ -18,6 +18,7 @@ class App extends Component {
                 <Home path="/" />
                 <Text path="/text/:docId" />
                 <TextEdit path="/text/:docId/edit" />
+                <TextEdit path="/text/new" />
               </Router>
             </div>
           </div>

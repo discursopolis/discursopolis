@@ -35,3 +35,8 @@ span.words-note:hover{
   cursor:pointer;
   background-color:#e6e6e6;
 }
+
+.add-text{
+  margin-top:20px;
+  margin-left:10px;
+}

@@ -30,6 +30,7 @@ class Home extends Component {
         <ul className="pure-menu-list">
           { state.texts.map(el => <li className="pure-menu-item"><Link className="pure-menu-link" href={'/text/' + el.id}> {el.name} </Link></li>) }
         </ul>
+        <Link href='/text/new'><button className="pure-button pure-button-primary add-text">Add text</button></Link>
       </div>
     );
   }

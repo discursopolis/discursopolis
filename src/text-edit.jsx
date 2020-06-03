@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import { Link } from 'preact-router';
+import { Link, route } from 'preact-router';
 import TextStore from './stores/text-store';
 
 class TextEdit extends Component {
@@ -11,7 +11,11 @@ class TextEdit extends Component {
 
   componentWillMount(props, state) {
     TextStore.addChangeListener(this.bindedOnChange);
-    TextStore.loadData(this.props.docId);
+    if (this.props && this.props.docId) {
+      TextStore.loadData(this.props.docId);
+    } else {
+      this.setState({name:'', notes:[], text:''});
+    }
   }
 
   componentWillUnmount(props, state) {
@@ -27,6 +31,8 @@ class TextEdit extends Component {
   }
 
   buildAnotatedText() {
+    if (!this.state.text) return;
+
     const notes = this.state.notes;
     const words = this.state.text.split(' ').map(word =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
@@ -75,12 +81,22 @@ class TextEdit extends Component {
     e.preventDefault();
     this.setState({_submitDisabled:true}, () => {
       const data = {name: this.state.name, text: this.state.text, notes: this.state.notes}
-      TextStore.updateText(this.props.docId, data);
+      if (!this.props.docId) {
+        TextStore.createText(data);
+      } else {
+        TextStore.updateText(this.props.docId, data);
+      }
     });
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.id && nextState.id != this.state.id) {
+      route(`/text/${nextState.id}`);
+    }
+  }
+
   render(props, state) {
-    if (!state.text || !state.notes) return '';
+    if (!state) return '';
 
     return <div className='l-box pure-u-1'>
       <form className="pure-form pure-form-stacked">
@@ -96,7 +112,9 @@ class TextEdit extends Component {
           )}
           <button className="pure-button pure-button-primary" onClick={this.addNote.bind(this)}>AddNote</button>
         </fieldset>
-        <button onClick={this.updateText.bind(this)} className="pure-button pure-input-1 pure-button-primary" disabled={state._submitDisabled}>Update</button>
+        <button onClick={this.updateText.bind(this)} className="pure-button pure-input-1 pure-button-primary" disabled={state._submitDisabled}>
+        {props.docId ? 'Update' : 'Create'}
+        </button>
       </form>
 
       <h3>{state.name}</h3>

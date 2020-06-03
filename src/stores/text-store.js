@@ -27,6 +27,19 @@ const TextStore = {...Store, ...{
     const json = await res.json();
     this.state = {...this.state, ...json};
     this.emitChangeEvent();
+  },
+
+  async createText(data) {
+    const res = await fetch(`/api/text/new`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+    const json = await res.json();
+    this.state = {...this.state, ...json};
+    this.emitChangeEvent();
   }
 }};
 

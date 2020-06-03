@@ -27,6 +27,8 @@ class Text extends Component {
   }
 
   buildAnotatedText() {
+    if (!this.state.text) return;
+
     const notes = this.state.notes;
     const words = this.state.text.split(' ').map(word =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
@@ -51,7 +53,7 @@ class Text extends Component {
   }
 
   render(props, state) {
-    if (!state.text || !state.notes) return '';
+    if (!state) return '';
 
     return <div className='l-box pure-u-1'>
       <h3>{this.state.name}</h3>
