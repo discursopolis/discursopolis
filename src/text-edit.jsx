@@ -1,4 +1,5 @@
 import { Component, h } from 'preact';
+import { Link } from 'preact-router';
 import TextStore from './stores/text-store';
 
 class TextEdit extends Component {
@@ -6,7 +7,6 @@ class TextEdit extends Component {
     super(props);
 
     this.bindedOnChange = this.onChange.bind(this);
-    this.state = {text: '', notes: []};
   }
 
   componentWillMount(props, state) {
@@ -52,6 +52,8 @@ class TextEdit extends Component {
   }
 
   render(props, state) {
+    if (!state.text || !state.notes) return '';
+
     return <div className='l-box pure-u-1'>
       <h3>{this.state.name}</h3>
       <div className='l-box pure-u-1'>
@@ -62,6 +64,7 @@ class TextEdit extends Component {
         {this.state.selected}
         </div>
       }
+      <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/`}>Volver</Link></div>
     </div>;
   }
 }
