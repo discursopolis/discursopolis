@@ -16,7 +16,8 @@ class Text extends _preact.Component {
     super(props);
     this.bindedOnChange = this.onChange.bind(this);
     this.state = {
-      text: ''
+      text: '',
+      notes: []
     };
   }
 
@@ -34,8 +35,35 @@ class Text extends _preact.Component {
     this.setState(_textStore.default.getState());
   }
 
+  fromNote(idx) {
+    return this.state.notes.find(note => note.from == idx);
+  }
+
+  buildAnotatedText() {
+    const notes = this.state.notes;
+    const words = this.state.text.split(' ').map(word => (0, _preact.h)("span", {
+      className: 'word'
+    }, word));
+    notes.sort(function (a, b) {
+      return a.from - b.from;
+    });
+    notes.map(note => {
+      words.splice(note.from, note.to, (0, _preact.h)("span", {
+        className: 'words-note',
+        style: {
+          borderBottom: '1px solid gray'
+        }
+      }, words.slice(note.from, note.to)));
+      console.log(words);
+    });
+    console.log(words);
+    return words;
+  }
+
   render(props, state) {
-    return (0, _preact.h)("p", null, state.text);
+    return (0, _preact.h)("div", {
+      className: 'text-container'
+    }, this.buildAnotatedText());
   }
 
 }

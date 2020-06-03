@@ -38,7 +38,8 @@ app.get('/api/text/:docId', (req, res) => {
     res.json({
       id: doc.id,
       name: doc.data().name,
-      text: doc.data().text
+      text: doc.data().text,
+      notes: doc.data().notes
     });
     return true;
   }).catch(err => console.log(err));
