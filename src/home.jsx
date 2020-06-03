@@ -26,7 +26,7 @@ class Home extends Component {
   render(props, state) {
     return (
       <div>
-        <span className="pure-menu-heading"> Discursos disponibles </span>
+        <span className="pure-menu-heading"> Discursos </span>
         <ul className="pure-menu-list">
           { state.texts.map(el => <li className="pure-menu-item"><Link className="pure-menu-link" href={'/text/' + el.id}> {el.name} </Link></li>) }
         </ul>
