@@ -33,7 +33,8 @@ app.put('/api/text/:docId', (req, res) => {
   const doc = db.collection("texts").doc(req.params.docId);
   doc.update({
     name: req.body.name,
-    text: req.body.text
+    text: req.body.text,
+    notes: req.body.notes,
   }).then(() => {
     doc.get().then(doc => {
       res.json({
