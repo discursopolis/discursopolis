@@ -41,7 +41,6 @@ class Text extends Component {
         note.from,note.to,
         <span
           className='words-note'
-          style={{borderBottom:'1px solid gray'}}
           onClick={() => this.setState({selected: note.note})}
         >
         {words.slice(note.from,note.to)}
@@ -54,6 +53,7 @@ class Text extends Component {
 
   render(props, state) {
     return <div className='l-box pure-u-1'>
+      <h3>{this.state.name}</h3>
       <div className='l-box pure-u-1'>
       {this.buildAnotatedText()}
       </div>

@@ -25,6 +25,7 @@ span.word {
 span.words-note {
   cursor:default;
   background-color:rgba(0,0,0,0.1);
+  border-bottom: 1px dotted black;
 }
 span.words-note:hover{
   cursor:pointer;

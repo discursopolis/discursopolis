@@ -55,9 +55,6 @@ class Text extends _preact.Component {
     notes.map(note => {
       words.splice(note.from, note.to, (0, _preact.h)("span", {
         className: 'words-note',
-        style: {
-          borderBottom: '1px solid gray'
-        },
         onClick: () => this.setState({
           selected: note.note
         })
@@ -69,7 +66,7 @@ class Text extends _preact.Component {
   render(props, state) {
     return (0, _preact.h)("div", {
       className: 'l-box pure-u-1'
-    }, (0, _preact.h)("div", {
+    }, (0, _preact.h)("h3", null, this.state.name), (0, _preact.h)("div", {
       className: 'l-box pure-u-1'
     }, this.buildAnotatedText()), this.state.selected && (0, _preact.h)("div", {
       className: 'l-box pure-u-1 note'
