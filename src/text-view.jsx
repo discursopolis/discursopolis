@@ -11,10 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: 14,
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
+  }
 }));
 
 class TextView extends Component {
@@ -81,6 +78,7 @@ class TextView extends Component {
           <Button
             variant="contained"
             className={this.classes.button}
+            color="secondary"
             startIcon={this.props.edit ? <EditIcon /> : null}
             href={`/text/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
           >
