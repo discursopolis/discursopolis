@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import {Link, Router} from 'preact-router';
+import { Router } from 'preact-router';
 
 import AppStore from './stores/app-store';
 
@@ -8,6 +8,7 @@ import Text from './text';
 import TextEdit from './text-edit';
 
 import TopAppBar from './topbar';
+import Container from '@material-ui/core/Container';
 
 class App extends Component {
   componentWillMount(props, state) {
@@ -18,16 +19,14 @@ class App extends Component {
     return (
       <div>
         <TopAppBar />
-         <div className="main pure-g">
-            <div className="l-box pure-u-1">
+          <Container maxWidth="sm">
               <Router>
                 <Home path="/" />
                 <Text path="/text/:docId" />
                 <TextEdit path="/text/:docId/edit" />
                 <TextEdit path="/text/new" />
               </Router>
-            </div>
-          </div>
+          </Container>
       </div>
     );
   }

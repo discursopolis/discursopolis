@@ -13,9 +13,11 @@ const db = admin.firestore();
 const html = content => `<!doctype html>
                   <head>
                     <title>CtrlF</title>
-                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <meta name="viewport"  content="minimum-scale=1, initial-scale=1, width=device-width" />
                     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
                     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                     <link rel="stylesheet" href="/style.css">
                   </head>
                   <body>
@@ -23,8 +25,6 @@ const html = content => `<!doctype html>
                     <script type="text/javascript" src="/bundle.js"></script>
                   </body>
                 </html>`;
-
-import App from './components/app';
 
 app.put('/api/text/:docId', (req, res) => {
   const doc = db.collection("texts").doc(req.params.docId);
@@ -92,10 +92,7 @@ app.get('/api/texts', (req, res) => {
 });
 
 app.get('**', (req, res) => {
-    res.status(200).send(html(
-        render(<App ssr={true}/>)
-      )
-    );
+    res.status(200).send(html(''));
 });
 
 exports.index = functions.https.onRequest(app);
