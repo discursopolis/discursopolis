@@ -1,6 +1,12 @@
 import { Component, h } from 'preact';
-import { Link } from 'preact-router';
 import HomeStore from './stores/home-store';
+
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 
 class Home extends Component {
   constructor(props) {
@@ -25,15 +31,22 @@ class Home extends Component {
 
   render(props, state) {
     return (
-      <div>
-        <span className="pure-menu-heading"> Discursos </span>
-        <ul className="pure-menu-list">
-          { state.texts.map(el => <li className="pure-menu-item"><Link className="pure-menu-link" href={'/text/' + el.id}> {el.name} </Link></li>) }
-        </ul>
-        <Link href='/text/new'><button className="pure-button add-text">Add text</button></Link>
-      </div>
+        <div>
+        <List component="nav">
+          { state.texts.map(el =>
+            <ListItemLink href={'/text/' + el.id}>
+              <ListItemText primary={el.name} />
+            </ListItemLink>
+          ) }
+        </List>
+        <Button variant="contained" href='/text/new'>Add text</Button>
+        </div>
     );
   }
+}
+
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
 }
 
 export default Home

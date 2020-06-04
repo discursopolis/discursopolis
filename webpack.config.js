@@ -12,6 +12,13 @@ module.exports = {
     filename: 'bundle.js'
   },
 
+  resolve: {
+    alias: {
+      'react': "preact/compat",
+      'react-dom': "preact/compat"
+    }
+  },
+
   module: {
     rules: [
     {

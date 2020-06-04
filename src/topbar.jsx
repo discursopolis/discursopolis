@@ -1,13 +1,31 @@
 import { Component, h } from 'preact';
-import {Link} from 'preact-router';
+import Typography from '@material-ui/core/Typography';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Link from '@material-ui/core/Link';
+import IconButton from '@material-ui/core/IconButton';
+import HomeIcon from '@material-ui/icons/Home';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 const TopBar = () => {
+  const classes = useStyles();
   return (
-    <div className="header">
-        <div className="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-            <Link className="pure-menu-heading" href="/"><h3>{'CtrlF'}</h3></Link>
-        </div>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" herf="/" className={classes.title}>
+          CtrlF
+        </Typography>
+        <IconButton color="inherit" aria-label="home" href="/" edge="end">
+          <HomeIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   )
 }
 
