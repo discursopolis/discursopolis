@@ -1,4 +1,5 @@
 import Store from './store';
+import AppStore from './app-store';
 
 const TextStore = {...Store, ...{
   state: {},
@@ -8,6 +9,8 @@ const TextStore = {...Store, ...{
   },
 
   async loadData(docId) {
+    if (AppStore.isSSR()) return;
+
     if (this.state.id != docId) {
       const res = await fetch(`/api/text/${docId}`)
       const json = await res.json();

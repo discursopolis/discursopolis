@@ -93,7 +93,7 @@ app.get('/api/texts', (req, res) => {
 
 app.get('**', (req, res) => {
     res.status(200).send(html(
-        render(<App />)
+        render(<App ssr={true}/>)
       )
     );
 });
