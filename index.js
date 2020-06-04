@@ -27,9 +27,6 @@ const html = content => `<!doctype html>
 import App from './components/app';
 
 app.put('/api/text/:docId', (req, res) => {
-  console.log('REQ.BODY')
-  console.log(req.body);
-
   const doc = db.collection("texts").doc(req.params.docId);
   doc.update({
     name: req.body.name,
