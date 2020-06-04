@@ -22,10 +22,6 @@ class Text extends Component {
     this.setState(TextStore.getState())
   }
 
-  fromNote(idx) {
-    return this.state.notes.find(note => note.from == idx)
-  }
-
   buildAnotatedText() {
     if (!this.state.text) return;
 
