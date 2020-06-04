@@ -3,10 +3,11 @@ import { Link, route } from 'preact-router';
 import TextStore from './stores/text-store';
 import TextView from './text-view';
 
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -94,7 +95,7 @@ class TextEdit extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.id && nextState.id != this.state.id) {
+    if (nextState.id && nextState.id != this.state.id && !this.props.docId) {
       route(`/text/${nextState.id}`);
     }
   }
@@ -102,7 +103,7 @@ class TextEdit extends Component {
   render(props, state) {
     if (!state) return '';
 
-    return <Grid container spacing={2}>
+    return <Grid container spacing={3}>
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -113,10 +114,15 @@ class TextEdit extends Component {
             <Typography gutterBottom variant="h6">
               Notes
             </Typography>
-              {state.notes.map((note,i) =>
-                <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} />
-              )}
-              <Button variant="contained" onClick={this.addNote.bind(this)}>Add Note</Button>
+              {state.notes &&
+              <Grid container xs={12} spacing={2}>
+                {state.notes.map((note,i) =>
+                  <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} />
+                )}
+                <Grid item xs={12}>
+                  <Button variant="contained" onClick={this.addNote.bind(this)}>Add Note</Button>
+                </Grid>
+              </Grid> }
           </Grid>
           <Grid item xs={12}>
             <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={this.updateText.bind(this)} disabled={state._submitDisabled}>
@@ -126,6 +132,9 @@ class TextEdit extends Component {
         </Grid>
       </Grid>
       <Grid item xs={12}>
+        <Typography gutterBottom variant="h6">
+          Preview
+        </Typography>
         <TextView
           name={state.name}
           text={state.text}
@@ -145,21 +154,15 @@ class Note extends Component {
 
   render(props, state) {
     return (
-      <div className="pure-g">
-        <div className="pure-u-1 pure-u-md-1-2">
-            <label htmlFor={`from${props.i}`}>From</label>
-            <input type="text" id={`from${props.i}`} className="pure-u-23-24" value={props.from} onInput={(e) => {this.onChange(e,'from')}}/>
-        </div>
-        <div className="pure-u-1 pure-u-md-1-2">
-            <label htmlFor={`to${props.i}`}>To</label>
-            <input type="text" id={`to${props.i}`} className="pure-u-23-24" value={props.to} onInput={(e) => {this.onChange(e,'to')}}/>
-        </div>
-        <div className="pure-u-1">
-            <label htmlFor={`note${props.i}`}>Note</label>
-            <textarea type="text" id={`note${props.i}`} className="pure-u-1" value={props.note} onInput={(e) => {this.onChange(e,'note')}}/>
-        </div>
-      <legend/>
-      </div>
+      <Grid item xs={12}>
+        <Card variant="outlined">
+          <CardContent>
+            <TextField type="text" label="from" margin="normal" value={props.from} onInput={(e) => {this.onChange(e,'from')}}/>
+            <TextField type="text" label="to" margin="normal" value={props.to} onInput={(e) => {this.onChange(e,'to')}}/>
+            <TextField fullWidth margin="normal" multiline={true} label="Note" value={props.note} onInput={(e) => {this.onChange(e,'note')}}/>
+          </CardContent>
+        </Card>
+      </Grid>
     )
   }
 }
