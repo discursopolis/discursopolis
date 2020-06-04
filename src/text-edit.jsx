@@ -110,7 +110,7 @@ class TextEdit extends Component {
           {state.notes.map((note,i) =>
             <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} />
           )}
-          <button className="pure-button pure-button-primary" onClick={this.addNote.bind(this)}>AddNote</button>
+          <button className="pure-button" onClick={this.addNote.bind(this)}>AddNote</button>
         </fieldset>
         <button onClick={this.updateText.bind(this)} className="pure-button pure-input-1 pure-button-primary" disabled={state._submitDisabled}>
         {props.docId ? 'Update' : 'Create'}
@@ -125,7 +125,7 @@ class TextEdit extends Component {
         <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
       }
       {props.docId &&
-      <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/`}>Volver</Link></div>
+        <Link href={`/text/${props.docId}/`}><button className="pure-button text-main-button">Back</button></Link>
       }
     </div>;
   }

@@ -63,7 +63,7 @@ class Text extends Component {
       {this.state.selected &&
         <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
       }
-      <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/edit/`}>Editar</Link></div>
+      <Link href={`/text/${props.docId}/edit/`}><button className="pure-button text-main-button">Edit</button></Link>
     </div>;
   }
 }
