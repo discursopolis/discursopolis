@@ -76,16 +76,17 @@ class TextView extends Component {
           </Card>
         </Grid>
       }
+      {props.docId &&
         <Grid item xs={12}>
           <Button
             variant="contained"
             className={this.classes.button}
-            startIcon={<EditIcon />}
-            href={`/text/${props.docId}/edit/`}
+            startIcon={this.props.edit ? <EditIcon /> : null}
+            href={`/text/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
           >
-            Edit
+          { this.props.edit ? 'Edit' : 'Back' }
           </Button>
-        </Grid>
+        </Grid> }
     </Grid>
   }
 }

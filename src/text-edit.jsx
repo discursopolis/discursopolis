@@ -1,6 +1,7 @@
 import { Component, h } from 'preact';
 import { Link, route } from 'preact-router';
 import TextStore from './stores/text-store';
+import TextView from './text-view';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -112,19 +113,13 @@ class TextEdit extends Component {
         {props.docId ? 'Update' : 'Create'}
         </button>
       </form>
-
-      <h3>{state.name}</h3>
-      <div className='l-box pure-u-1'>
-      {this.buildAnotatedText()}
-      </div>
-      {state.selected &&
-        <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
-      }
-      {props.docId &&
-        <div className='l-box pure-u-1'>
-          <Link href={`/text/${props.docId}/`}><button className="pure-button text-main-button">Back</button></Link>
-        </div>
-      }
+      <TextView
+        name={state.name}
+        text={state.text}
+        notes={state.notes}
+        edit={false}
+        docId={props.docId}
+      />
     </div>;
   }
 }

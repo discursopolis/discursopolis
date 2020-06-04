@@ -29,6 +29,8 @@ class Text extends Component {
         name={state.name}
         text={state.text}
         notes={state.notes}
+        edit={true}
+        docId={props.docId}
       />
   }
 }
