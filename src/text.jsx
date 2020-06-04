@@ -1,11 +1,28 @@
 import { Component, h } from 'preact';
-import { Link } from 'preact-router';
 import TextStore from './stores/text-store';
+
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    fontSize: 14,
+  },
+  button: {
+    margin: theme.spacing(1),
+  },
+}));
 
 class Text extends Component {
   constructor(props) {
     super(props);
 
+    this.classes = useStyles();
     this.bindedOnChange = this.onChange.bind(this);
   }
 
@@ -51,18 +68,41 @@ class Text extends Component {
   render(props, state) {
     if (!state) return '';
 
-    return <div className='l-box pure-u-1'>
-      <h3>{this.state.name}</h3>
-      <div className='l-box pure-u-1'>
-      {this.buildAnotatedText()}
-      </div>
+    return <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Typography className={this.classes.title} color="textSecondary" gutterBottom>
+                {this.state.name}
+              </Typography>
+              <Typography variant="h5" component="h4">
+                {this.buildAnotatedText()}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       {this.state.selected &&
-        <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
+        <Grid item xs={12}>
+          <Card variant="outlined">
+            <CardContent>
+              <Typography variant="h5" component="h4">
+                <span innerHTML={this.state.selected}/>
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
       }
-      <div className='l-box pure-u-1'>
-        <Link href={`/text/${props.docId}/edit/`}><button className="pure-button text-main-button">Edit</button></Link>
-      </div>
-    </div>;
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            className={this.classes.button}
+            startIcon={<EditIcon />}
+            href={`/text/${props.docId}/edit/`}
+          >
+            Edit
+          </Button>
+        </Grid>
+    </Grid>
   }
 }
 
