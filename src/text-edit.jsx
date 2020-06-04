@@ -6,10 +6,12 @@ import TextView from './text-view';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -94,6 +96,12 @@ class TextEdit extends Component {
     });
   }
 
+  handleRemoveNote(i) {
+    const notes = [...this.state.notes];
+    notes.splice(i,1);
+    this.setState({notes: notes, _submitDisabled:false});
+  }
+
   componentWillUpdate(nextProps, nextState) {
     if (nextState.id && nextState.id != this.state.id && !this.props.docId) {
       route(`/text/${nextState.id}`);
@@ -117,7 +125,7 @@ class TextEdit extends Component {
               {state.notes &&
               <Grid container xs={12} spacing={2}>
                 {state.notes.map((note,i) =>
-                  <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} />
+                  <Note i={i} from={note.from} to={note.to} note={note.note} onChange={this.handleChangeNote.bind(this)} onRemove={(() => this.handleRemoveNote(i)).bind(this)}/>
                 )}
                 <Grid item xs={12}>
                   <Button variant="contained" onClick={this.addNote.bind(this)}>Add Note</Button>
@@ -159,6 +167,9 @@ class Note extends Component {
           <CardContent>
             <TextField type="text" label="from" margin="normal" value={props.from} onInput={(e) => {this.onChange(e,'from')}}/>
             <TextField type="text" label="to" margin="normal" value={props.to} onInput={(e) => {this.onChange(e,'to')}}/>
+            <IconButton aria-label="delete" size="small" edge="end" style={{float: 'right'}} onClick={this.props.onRemove}>
+              <DeleteIcon />
+            </IconButton>
             <TextField fullWidth margin="normal" multiline={true} label="Note" value={props.note} onInput={(e) => {this.onChange(e,'note')}}/>
           </CardContent>
         </Card>
