@@ -61,9 +61,7 @@ class Text extends Component {
       {this.buildAnotatedText()}
       </div>
       {this.state.selected &&
-        <div className='l-box pure-u-1 note'>
-        {this.state.selected}
-        </div>
+        <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
       }
       <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/edit/`}>Editar</Link></div>
     </div>;

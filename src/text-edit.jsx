@@ -122,9 +122,7 @@ class TextEdit extends Component {
       {this.buildAnotatedText()}
       </div>
       {state.selected &&
-        <div className='l-box pure-u-1 note'>
-        {state.selected}
-        </div>
+        <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
       }
       {props.docId &&
       <div style={{paddingTop:'20px'}}><Link href={`/text/${props.docId}/`}>Volver</Link></div>
