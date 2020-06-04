@@ -125,7 +125,9 @@ class TextEdit extends Component {
         <div className='l-box pure-u-1 note' innerHTML={this.state.selected} />
       }
       {props.docId &&
-        <Link href={`/text/${props.docId}/`}><button className="pure-button text-main-button">Back</button></Link>
+        <div className='l-box pure-u-1'>
+          <Link href={`/text/${props.docId}/`}><button className="pure-button text-main-button">Back</button></Link>
+        </div>
       }
     </div>;
   }
