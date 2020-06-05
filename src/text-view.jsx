@@ -86,7 +86,7 @@ class TextView extends Component {
           </Button>
         </Grid> }
         <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl}>
-          <Card elevation={3}>
+          <Card elevation={3} style={{maxWidth:'800px'}}>
             <CardHeader style={{paddingBottom:0,height:0}} action={
               <IconButton aria-label="close" size="small" onClick={() => this.setState({selected:null})}>
                 <CloseIcon />
