@@ -84,10 +84,14 @@ class TextEdit extends Component {
     this.setState({notes: notes, _submitDisabled:false});
   }
 
+  emptyMandatoryFields() {
+    return (this.state.name.trim() == '' || this.state.text.trim() == '' );
+  }
+
   updateText(e) {
     e.preventDefault();
     this.setState({_submitDisabled:true}, () => {
-      const data = {name: this.state.name, text: this.state.text, notes: this.state.notes}
+      const data = {name: this.state.name.trim(), text: this.state.text.trim(), notes: this.state.notes}
       if (!this.props.docId) {
         TextStore.createText(data);
       } else {
@@ -115,8 +119,10 @@ class TextEdit extends Component {
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="Name" margin="normal" value={state.name} onInput={this.handleChangeName.bind(this)}/>
-            <TextField fullWidth margin="normal" multiline={true} label="Text" value={state.text} rows="10" onInput={this.handleChangeText.bind(this)}/>
+            <TextField fullWidth label="Title" margin="normal" value={state.name} onInput={this.handleChangeName.bind(this)}
+              required error={!(state.name &&  state.name.trim() != '')} />
+            <TextField fullWidth margin="normal" multiline={true} label="Text" value={state.text} rows="10" onInput={this.handleChangeText.bind(this)}
+              required error={!(state.text &&  state.text.trim() != '')} />
           </Grid>
           <Grid item xs={12}>
             <Typography gutterBottom variant="h6">
@@ -133,7 +139,7 @@ class TextEdit extends Component {
               </Grid> }
           </Grid>
           <Grid item xs={12}>
-            <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={this.updateText.bind(this)} disabled={state._submitDisabled}>
+            <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={this.updateText.bind(this)} disabled={state._submitDisabled || this.emptyMandatoryFields()}>
             {props.docId ? 'Update' : 'Create'}
             </Button>
           </Grid>
