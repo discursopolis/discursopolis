@@ -22,8 +22,6 @@ class Text extends Component {
     this.setState(TextStore.getState())
   }
 
-
-
   render(props, state) {
     return <TextView
         name={state.name}
