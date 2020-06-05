@@ -7,7 +7,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Progress from './progress';
 
 class Home extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class Home extends Component {
   }
 
   render(props, state) {
-    if (!state.texts) return <LinearProgress />
+    if (!state.texts) return <Progress />
 
     return (
         <div>

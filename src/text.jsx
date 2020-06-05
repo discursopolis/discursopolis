@@ -1,7 +1,7 @@
 import { Component, h } from 'preact';
 import TextStore from './stores/text-store';
 import TextView from './text-view';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Progress from './progress';
 
 class Text extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class Text extends Component {
   }
 
   render(props, state) {
-    if (!state.name) return <LinearProgress />
+    if (!state.name) return <Progress />
 
     return <TextView
         name={state.name}
