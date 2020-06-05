@@ -25,7 +25,9 @@ class Text extends Component {
   render(props, state) {
     return <TextView
         name={state.name}
+        intro={state.intro}
         text={state.text}
+        conclusion={state.conclusion}
         notes={state.notes}
         edit={true}
         docId={props.docId}

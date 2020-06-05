@@ -63,12 +63,10 @@ class TextEdit extends Component {
     return words;
   }
 
-  handleChangeName(e) {
-    this.setState({name: e.target.value, _submitDisabled:false})
-  }
-
-  handleChangeText(e) {
-    this.setState({text: e.target.value, _submitDisabled:false})
+  handleChangeField(e, field) {
+    const update = {_submitDisabled: false};
+    update[field] = e.target.value;
+    this.setState(update);
   }
 
   handleChangeNote(i, value, key) {
@@ -91,7 +89,14 @@ class TextEdit extends Component {
   updateText(e) {
     e.preventDefault();
     this.setState({_submitDisabled:true}, () => {
-      const data = {name: this.state.name.trim(), text: this.state.text.trim(), notes: this.state.notes}
+      const data = {
+        name: this.state.name.trim(),
+        text: this.state.text.trim(),
+        intro: this.state.intro,
+        conclusion: this.state.conclusion,
+        notes: this.state.notes
+      }
+
       if (!this.props.docId) {
         TextStore.createText(data);
       } else {
@@ -119,10 +124,12 @@ class TextEdit extends Component {
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <TextField fullWidth label="Title" margin="normal" value={state.name} onInput={this.handleChangeName.bind(this)}
+            <TextField fullWidth label="Title" margin="normal" value={state.name} onInput={((e) => this.handleChangeField(e, 'name')).bind(this)}
               required error={!(state.name &&  state.name.trim() != '')} />
-            <TextField fullWidth margin="normal" multiline={true} label="Text" value={state.text} rows="10" onInput={this.handleChangeText.bind(this)}
+            <TextField fullWidth margin="normal" multiline={true} label="Intro (optional)" value={state.intro} rows="3" onInput={((e) => this.handleChangeField(e, 'intro')).bind(this)} />
+            <TextField fullWidth margin="normal" multiline={true} label="Text" value={state.text} rows="10" onInput={((e) => this.handleChangeField(e, 'text')).bind(this)}
               required error={!(state.text &&  state.text.trim() != '')} />
+            <TextField fullWidth margin="normal" multiline={true} label="Conclusion (optional)" value={state.conclusion} rows="3" onInput={((e) => this.handleChangeField(e, 'conclusion')).bind(this)} />
           </Grid>
           <Grid item xs={12}>
             <Typography gutterBottom variant="h6">
@@ -151,7 +158,9 @@ class TextEdit extends Component {
         </Typography>
         <TextView
           name={state.name}
+          intro={state.intro}
           text={state.text}
+          conclusion={state.conclusion}
           notes={state.notes}
           edit={false}
           docId={props.docId}

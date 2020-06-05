@@ -29,6 +29,8 @@ app.put('/api/text/:docId', (req, res) => {
   doc.update({
     name: req.body.name,
     text: req.body.text,
+    intro: req.body.intro || '',
+    conclusion: req.body.conclusion || '',
     notes: req.body.notes,
   }).then(() => {
     doc.get().then(doc => {
@@ -36,6 +38,8 @@ app.put('/api/text/:docId', (req, res) => {
           id: doc.id,
           name: doc.data().name,
           text: doc.data().text,
+          intro: doc.data().intro,
+          conclusion: doc.data().conclusion,
           notes: doc.data().notes
       });
       return true;
@@ -49,6 +53,8 @@ app.post('/api/text/new', (req, res) => {
   col.add({
     name: req.body.name,
     text: req.body.text,
+    intro: req.body.intro || '',
+    conclusion: req.body.conclusion || '',
     notes: req.body.notes,
   }).then(docRef => {
     docRef.get().then(doc => {
@@ -56,6 +62,8 @@ app.post('/api/text/new', (req, res) => {
           id: doc.id,
           name: doc.data().name,
           text: doc.data().text,
+          intro: doc.data().intro,
+          conclusion: doc.data().conclusion,
           notes: doc.data().notes
       });
       return true;
@@ -70,6 +78,8 @@ app.get('/api/text/:docId', (req, res) => {
           id: doc.id,
           name: doc.data().name,
           text: doc.data().text,
+          intro: doc.data().intro,
+          conclusion: doc.data().conclusion,
           notes: doc.data().notes
       });
       return true;

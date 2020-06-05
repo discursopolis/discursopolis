@@ -47,6 +47,12 @@ class TextView extends Component {
             {props.name}
           </Typography>
         </Grid>
+       {this.props.intro &&
+        <Grid item xs={12}>
+          <Typography variant="body1" gutterBottom>
+            {props.intro}
+          </Typography>
+        </Grid>}
         <Grid item xs={12}>
           <Card>
             <CardContent>
@@ -67,6 +73,12 @@ class TextView extends Component {
           </Card>
         </Grid>
       }
+      {this.props.conclusion &&
+        <Grid item xs={12}>
+          <Typography variant="body1" gutterBottom>
+            {props.conclusion}
+          </Typography>
+        </Grid>}
       {props.docId &&
         <Grid item xs={12}>
           <Button

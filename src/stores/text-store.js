@@ -14,7 +14,7 @@ const TextStore = {...Store, ...{
     if (this.state.id != docId) {
       const res = await fetch(`/api/text/${docId}`)
       const json = await res.json();
-      this.state = {...this.state, ...json};
+      this.state = {...json};
     }
     this.emitChangeEvent();
   },
@@ -28,7 +28,7 @@ const TextStore = {...Store, ...{
       }
     });
     const json = await res.json();
-    this.state = {...this.state, ...json};
+    this.state = {...json};
     this.emitChangeEvent();
   },
 
