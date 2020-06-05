@@ -32,6 +32,7 @@ app.put('/api/text/:docId', (req, res) => {
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
     notes: req.body.notes,
+    timestamp: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     doc.get().then(doc => {
       res.json({
@@ -40,7 +41,8 @@ app.put('/api/text/:docId', (req, res) => {
           text: doc.data().text,
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
-          notes: doc.data().notes
+          notes: doc.data().notes,
+          timestamp: doc.data().timestamp,
       });
       return true;
     }).catch(err => console.log(err));
@@ -56,6 +58,7 @@ app.post('/api/text/new', (req, res) => {
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
     notes: req.body.notes,
+    timestamp: admin.firestore.FieldValue.serverTimestamp()
   }).then(docRef => {
     docRef.get().then(doc => {
       res.json({
@@ -64,7 +67,8 @@ app.post('/api/text/new', (req, res) => {
           text: doc.data().text,
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
-          notes: doc.data().notes
+          notes: doc.data().notes,
+          timestamp: doc.data().timestamp,
       });
       return true;
     }).catch(err => console.log(err));
@@ -80,7 +84,8 @@ app.get('/api/text/:docId', (req, res) => {
           text: doc.data().text,
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
-          notes: doc.data().notes
+          notes: doc.data().notes,
+          timestamp: doc.data().timestamp,
       });
       return true;
     }).catch(err => console.log(err));
