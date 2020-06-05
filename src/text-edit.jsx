@@ -1,6 +1,8 @@
 import { Component, h } from 'preact';
 import { Link, route } from 'preact-router';
 import TextStore from './stores/text-store';
+import TagsStore from './stores/tags-store';
+
 import TextView from './text-view';
 
 import Card from '@material-ui/core/Card';
@@ -26,19 +28,26 @@ class TextEdit extends Component {
 
   componentWillMount(props, state) {
     TextStore.addChangeListener(this.bindedOnChange);
+    TagsStore.addChangeListener(this.bindedOnChange);
+
     if (this.props && this.props.docId) {
       TextStore.loadData(this.props.docId);
+      TagsStore.loadData();
     } else {
-      this.setState({name:'', notes:[], text:'', tags:[]});
+      this.setState({name:'', notes:[], text:'', tags:[], tagList:[]});
     }
   }
 
   componentWillUnmount(props, state) {
     TextStore.removeChangeListener(this.bindedOnChange);
+    TagsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TextStore.getState())
+    this.setState({
+      ...TextStore.getState(),
+      ...TagsStore.getState()
+    });
   }
 
   buildAnotatedText() {
