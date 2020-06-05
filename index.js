@@ -33,6 +33,7 @@ app.put('/api/texts/:docId', (req, res) => {
     text: req.body.text,
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
+    tags: req.body.tags,
     notes: req.body.notes,
     timestamp: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
@@ -64,6 +65,7 @@ app.post('/api/texts/new', (req, res) => {
         text: req.body.text,
         intro: req.body.intro || '',
         conclusion: req.body.conclusion || '',
+        tags: req.body.tags,
         notes: req.body.notes,
         _error:'Document already exists'
       });
@@ -74,6 +76,7 @@ app.post('/api/texts/new', (req, res) => {
         intro: req.body.intro || '',
         conclusion: req.body.conclusion || '',
         notes: req.body.notes,
+        tags: req.body.tags,
         timestamp: admin.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         docRef.get().then(doc => {

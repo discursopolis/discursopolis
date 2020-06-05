@@ -107,6 +107,7 @@ class TextEdit extends Component {
         text: this.state.text.trim(),
         intro: this.state.intro,
         conclusion: this.state.conclusion,
+        tags: this.state.tags,
         notes: this.state.notes
       }
 
@@ -138,6 +139,10 @@ class TextEdit extends Component {
     this.setState({_success: null});
   }
 
+  handleTagsChange(e,newVal) {
+    this.setState({tags: newVal, _submitDisabled:false});
+  }
+
   render(props, state) {
     if (!state) return '';
 
@@ -156,9 +161,10 @@ class TextEdit extends Component {
             <Grid item xs={12}>
               <Autocomplete
                 multiple
-                options={state.tagList}
+                options={state.tagList.filter(option => (state.tags || []).map(t => t.id).indexOf(option.id) == -1)}
                 getOptionLabel={(option) => option.name}
-                defaultValue={state.tags}
+                value={state.tags || []}
+                onChange={this.handleTagsChange.bind(this)}
                 renderTags={(value, getTagProps) =>
                       value.map((option, index) => (
                         <Chip color="secondary" label={option.name} {...getTagProps({ index })} />
