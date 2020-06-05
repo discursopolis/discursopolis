@@ -6,18 +6,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  title: {
-    fontSize: 14,
-  }
-}));
 
 class TextView extends Component {
   constructor(props) {
     super(props);
-    this.classes = useStyles();
   }
 
   buildAnotatedText() {
@@ -51,12 +43,14 @@ class TextView extends Component {
 
     return <Grid container spacing={2}>
         <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom>
+            {props.name}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Typography className={this.classes.title} color="textSecondary" gutterBottom>
-                {props.name}
-              </Typography>
-              <Typography variant="h5" component="h4">
+              <Typography variant="h6">
                 {this.buildAnotatedText()}
               </Typography>
             </CardContent>
@@ -77,7 +71,6 @@ class TextView extends Component {
         <Grid item xs={12}>
           <Button
             variant="contained"
-            className={this.classes.button}
             color="secondary"
             startIcon={this.props.edit ? <EditIcon /> : null}
             href={`/text/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
