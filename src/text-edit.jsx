@@ -14,6 +14,8 @@ import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Chip from '@material-ui/core/Chip';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class TextEdit extends Component {
     if (this.props && this.props.docId) {
       TextStore.loadData(this.props.docId);
     } else {
-      this.setState({name:'', notes:[], text:''});
+      this.setState({name:'', notes:[], text:'', tags:[]});
     }
   }
 
@@ -141,6 +143,28 @@ class TextEdit extends Component {
               required error={!(state.text &&  state.text.trim() != '')} />
             <TextField fullWidth margin="normal" multiline={true} label="Conclusion (optional)" value={state.conclusion} rows="3" onInput={((e) => this.handleChangeField(e, 'conclusion')).bind(this)} />
           </Grid>
+          {state.tagList &&
+            <Grid item xs={12}>
+              <Autocomplete
+                multiple
+                options={state.tagList}
+                getOptionLabel={(option) => option.name}
+                defaultValue={state.tags}
+                renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip color="secondary" label={option.name} {...getTagProps({ index })} />
+                      ))
+                    }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Categories"
+                  />
+                )}
+              />
+            </Grid>
+          }
           <Grid item xs={12}>
             <Typography gutterBottom variant="h6">
               Notes
