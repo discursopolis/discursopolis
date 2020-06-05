@@ -12,6 +12,8 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -113,8 +115,16 @@ class TextEdit extends Component {
 
   componentWillUpdate(nextProps, nextState) {
     if (nextState.id && nextState.id != this.state.id && !this.props.docId) {
-      route(`/text/${nextState.id}`);
+      route(`/texts/${nextState.id}`);
     }
+  }
+
+  handleCloseError() {
+    this.setState({_error: null});
+  }
+
+  handleCloseSuccess() {
+    this.setState({_success: null});
   }
 
   render(props, state) {
@@ -166,6 +176,8 @@ class TextEdit extends Component {
           docId={props.docId}
         />
       </Grid>
+      <Snackbar open={this.state._error}><Alert severity="error" onClose={this.handleCloseError.bind(this)} elevation={6} variant="filled">{state._error}</Alert></Snackbar>
+      <Snackbar open={this.state._success}><Alert severity="success" onClose={this.handleCloseSuccess.bind(this)} elevation={6} variant="filled">{state._success}</Alert></Snackbar>
     </Grid>;
   }
 }

@@ -6,6 +6,8 @@ const render = require('preact-render-to-string');
 const express = require('express');
 const app = express();
 
+import {generateUrlName} from './utils/utils';
+
 const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
@@ -43,6 +45,7 @@ app.put('/api/texts/:docId', (req, res) => {
           conclusion: doc.data().conclusion,
           notes: doc.data().notes,
           timestamp: doc.data().timestamp,
+          _success: 'Document updated'
       });
       return true;
     }).catch(err => console.log(err));
@@ -51,27 +54,42 @@ app.put('/api/texts/:docId', (req, res) => {
 });
 
 app.post('/api/texts/new', (req, res) => {
-  const col = db.collection("texts");
-  col.add({
-    name: req.body.name,
-    text: req.body.text,
-    intro: req.body.intro || '',
-    conclusion: req.body.conclusion || '',
-    notes: req.body.notes,
-    timestamp: admin.firestore.FieldValue.serverTimestamp()
-  }).then(docRef => {
-    docRef.get().then(doc => {
-      res.json({
-          id: doc.id,
-          name: doc.data().name,
-          text: doc.data().text,
-          intro: doc.data().intro,
-          conclusion: doc.data().conclusion,
-          notes: doc.data().notes,
-          timestamp: doc.data().timestamp,
+  const docId = generateUrlName(req.body.name);
+  const docRef = db.collection("texts").doc(docId);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      res.status(409).json({
+        name: req.body.name,
+        text: req.body.text,
+        intro: req.body.intro || '',
+        conclusion: req.body.conclusion || '',
+        notes: req.body.notes,
+        _error:'Document already exists'
       });
-      return true;
-    }).catch(err => console.log(err));
+    } else {
+      docRef.set({
+        name: req.body.name,
+        text: req.body.text,
+        intro: req.body.intro || '',
+        conclusion: req.body.conclusion || '',
+        notes: req.body.notes,
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        docRef.get().then(doc => {
+          res.json({
+              id: doc.id,
+              name: doc.data().name,
+              text: doc.data().text,
+              intro: doc.data().intro,
+              conclusion: doc.data().conclusion,
+              notes: doc.data().notes,
+              timestamp: doc.data().timestamp,
+          });
+          return true;
+        }).catch(err => console.log(err));
+        return true;
+      }).catch(err => console.log(err));
+    }
     return true;
   }).catch(err => console.log(err));
 });
