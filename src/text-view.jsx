@@ -9,6 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import Popper from '@material-ui/core/Popper';
 
 class TextView extends Component {
   constructor(props) {
@@ -32,7 +33,10 @@ class TextView extends Component {
         note.from, note.to - note.from,
         <span
           className='words-note'
-          onClick={() => this.setState({selected: note.note})}
+          onClick={(e) => this.setState({
+            selected: note.note,
+            selectedAnchorEl: e.currentTarget
+          })}
         >
         {highlight}
         </span>
@@ -64,22 +68,6 @@ class TextView extends Component {
             </CardContent>
           </Card>
         </Grid>
-      {this.state.selected &&
-        <Grid item xs={12}>
-          <Card variant="outlined">
-            <CardHeader style={{paddingBottom:0,height:0}} action={
-              <IconButton aria-label="close" size="small" onClick={() => this.setState({selected:null})}>
-                <CloseIcon />
-              </IconButton>
-            } />
-            <CardContent>
-              <Typography variant="h5" component="h4">
-                <span innerHTML={this.state.selected}/>
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      }
       {this.props.conclusion &&
         <Grid item xs={12}>
           <Typography variant="body1" gutterBottom>
@@ -97,6 +85,20 @@ class TextView extends Component {
           { this.props.edit ? 'Edit' : 'Back' }
           </Button>
         </Grid> }
+        <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl}>
+          <Card elevation={3}>
+            <CardHeader style={{paddingBottom:0,height:0}} action={
+              <IconButton aria-label="close" size="small" onClick={() => this.setState({selected:null})}>
+                <CloseIcon />
+              </IconButton>
+            } />
+            <CardContent>
+              <Typography variant="h5" component="h4">
+                <span innerHTML={this.state.selected}/>
+              </Typography>
+            </CardContent>
+          </Card>
+        </Popper>
     </Grid>
   }
 }
