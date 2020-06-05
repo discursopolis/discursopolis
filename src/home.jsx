@@ -6,6 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Progress from './progress';
 
@@ -37,9 +38,20 @@ class Home extends Component {
         <div>
         <List component="nav">
           { state.texts.map(el =>
-            <ListItemLink href={'/texts/' + el.id}>
-              <ListItemText primary={el.name} />
-            </ListItemLink>
+            <ListItem>
+              <ListItemLink href={'/texts/' + el.id}>
+                <ListItemText primary={el.name} />
+              </ListItemLink>
+              { el.tags && el.tags.map(tag =>
+                <Chip component="a"
+                  label={tag.name}
+                  color="secondary"
+                  clickable
+                  href={`/tags/${tag.id}`}
+                  style={{margin:'5px'}}
+                />)
+              }
+            </ListItem>
           ) }
         </List>
         <Button variant="contained" href='/texts/new'>Add text</Button>

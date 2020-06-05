@@ -44,6 +44,7 @@ app.put('/api/texts/:docId', (req, res) => {
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
           notes: doc.data().notes,
+          tags: doc.data().tags,
           timestamp: doc.data().timestamp,
           _success: 'Document updated'
       });
@@ -83,6 +84,7 @@ app.post('/api/texts/new', (req, res) => {
               intro: doc.data().intro,
               conclusion: doc.data().conclusion,
               notes: doc.data().notes,
+              tags: doc.data().tags,
               timestamp: doc.data().timestamp,
           });
           return true;
@@ -103,6 +105,7 @@ app.get('/api/texts/:docId', (req, res) => {
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
           notes: doc.data().notes,
+          tags: doc.data().tags,
           timestamp: doc.data().timestamp,
       });
       return true;
@@ -115,6 +118,7 @@ app.get('/api/texts', (req, res) => {
         return {
           id: doc.id,
           name: doc.data().name,
+          tags: doc.data().tags,
         }
       });
       res.json({texts: texts});
