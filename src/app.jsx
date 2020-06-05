@@ -30,9 +30,9 @@ class App extends Component {
           <Container maxWidth="sm" className={this.classes.root}>
               <Router>
                 <Home path="/" />
-                <Text path="/text/:docId" />
-                <TextEdit path="/text/:docId/edit" />
-                <TextEdit path="/text/new" />
+                <Text path="/texts/:docId" />
+                <TextEdit path="/texts/:docId/edit" />
+                <TextEdit path="/texts/new" />
               </Router>
           </Container>
       </div>

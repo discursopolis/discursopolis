@@ -93,7 +93,7 @@ class TextView extends Component {
             variant="contained"
             color="secondary"
             startIcon={this.props.edit ? <EditIcon /> : null}
-            href={`/text/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
+            href={`/texts/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
           >
           { this.props.edit ? 'Edit' : 'Back' }
           </Button>

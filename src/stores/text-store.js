@@ -3,6 +3,7 @@ import AppStore from './app-store';
 
 const TextStore = {...Store, ...{
   state: {},
+  baseUrl: '/api/texts',
 
   getState() {
     return this.state;
@@ -12,7 +13,7 @@ const TextStore = {...Store, ...{
     if (AppStore.isSSR()) return;
 
     if (this.state.id != docId) {
-      const res = await fetch(`/api/text/${docId}`)
+      const res = await fetch(`${this.baseUrl}/${docId}`)
       const json = await res.json();
       this.state = {...json};
     }
@@ -20,7 +21,7 @@ const TextStore = {...Store, ...{
   },
 
   async updateText(docId, data) {
-    const res = await fetch(`/api/text/${docId}`, {
+    const res = await fetch(`${this.baseUrl}/${docId}`, {
       method: 'PUT',
       body: JSON.stringify(data),
       headers:{
@@ -33,7 +34,7 @@ const TextStore = {...Store, ...{
   },
 
   async createText(data) {
-    const res = await fetch(`/api/text/new`, {
+    const res = await fetch(`${this.baseUrl}/new`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers:{

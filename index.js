@@ -24,7 +24,7 @@ const html = content => `<!doctype html>
                   </body>
                 </html>`;
 
-app.put('/api/text/:docId', (req, res) => {
+app.put('/api/texts/:docId', (req, res) => {
   const doc = db.collection("texts").doc(req.params.docId);
   doc.update({
     name: req.body.name,
@@ -50,7 +50,7 @@ app.put('/api/text/:docId', (req, res) => {
   }).catch(err => console.log(err));
 });
 
-app.post('/api/text/new', (req, res) => {
+app.post('/api/texts/new', (req, res) => {
   const col = db.collection("texts");
   col.add({
     name: req.body.name,
@@ -76,7 +76,7 @@ app.post('/api/text/new', (req, res) => {
   }).catch(err => console.log(err));
 });
 
-app.get('/api/text/:docId', (req, res) => {
+app.get('/api/texts/:docId', (req, res) => {
     db.collection('texts').doc(req.params.docId).get().then(doc => {
       res.json({
           id: doc.id,

@@ -34,12 +34,12 @@ class Home extends Component {
         <div>
         <List component="nav">
           { state.texts.map(el =>
-            <ListItemLink href={'/text/' + el.id}>
+            <ListItemLink href={'/texts/' + el.id}>
               <ListItemText primary={el.name} />
             </ListItemLink>
           ) }
         </List>
-        <Button variant="contained" href='/text/new'>Add text</Button>
+        <Button variant="contained" href='/texts/new'>Add text</Button>
         </div>
     );
   }
