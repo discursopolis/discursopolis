@@ -7,13 +7,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Home extends Component {
   constructor(props) {
     super(props);
 
     this.bindedOnChange = this.onChange.bind(this);
-    this.state = {texts: []};
+    this.state = {};
   }
 
   componentWillMount(props, state) {
@@ -30,6 +31,8 @@ class Home extends Component {
   }
 
   render(props, state) {
+    if (!state.texts) return <LinearProgress />
+
     return (
         <div>
         <List component="nav">

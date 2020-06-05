@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 class TextView extends Component {
   constructor(props) {
     super(props);
+    this.state = {};
   }
 
   buildAnotatedText() {
@@ -42,8 +43,6 @@ class TextView extends Component {
   }
 
   render(props, state){
-    if (!state) return;
-
     return <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom>

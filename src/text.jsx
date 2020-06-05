@@ -1,11 +1,13 @@
 import { Component, h } from 'preact';
 import TextStore from './stores/text-store';
 import TextView from './text-view';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class Text extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {};
     this.bindedOnChange = this.onChange.bind(this);
   }
 
@@ -23,6 +25,8 @@ class Text extends Component {
   }
 
   render(props, state) {
+    if (!state.name) return <LinearProgress />
+
     return <TextView
         name={state.name}
         intro={state.intro}

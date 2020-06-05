@@ -2,7 +2,7 @@ import Store from './store';
 import AppStore from './app-store';
 
 const HomeStore = {...Store, ...{
-  state: {texts: []},
+  state: {},
 
   getState() {
     return this.state;
