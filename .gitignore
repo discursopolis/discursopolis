@@ -68,3 +68,4 @@ node_modules/
 /public/bundle.*
 /functions/index.*
 /functions/components
+/functions/utils
