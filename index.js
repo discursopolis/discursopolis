@@ -161,6 +161,50 @@ app.get('/api/tags', (req, res) => {
   }).catch(err => console.log(err));
 });
 
+app.post('/api/tags/new', (req, res) => {
+  const tagId = generateUrlName(req.body.name);
+  const col = db.collection('tags');
+  const docRef = col.doc(tagId);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      col.get().then(snapshot => {
+        const tags = snapshot.docs.map(doc => {
+          return {
+            id: doc.id,
+            name: doc.data().name,
+          }
+        });
+        res.status(409).json({
+          _error:'Tag already exists',
+          tags: tags
+        });
+        return true;
+      }).catch(err => console.log(err));
+    } else {
+      docRef.set({
+        name: req.body.name,
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        col.get().then(snapshot => {
+          const tags = snapshot.docs.map(doc => {
+            return {
+              id: doc.id,
+              name: doc.data().name,
+            }
+          });
+          res.json({
+            _success: 'Tag created',
+            tags: tags
+          });
+          return true;
+        }).catch(err => console.log(err));
+        return true;
+      }).catch(err => console.log(err));
+    }
+    return true;
+  }).catch(err => console.log(err));
+});
+
 app.get('**', (req, res) => {
   res.status(200).send(html(''));
 });

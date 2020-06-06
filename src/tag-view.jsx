@@ -50,9 +50,10 @@ class TagView extends Component {
             {state.name}
           </Typography>
         </Grid>
+        {state.texts &&
         <Grid item xs={12}>
           <TextList texts={state.texts} />
-        </Grid>
+        </Grid>}
       </Grid>
   }
 }
