@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import HomeStore from './stores/home-store';
+import TextsStore from './stores/texts-store';
 
 import TextList from './text-list';
 import Button from '@material-ui/core/Button';
@@ -15,16 +15,16 @@ class Home extends Component {
   }
 
   componentWillMount(props, state) {
-    HomeStore.addChangeListener(this.bindedOnChange);
-    HomeStore.loadData();
+    TextsStore.addChangeListener(this.bindedOnChange);
+    TextsStore.loadData();
   }
 
   componentWillUnmount(props, state) {
-    HomeStore.removeChangeListener(this.bindedOnChange);
+    TextsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(HomeStore.getState())
+    this.setState(TextsStore.getState())
   }
 
   render(props, state) {
