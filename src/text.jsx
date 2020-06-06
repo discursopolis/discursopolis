@@ -33,6 +33,7 @@ class Text extends Component {
         text={state.text}
         conclusion={state.conclusion}
         notes={state.notes}
+        tags={state.tags}
         edit={true}
         docId={props.docId}
       />

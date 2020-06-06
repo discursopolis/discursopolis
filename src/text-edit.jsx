@@ -18,6 +18,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -202,6 +203,7 @@ class TextEdit extends Component {
         </Grid>
       </Grid>
       <Grid item xs={12}>
+        <Divider />
         <Typography gutterBottom variant="h6">
           Preview
         </Typography>
@@ -211,6 +213,7 @@ class TextEdit extends Component {
           text={state.text}
           conclusion={state.conclusion}
           notes={state.notes}
+          tags={state.tags}
           edit={false}
           docId={props.docId}
         />
