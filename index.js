@@ -34,6 +34,7 @@ app.put('/api/texts/:docId', (req, res) => {
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
     tags: req.body.tags,
+    tagIds: req.body.tags.map(tag => tag.id),
     notes: req.body.notes,
     timestamp: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
@@ -77,6 +78,7 @@ app.post('/api/texts/new', (req, res) => {
         conclusion: req.body.conclusion || '',
         notes: req.body.notes,
         tags: req.body.tags,
+        tagIds: req.body.tags.map(tag => tag.id),
         timestamp: admin.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         docRef.get().then(doc => {
@@ -116,7 +118,14 @@ app.get('/api/texts/:docId', (req, res) => {
 });
 
 app.get('/api/texts', (req, res) => {
-  db.collection('texts').get().then(snapshot => {
+  const tags =  req.query.tags ? req.query.tags.split(',') : null;
+  let col = db.collection('texts');
+
+  if (tags) {
+    col = col.where('tagIds','array-contains-any', tags)
+  }
+
+  col.get().then(snapshot => {
     const texts = snapshot.docs.map(doc => {
       return {
         id: doc.id,
