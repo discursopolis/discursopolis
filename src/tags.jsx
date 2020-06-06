@@ -59,9 +59,9 @@ class Tags extends Component {
 
     return <Grid container spacing={3}>
         <Grid item xs={12}>
-        <Typography variant="h5" gutterBottom>
-          {'Categorías'}
-        </Typography>
+          <Typography variant="h5" gutterBottom>
+            {'Categorías'}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <TagList tags={state.tagList} />

@@ -33,6 +33,11 @@ class Home extends Component {
 
     return <Grid container spacing={3}>
         <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom>
+            {'Discursos'}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
           <TextList texts={state.texts} />
         </Grid>
         <Grid item xs={12}>
