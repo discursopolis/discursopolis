@@ -1,12 +1,8 @@
 import { Component, h } from 'preact';
 import HomeStore from './stores/home-store';
 
+import TextList from './text-list';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import Progress from './progress';
 
@@ -36,32 +32,11 @@ class Home extends Component {
 
     return (
         <div>
-        <List component="nav">
-          { state.texts.map(el =>
-            <ListItem>
-              <ListItemLink href={'/texts/' + el.id}>
-                <ListItemText primary={el.name} />
-              </ListItemLink>
-              { el.tags && el.tags.map(tag =>
-                <Chip component="a"
-                  label={tag.name}
-                  color="primary"
-                  clickable
-                  href={`/tags/${tag.id}`}
-                  style={{margin:'2px'}}
-                />)
-              }
-            </ListItem>
-          ) }
-        </List>
-        <Button variant="contained" href='/texts/new'>Add text</Button>
+          <TextList texts={state.texts} />
+          <Button variant="contained" href='/texts/new'>Add text</Button>
         </div>
     );
   }
-}
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
 }
 
 export default Home
