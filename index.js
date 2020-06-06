@@ -138,6 +138,16 @@ app.get('/api/texts', (req, res) => {
   }).catch(err => console.log(err));
 });
 
+app.get('/api/tags/:tagId', (req, res) => {
+  db.collection('tags').doc(req.params.tagId).get().then(doc => {
+    res.json({
+      id: doc.id,
+      name: doc.data().name
+    });
+    return true;
+  }).catch(err => console.log(err));
+});
+
 app.get('/api/tags', (req, res) => {
   db.collection('tags').get().then(snapshot => {
     const tags = snapshot.docs.map(doc => {

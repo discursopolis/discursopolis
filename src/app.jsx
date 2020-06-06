@@ -6,6 +6,7 @@ import AppStore from './stores/app-store';
 import Home from './home';
 import Text from './text';
 import TextEdit from './text-edit';
+import TagView from './tag-view';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -33,6 +34,7 @@ class App extends Component {
                 <Text path="/texts/:docId" />
                 <TextEdit path="/texts/:docId/edit" />
                 <TextEdit path="/texts/new" />
+                <TagView path="/tags/:tagId" />
               </Router>
           </Container>
       </div>

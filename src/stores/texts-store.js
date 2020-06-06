@@ -8,10 +8,16 @@ const TextsStore = {...Store, ...{
     return this.state;
   },
 
-  async loadData() {
+  async loadData(opts) {
     if (AppStore.isSSR()) return;
 
-    const res = await fetch('/api/texts')
+    let url = '/api/texts';
+
+    if (opts && opts.tags) {
+      url += `?tags=${opts.tags.join(',')}`;
+    }
+
+    const res = await fetch(url)
     const json = await res.json();
     this.state = {...json};
     this.emitChangeEvent();
