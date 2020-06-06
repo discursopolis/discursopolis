@@ -167,7 +167,7 @@ class TextEdit extends Component {
                 onChange={this.handleTagsChange.bind(this)}
                 renderTags={(value, getTagProps) =>
                       value.map((option, index) => (
-                        <Chip color="secondary" label={option.name} {...getTagProps({ index })} />
+                        <Chip color="primary" label={option.name} {...getTagProps({ index })} />
                       ))
                     }
                 renderInput={(params) => (

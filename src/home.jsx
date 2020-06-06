@@ -45,10 +45,10 @@ class Home extends Component {
               { el.tags && el.tags.map(tag =>
                 <Chip component="a"
                   label={tag.name}
-                  color="secondary"
+                  color="primary"
                   clickable
                   href={`/tags/${tag.id}`}
-                  style={{margin:'5px'}}
+                  style={{margin:'2px'}}
                 />)
               }
             </ListItem>
