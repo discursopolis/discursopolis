@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 const TopBar = () => {
   const classes = useStyles();
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <Typography variant="h6" herf="/" className={classes.title}>
           CtrlF

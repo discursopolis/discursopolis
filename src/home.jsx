@@ -4,6 +4,7 @@ import TextsStore from './stores/texts-store';
 import TextList from './text-list';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Progress from './progress';
 
 class Home extends Component {
@@ -30,12 +31,14 @@ class Home extends Component {
   render(props, state) {
     if (!state.texts) return <Progress />
 
-    return (
-        <div>
+    return <Grid container spacing={3}>
+        <Grid item xs={12}>
           <TextList texts={state.texts} />
+        </Grid>
+        <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
-        </div>
-    );
+        </Grid>
+      </Grid>
   }
 }
 
