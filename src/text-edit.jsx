@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import { Link, route } from 'preact-router';
+import { route } from 'preact-router';
 import TextStore from './stores/text-store';
 import TagsStore from './stores/tags-store';
 
@@ -19,6 +19,8 @@ import Alert from '@material-ui/lab/Alert';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
+import Link from '@material-ui/core/Link';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -148,6 +150,21 @@ class TextEdit extends Component {
     if (!state) return '';
 
     return <Grid container spacing={3}>
+      <Grid item xs={12}>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" href="/">
+              Discursos
+            </Link>
+            {props.docId &&
+              <Link color="inherit" href={`/texts/${props.docId}`}>
+                {state.name}
+              </Link>}
+            {props.docId &&
+              <Typography color="textPrimary">Edit</Typography> }
+            {!props.docId &&
+                <Typography color="textPrimary">New</Typography> }
+          </Breadcrumbs>
+      </Grid>
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>

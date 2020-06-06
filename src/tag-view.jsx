@@ -6,6 +6,8 @@ import TextList from './text-list';
 import Progress from './progress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
 
 class TagView extends Component {
   constructor(props) {
@@ -45,6 +47,14 @@ class TagView extends Component {
     if (!state.name) return <Progress />
 
     return <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" href="/tags">
+            {'Categorías'}
+            </Link>
+            <Typography color="textPrimary">{state.name}</Typography>
+          </Breadcrumbs>
+        </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom>
             {state.name}
