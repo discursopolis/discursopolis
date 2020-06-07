@@ -21,17 +21,21 @@ class TextView extends Component {
   buildAnotatedText() {
     if (!this.props.text) return;
 
-    const notes = this.props.notes;
+    const notes = [...this.props.notes];
     const words = this.props.text.split(' ').map(word =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
         {word}
       </span>
     );
 
+    notes.sort((a,b) => a.from - b.from);
+
+    let offset = 0;
+
     notes.map(note => {
-      const highlight = words.slice(note.from,note.to);
+      const highlight = words.slice(note.from - offset, note.to - offset);
       words.splice(
-        note.from, note.to - note.from,
+        note.from - offset, note.to - note.from,
         <span
           className='words-note'
           onClick={(e) => this.setState({
@@ -42,6 +46,7 @@ class TextView extends Component {
         {highlight}
         </span>
       )
+      offset += note.to - note.from;
     });
 
     return words;
