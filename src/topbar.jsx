@@ -51,7 +51,7 @@ class TopBar extends Component {
             >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" herf="/" className={this.classes.title}>
+          <Typography variant="h6" className={this.classes.title}>
             CtrlF
           </Typography>
         </Toolbar>
@@ -64,7 +64,7 @@ class TopBar extends Component {
           <Divider />
           <List style={{width:'250px'}} onClick={this.toggleMenu.bind(this)}>
             <ListItem>
-              <ListItemLink href='/'>
+              <ListItemLink href='/texts'>
                 <ListItemText primary='Discursos' />
               </ListItemLink>
             </ListItem>

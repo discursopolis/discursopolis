@@ -154,7 +154,7 @@ class TextEdit extends Component {
     return <Grid container spacing={3}>
       <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" href="/">
+            <Link color="inherit" href="/texts">
               Discursos
             </Link>
             {props.docId &&

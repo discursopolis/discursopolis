@@ -1,11 +1,13 @@
 import { Component, h } from 'preact';
 import TextsStore from './stores/texts-store';
 
+import TextList from './text-list';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Progress from './progress';
 
-class Home extends Component {
+class Texts extends Component {
   constructor(props) {
     super(props);
 
@@ -29,21 +31,20 @@ class Home extends Component {
   render(props, state) {
     if (!state.texts) return <Progress />
 
-    return <Grid container spacing={4}>
+    return <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h1" gutterBottom>
-            CtrlF, deconstruyendo discursos
+          <Typography variant="h5" gutterBottom>
+            {'Discursos'}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h3" gutterBottom>
-            Quiénes somos
-          </Typography>
+          <TextList texts={state.texts} />
         </Grid>
         <Grid item xs={12}>
+          <Button variant="contained" href='/texts/new'>Add text</Button>
         </Grid>
       </Grid>
   }
 }
 
-export default Home
+export default Texts
