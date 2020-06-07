@@ -88,13 +88,15 @@ class TextEdit extends Component {
   handleChangeNote(i, value, key) {
     const notes = [...this.state.notes];
     notes[i][key] = value;
-    this.setState({notes: notes, _submitDisabled:false});
+
+    const validRange = notes[i].to > notes[i].from;
+    this.setState({notes: notes, _submitDisabled: !validRange, _error: validRange ? null : `Words range of note no. ${i + 1} is invalid`});
   }
 
   addNote(e) {
     e.preventDefault();
     const notes = [...this.state.notes];
-    notes.push({from:0,to:0,note:'A note'});
+    notes.push({from:0,to:1,note:'A note'});
     this.setState({notes: notes, _submitDisabled:false});
   }
 
