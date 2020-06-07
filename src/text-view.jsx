@@ -33,9 +33,9 @@ class TextView extends Component {
     let offset = 0;
 
     notes.map(note => {
-      const highlight = words.slice(note.from - offset, note.to - offset);
+      const highlight = words.slice(note.from - offset, note.to - offset + 1);
       words.splice(
-        note.from - offset, note.to - note.from,
+        note.from - offset, note.to - note.from + 1,
         <span
           className='words-note'
           onClick={(e) => this.setState({

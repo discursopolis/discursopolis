@@ -89,7 +89,7 @@ class TextEdit extends Component {
     const notes = [...this.state.notes];
     notes[i][key] = value;
 
-    const validRange = notes[i].to > notes[i].from;
+    const validRange = notes[i].to >= notes[i].from;
     this.setState({notes: notes, _submitDisabled: !validRange, _error: validRange ? null : `Words range of note no. ${i + 1} is invalid`});
   }
 
