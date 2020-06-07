@@ -1,6 +1,8 @@
 import { Component, h } from 'preact';
-import { Link, route } from 'preact-router';
+import { route } from 'preact-router';
 import TextStore from './stores/text-store';
+import TagsStore from './stores/tags-store';
+
 import TextView from './text-view';
 
 import Card from '@material-ui/core/Card';
@@ -14,6 +16,11 @@ import SaveIcon from '@material-ui/icons/Save';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import Link from '@material-ui/core/Link';
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -24,19 +31,26 @@ class TextEdit extends Component {
 
   componentWillMount(props, state) {
     TextStore.addChangeListener(this.bindedOnChange);
+    TagsStore.addChangeListener(this.bindedOnChange);
+
     if (this.props && this.props.docId) {
       TextStore.loadData(this.props.docId);
+      TagsStore.loadData();
     } else {
-      this.setState({name:'', notes:[], text:''});
+      this.setState({name:'', notes:[], text:'', tags:[], tagList:[]});
     }
   }
 
   componentWillUnmount(props, state) {
     TextStore.removeChangeListener(this.bindedOnChange);
+    TagsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TextStore.getState())
+    this.setState({
+      ...TextStore.getState(),
+      ...TagsStore.getState()
+    });
   }
 
   buildAnotatedText() {
@@ -96,6 +110,7 @@ class TextEdit extends Component {
         text: this.state.text.trim(),
         intro: this.state.intro,
         conclusion: this.state.conclusion,
+        tags: this.state.tags,
         notes: this.state.notes
       }
 
@@ -127,10 +142,29 @@ class TextEdit extends Component {
     this.setState({_success: null});
   }
 
+  handleTagsChange(e,newVal) {
+    this.setState({tags: newVal, _submitDisabled:false});
+  }
+
   render(props, state) {
     if (!state) return '';
 
     return <Grid container spacing={3}>
+      <Grid item xs={12}>
+          <Breadcrumbs aria-label="breadcrumb">
+            <Link color="inherit" href="/">
+              Discursos
+            </Link>
+            {props.docId &&
+              <Link color="inherit" href={`/texts/${props.docId}`}>
+                {state.name}
+              </Link>}
+            {props.docId &&
+              <Typography color="textPrimary">Edit</Typography> }
+            {!props.docId &&
+                <Typography color="textPrimary">New</Typography> }
+          </Breadcrumbs>
+      </Grid>
       <Grid item xs={12}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -141,6 +175,29 @@ class TextEdit extends Component {
               required error={!(state.text &&  state.text.trim() != '')} />
             <TextField fullWidth margin="normal" multiline={true} label="Conclusion (optional)" value={state.conclusion} rows="3" onInput={((e) => this.handleChangeField(e, 'conclusion')).bind(this)} />
           </Grid>
+          {state.tagList &&
+            <Grid item xs={12}>
+              <Autocomplete
+                multiple
+                options={state.tagList.filter(option => (state.tags || []).map(t => t.id).indexOf(option.id) == -1)}
+                getOptionLabel={(option) => option.name}
+                value={state.tags || []}
+                onChange={this.handleTagsChange.bind(this)}
+                renderTags={(value, getTagProps) =>
+                      value.map((option, index) => (
+                        <Chip color="primary" label={option.name} {...getTagProps({ index })} />
+                      ))
+                    }
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    variant="standard"
+                    label="Categories"
+                  />
+                )}
+              />
+            </Grid>
+          }
           <Grid item xs={12}>
             <Typography gutterBottom variant="h6">
               Notes
@@ -163,6 +220,7 @@ class TextEdit extends Component {
         </Grid>
       </Grid>
       <Grid item xs={12}>
+        <Divider />
         <Typography gutterBottom variant="h6">
           Preview
         </Typography>
@@ -172,6 +230,7 @@ class TextEdit extends Component {
           text={state.text}
           conclusion={state.conclusion}
           notes={state.notes}
+          tags={state.tags}
           edit={false}
           docId={props.docId}
         />

@@ -33,19 +33,22 @@ app.put('/api/texts/:docId', (req, res) => {
     text: req.body.text,
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
+    tags: req.body.tags,
+    tagIds: req.body.tags.map(tag => tag.id),
     notes: req.body.notes,
     timestamp: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     doc.get().then(doc => {
       res.json({
-          id: doc.id,
-          name: doc.data().name,
-          text: doc.data().text,
-          intro: doc.data().intro,
-          conclusion: doc.data().conclusion,
-          notes: doc.data().notes,
-          timestamp: doc.data().timestamp,
-          _success: 'Document updated'
+        id: doc.id,
+        name: doc.data().name,
+        text: doc.data().text,
+        intro: doc.data().intro,
+        conclusion: doc.data().conclusion,
+        notes: doc.data().notes,
+        tags: doc.data().tags,
+        timestamp: doc.data().timestamp,
+        _success: 'Document updated'
       });
       return true;
     }).catch(err => console.log(err));
@@ -63,6 +66,7 @@ app.post('/api/texts/new', (req, res) => {
         text: req.body.text,
         intro: req.body.intro || '',
         conclusion: req.body.conclusion || '',
+        tags: req.body.tags,
         notes: req.body.notes,
         _error:'Document already exists'
       });
@@ -73,17 +77,20 @@ app.post('/api/texts/new', (req, res) => {
         intro: req.body.intro || '',
         conclusion: req.body.conclusion || '',
         notes: req.body.notes,
+        tags: req.body.tags,
+        tagIds: req.body.tags.map(tag => tag.id),
         timestamp: admin.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         docRef.get().then(doc => {
           res.json({
-              id: doc.id,
-              name: doc.data().name,
-              text: doc.data().text,
-              intro: doc.data().intro,
-              conclusion: doc.data().conclusion,
-              notes: doc.data().notes,
-              timestamp: doc.data().timestamp,
+            id: doc.id,
+            name: doc.data().name,
+            text: doc.data().text,
+            intro: doc.data().intro,
+            conclusion: doc.data().conclusion,
+            notes: doc.data().notes,
+            tags: doc.data().tags,
+            timestamp: doc.data().timestamp,
           });
           return true;
         }).catch(err => console.log(err));
@@ -95,35 +102,111 @@ app.post('/api/texts/new', (req, res) => {
 });
 
 app.get('/api/texts/:docId', (req, res) => {
-    db.collection('texts').doc(req.params.docId).get().then(doc => {
-      res.json({
-          id: doc.id,
-          name: doc.data().name,
-          text: doc.data().text,
-          intro: doc.data().intro,
-          conclusion: doc.data().conclusion,
-          notes: doc.data().notes,
-          timestamp: doc.data().timestamp,
-      });
-      return true;
-    }).catch(err => console.log(err));
+  db.collection('texts').doc(req.params.docId).get().then(doc => {
+    res.json({
+      id: doc.id,
+      name: doc.data().name,
+      text: doc.data().text,
+      intro: doc.data().intro,
+      conclusion: doc.data().conclusion,
+      notes: doc.data().notes,
+      tags: doc.data().tags,
+      timestamp: doc.data().timestamp,
+    });
+    return true;
+  }).catch(err => console.log(err));
 });
 
 app.get('/api/texts', (req, res) => {
-    db.collection('texts').get().then(snapshot => {
-      const texts = snapshot.docs.map(doc => {
-        return {
-          id: doc.id,
-          name: doc.data().name,
-        }
-      });
-      res.json({texts: texts});
-      return true;
-    }).catch(err => console.log(err));
+  const tags =  req.query.tags ? req.query.tags.split(',') : null;
+  let col = db.collection('texts');
+
+  if (tags) {
+    col = col.where('tagIds','array-contains-any', tags)
+  }
+
+  col.get().then(snapshot => {
+    const texts = snapshot.docs.map(doc => {
+      return {
+        id: doc.id,
+        name: doc.data().name,
+        tags: doc.data().tags,
+      }
+    });
+    res.json({texts: texts});
+    return true;
+  }).catch(err => console.log(err));
+});
+
+app.get('/api/tags/:tagId', (req, res) => {
+  db.collection('tags').doc(req.params.tagId).get().then(doc => {
+    res.json({
+      id: doc.id,
+      name: doc.data().name
+    });
+    return true;
+  }).catch(err => console.log(err));
+});
+
+app.get('/api/tags', (req, res) => {
+  db.collection('tags').get().then(snapshot => {
+    const tags = snapshot.docs.map(doc => {
+      return {
+        id: doc.id,
+        name: doc.data().name,
+      }
+    });
+    res.json({tags: tags});
+    return true;
+  }).catch(err => console.log(err));
+});
+
+app.post('/api/tags/new', (req, res) => {
+  const tagId = generateUrlName(req.body.name);
+  const col = db.collection('tags');
+  const docRef = col.doc(tagId);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      col.get().then(snapshot => {
+        const tags = snapshot.docs.map(doc => {
+          return {
+            id: doc.id,
+            name: doc.data().name,
+          }
+        });
+        res.status(409).json({
+          _error:'Tag already exists',
+          tags: tags
+        });
+        return true;
+      }).catch(err => console.log(err));
+    } else {
+      docRef.set({
+        name: req.body.name,
+        timestamp: admin.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        col.get().then(snapshot => {
+          const tags = snapshot.docs.map(doc => {
+            return {
+              id: doc.id,
+              name: doc.data().name,
+            }
+          });
+          res.json({
+            _success: 'Tag created',
+            tags: tags
+          });
+          return true;
+        }).catch(err => console.log(err));
+        return true;
+      }).catch(err => console.log(err));
+    }
+    return true;
+  }).catch(err => console.log(err));
 });
 
 app.get('**', (req, res) => {
-    res.status(200).send(html(''));
+  res.status(200).send(html(''));
 });
 
 exports.index = functions.https.onRequest(app);

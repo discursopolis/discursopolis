@@ -1,12 +1,10 @@
 import { Component, h } from 'preact';
-import HomeStore from './stores/home-store';
+import TextsStore from './stores/texts-store';
 
+import TextList from './text-list';
 import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import Progress from './progress';
 
 class Home extends Component {
@@ -18,38 +16,35 @@ class Home extends Component {
   }
 
   componentWillMount(props, state) {
-    HomeStore.addChangeListener(this.bindedOnChange);
-    HomeStore.loadData();
+    TextsStore.addChangeListener(this.bindedOnChange);
+    TextsStore.loadData();
   }
 
   componentWillUnmount(props, state) {
-    HomeStore.removeChangeListener(this.bindedOnChange);
+    TextsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(HomeStore.getState())
+    this.setState(TextsStore.getState())
   }
 
   render(props, state) {
     if (!state.texts) return <Progress />
 
-    return (
-        <div>
-        <List component="nav">
-          { state.texts.map(el =>
-            <ListItemLink href={'/texts/' + el.id}>
-              <ListItemText primary={el.name} />
-            </ListItemLink>
-          ) }
-        </List>
-        <Button variant="contained" href='/texts/new'>Add text</Button>
-        </div>
-    );
+    return <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h5" gutterBottom>
+            {'Discursos'}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <TextList texts={state.texts} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" href='/texts/new'>Add text</Button>
+        </Grid>
+      </Grid>
   }
-}
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
 }
 
 export default Home

@@ -10,6 +10,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Popper from '@material-ui/core/Popper';
+import Chip from '@material-ui/core/Chip';
 
 class TextView extends Component {
   constructor(props) {
@@ -47,11 +48,20 @@ class TextView extends Component {
   }
 
   render(props, state){
-    return <Grid container spacing={2}>
+    return <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h5" gutterBottom>
             {props.name}
           </Typography>
+         {this.props.tags && this.props.tags.map(tag =>
+              <Chip component="a"
+                label={tag.name}
+                color="primary"
+                clickable
+                href={`/tags/${tag.id}`}
+                style={{margin:'2px'}}
+              />)
+         }
         </Grid>
        {this.props.intro &&
         <Grid item xs={12}>
