@@ -64,7 +64,7 @@ class TopBar extends Component {
           <Divider />
           <List style={{width:'250px'}} onClick={this.toggleMenu.bind(this)}>
             <ListItem>
-              <ListItemLink href='/texts'>
+              <ListItemLink href='/'>
                 <ListItemText primary='Discursos' />
               </ListItemLink>
             </ListItem>

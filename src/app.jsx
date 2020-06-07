@@ -4,7 +4,6 @@ import { Router } from 'preact-router';
 import AppStore from './stores/app-store';
 
 import Home from './home';
-import Texts from './texts';
 import Text from './text';
 import TextEdit from './text-edit';
 import Tags from './tags';
@@ -36,7 +35,6 @@ class App extends Component {
                 <Text path="/texts/:docId" />
                 <TextEdit path="/texts/:docId/edit" />
                 <TextEdit path="/texts/new" />
-                <Texts path="/texts/" />
                 <TagView path="/tags/:tagId" />
                 <Tags path="/tags/" />
               </Router>

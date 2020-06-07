@@ -35,7 +35,7 @@ class Text extends Component {
     return <Grid container spacing={3}>
         <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" href="/texts">
+            <Link color="inherit" href="/">
               Discursos
             </Link>
             <Typography color="textPrimary">{state.name}</Typography>
