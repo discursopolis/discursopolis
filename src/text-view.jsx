@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Popper from '@material-ui/core/Popper';
 import Chip from '@material-ui/core/Chip';
+import Tooltip from '@material-ui/core/Tooltip';
 
 class TextView extends Component {
   constructor(props) {
@@ -22,9 +23,13 @@ class TextView extends Component {
     if (!this.props.text) return;
 
     const notes = [...this.props.notes];
-    const words = this.props.text.split(' ').map(word =>
+    const words = this.props.text.split(' ').map((word, i) =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
-        {word}
+        {this.props.edit ? word :
+          <Tooltip title={`Word ${i}`}>
+            <span>{word}</span>
+          </Tooltip>
+        }
       </span>
     );
 
