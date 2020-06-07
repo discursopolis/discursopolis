@@ -51,7 +51,7 @@ class TopBar extends Component {
             >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" herf="/" className={this.classes.title}>
+          <Typography variant="h6" className={this.classes.title}>
             CtrlF
           </Typography>
         </Toolbar>

@@ -31,10 +31,13 @@ class Home extends Component {
   render(props, state) {
     if (!state.texts) return <Progress />
 
-    return <Grid container spacing={3}>
+    return <Grid container spacing={4}>
         <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom>
-            {'Discursos'}
+          <Typography variant="h1">
+             CtrlF
+          </Typography>
+          <Typography variant="h4" gutterBottom>
+            Deconstruyendo discursos.
           </Typography>
         </Grid>
         <Grid item xs={12}>

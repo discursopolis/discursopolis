@@ -59,7 +59,7 @@ class Tags extends Component {
 
     return <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             {'Categorías'}
           </Typography>
         </Grid>

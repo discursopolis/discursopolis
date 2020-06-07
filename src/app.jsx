@@ -6,7 +6,6 @@ import AppStore from './stores/app-store';
 import Home from './home';
 import Text from './text';
 import TextEdit from './text-edit';
-
 import Tags from './tags';
 import TagView from './tag-view';
 

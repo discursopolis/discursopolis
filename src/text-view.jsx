@@ -50,7 +50,7 @@ class TextView extends Component {
   render(props, state){
     return <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h5" gutterBottom>
+          <Typography variant="h4" gutterBottom>
             {props.name}
           </Typography>
          {this.props.tags && this.props.tags.map(tag =>
@@ -103,7 +103,7 @@ class TextView extends Component {
               </IconButton>
             } />
             <CardContent>
-              <Typography variant="h5" component="h4">
+              <Typography variant="h5" >
                 <span innerHTML={this.state.selected}/>
               </Typography>
             </CardContent>
