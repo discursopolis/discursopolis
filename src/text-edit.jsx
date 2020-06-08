@@ -181,8 +181,9 @@ class TextEdit extends Component {
             <Grid item xs={12}>
               <Autocomplete
                 multiple
-                options={state.tagList.filter(option => (state.tags || []).map(t => t.id).indexOf(option.id) == -1)}
+                options={state.tagList}
                 getOptionLabel={(option) => option.name}
+                getOptionSelected={(option, value) => option.id === value.id}
                 value={state.tags || []}
                 onChange={this.handleTagsChange.bind(this)}
                 renderTags={(value, getTagProps) =>
