@@ -78,7 +78,7 @@ class TextView extends Component {
   render(props, state){
     return <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             {props.name}
           </Typography>
          {this.props.tags && this.props.tags.map(tag =>

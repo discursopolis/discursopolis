@@ -56,7 +56,7 @@ class TagView extends Component {
           </Breadcrumbs>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h3" gutterBottom>
             {state.name}
           </Typography>
         </Grid>
