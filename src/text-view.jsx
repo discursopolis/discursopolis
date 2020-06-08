@@ -21,22 +21,26 @@ class TextView extends Component {
       '#CCFF00',
       '#BB86FC'
     ]
+
+    this.regex = {
+      line: /(\r?\n)/g,
+      space: /[\n\r\s]+/
+    };
+
     this.state = {};
   }
 
   buildAnotatedText() {
     if (!this.props.text) return;
 
-    const spaceRegex = /[\n\r\s]+/;
-
-    const lineBreaks = [...this.props.text.matchAll(/(\r?\n)+/g)];
+    const lineBreaks = [...this.props.text.matchAll(this.regex.line)];
     const lineBreaksIndex = lineBreaks.map(lb => {
-      const prevWords = this.props.text.slice(0, lb.index).trim().split(spaceRegex);
+      const prevWords = this.props.text.slice(0, lb.index).trim().split(this.regex.space);
       return prevWords.length;
     });
 
     const notes = [...this.props.notes];
-    const words = this.props.text.split(spaceRegex).map((word, i) =>
+    const words = this.props.text.split(this.regex.space).map((word, i) =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
         {this.props.edit ? word :
           <Tooltip title={`Word ${i}`}>
@@ -140,7 +144,7 @@ class TextView extends Component {
             } />
             <CardContent>
               <Typography variant="h5" >
-                <span innerHTML={this.state.selected && this.state.selected.replace(/(\r?\n)+/g,'<br />')}/>
+                <span innerHTML={this.state.selected && this.state.selected.replace(this.regex.line,'<br />')}/>
               </Typography>
             </CardContent>
           </Card>
