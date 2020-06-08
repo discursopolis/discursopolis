@@ -9,6 +9,7 @@ import TextEdit from './text-edit';
 import Tags from './tags';
 import TagView from './tag-view';
 import About from './about';
+import Contribute from './contribute';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -40,6 +41,7 @@ class App extends Component {
                 <TagView path="/tags/:tagId" />
                 <Tags path="/tags/" />
                 <About path="/about/" />
+                <Contribute path="/contribute/" />
               </Router>
           </Container>
       </div>
