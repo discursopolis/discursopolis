@@ -119,7 +119,7 @@ app.get('/api/texts/:docId', (req, res) => {
 
 app.get('/api/texts', (req, res) => {
   const tags =  req.query.tags ? req.query.tags.split(',') : null;
-  let col = db.collection('texts');
+  let col = db.collection('texts').orderBy("timestamp", "desc");
 
   if (tags) {
     col = col.where('tagIds','array-contains-any', tags)
