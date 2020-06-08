@@ -34,7 +34,7 @@ class Home extends Component {
     return <Grid container spacing={4}>
         <Grid item xs={12}>
           <Typography variant="h1">
-             CtrlF
+             Discursópolis
           </Typography>
           <Typography variant="h4" gutterBottom>
             Deconstruyendo discursos.

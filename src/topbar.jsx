@@ -52,7 +52,7 @@ class TopBar extends Component {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={this.classes.title}>
-            CtrlF
+            Discursópolis
           </Typography>
         </Toolbar>
         <Drawer anchor='left' open={state.openMenu}>
