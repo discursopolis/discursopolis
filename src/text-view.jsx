@@ -22,8 +22,16 @@ class TextView extends Component {
   buildAnotatedText() {
     if (!this.props.text) return;
 
+    const spaceRegex = /[\n\r\s]+/;
+
+    const lineBreaks = [...this.props.text.matchAll(/(\r?\n)+/g)];
+    const lineBreaksIndex = lineBreaks.map(lb => {
+      const prevWords = this.props.text.slice(0, lb.index).trim().split(spaceRegex);
+      return prevWords.length;
+    });
+
     const notes = [...this.props.notes];
-    const words = this.props.text.split(' ').map((word, i) =>
+    const words = this.props.text.split(spaceRegex).map((word, i) =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
         {this.props.edit ? word :
           <Tooltip title={`Word ${i}`}>
@@ -53,6 +61,16 @@ class TextView extends Component {
       )
       offset += note.to - note.from;
     });
+
+    // Add line breaks
+    lineBreaksIndex.map((lb, i) => {
+        const offset = notes.
+          filter(n => n.to <= lb).
+          map(n => n.to - n.from).
+          reduce((prev, next) => prev + next);
+        words.splice(lb + i - offset, 0, <br/>)
+      }
+    );
 
     return words;
   }
