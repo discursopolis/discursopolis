@@ -73,6 +73,17 @@ class TopBar extends Component {
                 <ListItemText primary='Categorías' />
               </ListItemLink>
             </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemLink href='/about'>
+                <ListItemText primary='Acerca de' />
+              </ListItemLink>
+            </ListItem>
+            <ListItem>
+              <ListItemLink href='/contribute'>
+                <ListItemText primary='Subí tu análisis' />
+              </ListItemLink>
+            </ListItem>
           </List>
         </Drawer>
       </AppBar>

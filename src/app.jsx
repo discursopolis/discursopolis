@@ -8,6 +8,8 @@ import Text from './text';
 import TextEdit from './text-edit';
 import Tags from './tags';
 import TagView from './tag-view';
+import About from './about';
+import Contribute from './contribute';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -16,6 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(18),
+    paddingBottom: theme.spacing(15)
   }
 }));
 
@@ -37,6 +40,8 @@ class App extends Component {
                 <TextEdit path="/texts/new" />
                 <TagView path="/tags/:tagId" />
                 <Tags path="/tags/" />
+                <About path="/about/" />
+                <Contribute path="/contribute/" />
               </Router>
           </Container>
       </div>
