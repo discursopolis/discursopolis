@@ -44,6 +44,9 @@ const About = (props) => {
                   Paula Salerno
                 </Link>.
               </Typography>
+              <Typography variant="body1" paragraph={true}>
+                Además, participan analistas del discurso de distintas instituciones de Latinoamérica y el mundo. Nuestro objetivo es dar a conocer lo que hay detrás de los enunciados que leemos todos los días. Deconstruyendo discursos, construimos igualdad.
+              </Typography>
             </Grid>
           </Grid>
         </Grid>
