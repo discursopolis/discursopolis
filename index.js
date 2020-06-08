@@ -36,7 +36,7 @@ app.put('/api/texts/:docId', (req, res) => {
     tags: req.body.tags,
     tagIds: req.body.tags.map(tag => tag.id),
     notes: req.body.notes,
-    timestamp: admin.firestore.FieldValue.serverTimestamp()
+    timestamp_update: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
     doc.get().then(doc => {
       res.json({
@@ -47,7 +47,6 @@ app.put('/api/texts/:docId', (req, res) => {
         conclusion: doc.data().conclusion,
         notes: doc.data().notes,
         tags: doc.data().tags,
-        timestamp: doc.data().timestamp,
         _success: 'Document updated'
       });
       return true;
@@ -71,6 +70,8 @@ app.post('/api/texts/new', (req, res) => {
         _error:'Document already exists'
       });
     } else {
+      const timestamp = admin.firestore.FieldValue.serverTimestamp();
+
       docRef.set({
         name: req.body.name,
         text: req.body.text,
@@ -79,7 +80,8 @@ app.post('/api/texts/new', (req, res) => {
         notes: req.body.notes,
         tags: req.body.tags,
         tagIds: req.body.tags.map(tag => tag.id),
-        timestamp: admin.firestore.FieldValue.serverTimestamp()
+        timestamp_update: timestamp,
+        timestamp: timestamp
       }).then(() => {
         docRef.get().then(doc => {
           res.json({
@@ -90,7 +92,6 @@ app.post('/api/texts/new', (req, res) => {
             conclusion: doc.data().conclusion,
             notes: doc.data().notes,
             tags: doc.data().tags,
-            timestamp: doc.data().timestamp,
           });
           return true;
         }).catch(err => console.log(err));
@@ -110,8 +111,7 @@ app.get('/api/texts/:docId', (req, res) => {
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
       notes: doc.data().notes,
-      tags: doc.data().tags,
-      timestamp: doc.data().timestamp,
+      tags: doc.data().tags
     });
     return true;
   }).catch(err => console.log(err));
