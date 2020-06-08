@@ -140,7 +140,7 @@ class TextView extends Component {
             } />
             <CardContent>
               <Typography variant="h5" >
-                <span innerHTML={this.state.selected}/>
+                <span innerHTML={this.state.selected && this.state.selected.replace(/(\r?\n)+/g,'<br />')}/>
               </Typography>
             </CardContent>
           </Card>
