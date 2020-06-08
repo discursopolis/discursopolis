@@ -21,7 +21,7 @@ const About = (props) => {
                 Discursópolis es un sitio dedicado al Análisis del Discurso. Esta rama de la Lingüística permite encontrar en los discursos los sentidos que son opacos, difíciles de hallar a simple vista, incluso para lxs hablantes.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Discursópolis es la ciudad de los discursos analizados. En otras palabras, reúne análisis de distintos discursos que circulan en nuestra vida cotidiana, en diferentes ámbitos: medios de comunicación, redes sociales, conversaciones privadas, eventos institucionales, et
+                Discursópolis es la ciudad de los discursos analizados. En otras palabras, reúne análisis de distintos discursos que circulan en nuestra vida cotidiana, en diferentes ámbitos: medios de comunicación, redes sociales, conversaciones privadas, eventos institucionales, etc.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Desde el Análisis del Discurso, sabemos que la forma de decir es tan importante como lo dicho... y lo no dicho. Con un abordaje interpretativo e interdisciplinario, deconstruimos discursos para encontrar las desigualdades que se producen y reproducen en las palabras y, con ello, en nuestra sociedad.
