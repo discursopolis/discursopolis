@@ -16,6 +16,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 class TextView extends Component {
   constructor(props) {
     super(props);
+    this.colors = [
+      '#03DAC6',
+      '#CCFF00',
+      '#BB86FC'
+    ]
     this.state = {};
   }
 
@@ -44,6 +49,7 @@ class TextView extends Component {
     notes.sort((a,b) => a.from - b.from);
 
     let offset = 0;
+    let colorIndex = 0;
 
     notes.map(note => {
       const highlight = words.slice(note.from - offset, note.to - offset + 1);
@@ -51,6 +57,7 @@ class TextView extends Component {
         note.from - offset, note.to - note.from + 1,
         <span
           className='words-note'
+          style={{backgroundColor: this.colors[colorIndex]}}
           onClick={(e) => this.setState({
             selected: note.note,
             selectedAnchorEl: e.currentTarget
@@ -60,6 +67,7 @@ class TextView extends Component {
         </span>
       )
       offset += note.to - note.from;
+      colorIndex = colorIndex == 2 ? 0 : colorIndex + 1;
     });
 
     // Add line breaks
