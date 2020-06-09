@@ -39,7 +39,7 @@ const AppStore = {...Store, ...{
     if (res.status == 200) {
       const json = await res.json();
       if (json.status === 'success') {
-        this.state.loginMsg = 'Succesful login';
+        this.state.loginMsg = 'Succesful login (งツ)ว';
         this.state.admin = true;
       }
     } else {
