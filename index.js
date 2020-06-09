@@ -39,80 +39,101 @@ const html = content => `<!doctype html>
                   </body>
                 </html>`;
 
+const protect = (req, res, sucessFnc, errorFnc) => {
+  const sessionCookie = req.cookies.session || '';
+  admin.auth().verifySessionCookie(
+    sessionCookie, true /** checkRevoked */)
+    .then((decodedClaims) => {
+      successFnc(decodedClaims);
+    }).catch(function(error) {
+      errorFnc(error);
+    });
+}
+
 app.put('/api/texts/:docId', (req, res) => {
-  const doc = db.collection("texts").doc(req.params.docId);
-  doc.update({
-    name: req.body.name,
-    text: req.body.text,
-    intro: req.body.intro || '',
-    conclusion: req.body.conclusion || '',
-    tags: req.body.tags || [],
-    tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
-    notes: req.body.notes,
-    timestamp_update: admin.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    doc.get().then(doc => {
-      res.json({
-        id: doc.id,
-        name: doc.data().name,
-        text: doc.data().text,
-        intro: doc.data().intro,
-        conclusion: doc.data().conclusion,
-        notes: doc.data().notes,
-        tags: doc.data().tags,
-        _success: 'Document updated'
-      });
+  protect(req, res, () => {
+    const doc = db.collection("texts").doc(req.params.docId);
+    doc.update({
+      name: req.body.name,
+      text: req.body.text,
+      intro: req.body.intro || '',
+      conclusion: req.body.conclusion || '',
+      tags: req.body.tags || [],
+      tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
+      notes: req.body.notes,
+      timestamp_update: admin.firestore.FieldValue.serverTimestamp()
+    }).then(() => {
+      doc.get().then(doc => {
+        res.json({
+          id: doc.id,
+          name: doc.data().name,
+          text: doc.data().text,
+          intro: doc.data().intro,
+          conclusion: doc.data().conclusion,
+          notes: doc.data().notes,
+          tags: doc.data().tags,
+          _success: 'Document updated'
+        });
+        return true;
+      }).catch(err => console.log(err));
       return true;
     }).catch(err => console.log(err));
-    return true;
-  }).catch(err => console.log(err));
+  }, (error) => {
+    res.status(401).json({_error: 'Unauthorized!'});
+    console.log(error);
+  });
 });
 
 app.post('/api/texts/new', (req, res) => {
-  const docId = generateUrlName(req.body.name);
-  const docRef = db.collection("texts").doc(docId);
-  docRef.get().then((doc) => {
-    if (doc.exists) {
-      res.status(409).json({
-        name: req.body.name,
-        text: req.body.text,
-        intro: req.body.intro || '',
-        conclusion: req.body.conclusion || '',
-        tags: req.body.tags,
-        notes: req.body.notes,
-        _error:'Document already exists'
-      });
-    } else {
-      const timestamp = admin.firestore.FieldValue.serverTimestamp();
+  protect(req, res, () => {
+    const docId = generateUrlName(req.body.name);
+    const docRef = db.collection("texts").doc(docId);
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        res.status(409).json({
+          name: req.body.name,
+          text: req.body.text,
+          intro: req.body.intro || '',
+          conclusion: req.body.conclusion || '',
+          tags: req.body.tags,
+          notes: req.body.notes,
+          _error:'Document already exists'
+        });
+      } else {
+        const timestamp = admin.firestore.FieldValue.serverTimestamp();
 
-      docRef.set({
-        name: req.body.name,
-        text: req.body.text,
-        intro: req.body.intro || '',
-        conclusion: req.body.conclusion || '',
-        notes: req.body.notes,
-        tags: req.body.tags,
-        tagIds: req.body.tags.map(tag => tag.id),
-        timestamp_update: timestamp,
-        timestamp: timestamp
-      }).then(() => {
-        docRef.get().then(doc => {
-          res.json({
-            id: doc.id,
-            name: doc.data().name,
-            text: doc.data().text,
-            intro: doc.data().intro,
-            conclusion: doc.data().conclusion,
-            notes: doc.data().notes,
-            tags: doc.data().tags,
-          });
+        docRef.set({
+          name: req.body.name,
+          text: req.body.text,
+          intro: req.body.intro || '',
+          conclusion: req.body.conclusion || '',
+          notes: req.body.notes,
+          tags: req.body.tags,
+          tagIds: req.body.tags.map(tag => tag.id),
+          timestamp_update: timestamp,
+          timestamp: timestamp
+        }).then(() => {
+          docRef.get().then(doc => {
+            res.json({
+              id: doc.id,
+              name: doc.data().name,
+              text: doc.data().text,
+              intro: doc.data().intro,
+              conclusion: doc.data().conclusion,
+              notes: doc.data().notes,
+              tags: doc.data().tags,
+            });
+            return true;
+          }).catch(err => console.log(err));
           return true;
         }).catch(err => console.log(err));
-        return true;
-      }).catch(err => console.log(err));
-    }
-    return true;
-  }).catch(err => console.log(err));
+      }
+      return true;
+    }).catch(err => console.log(err));
+  }, (error) => {
+    res.status(401).json({_error: 'Unauthorized!'});
+    console.log(error);
+  });
 });
 
 app.get('/api/texts/:docId', (req, res) => {
@@ -175,29 +196,12 @@ app.get('/api/tags', (req, res) => {
 });
 
 app.post('/api/tags/new', (req, res) => {
-  const tagId = generateUrlName(req.body.name);
-  const col = db.collection('tags');
-  const docRef = col.doc(tagId);
-  docRef.get().then((doc) => {
-    if (doc.exists) {
-      col.get().then(snapshot => {
-        const tags = snapshot.docs.map(doc => {
-          return {
-            id: doc.id,
-            name: doc.data().name,
-          }
-        });
-        res.status(409).json({
-          _error:'Tag already exists',
-          tags: tags
-        });
-        return true;
-      }).catch(err => console.log(err));
-    } else {
-      docRef.set({
-        name: req.body.name,
-        timestamp: admin.firestore.FieldValue.serverTimestamp()
-      }).then(() => {
+  protect(req, res, () => {
+    const tagId = generateUrlName(req.body.name);
+    const col = db.collection('tags');
+    const docRef = col.doc(tagId);
+    docRef.get().then((doc) => {
+      if (doc.exists) {
         col.get().then(snapshot => {
           const tags = snapshot.docs.map(doc => {
             return {
@@ -205,31 +209,48 @@ app.post('/api/tags/new', (req, res) => {
               name: doc.data().name,
             }
           });
-          res.json({
-            _success: 'Tag created',
+          res.status(409).json({
+            _error:'Tag already exists',
             tags: tags
           });
           return true;
         }).catch(err => console.log(err));
-        return true;
-      }).catch(err => console.log(err));
-    }
-    return true;
-  }).catch(err => console.log(err));
+      } else {
+        docRef.set({
+          name: req.body.name,
+          timestamp: admin.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+          col.get().then(snapshot => {
+            const tags = snapshot.docs.map(doc => {
+              return {
+                id: doc.id,
+                name: doc.data().name,
+              }
+            });
+            res.json({
+              _success: 'Tag created',
+              tags: tags
+            });
+            return true;
+          }).catch(err => console.log(err));
+          return true;
+        }).catch(err => console.log(err));
+      }
+      return true;
+    }).catch(err => console.log(err));
+  }, (error) => {
+    res.status(401).json({_error: 'Unauthorized!'});
+    console.log(error);
+  });
 });
 
 app.get('/api/auth', (req, res) => {
-  const sessionCookie = req.cookies.session || '';
-  // Verify the session cookie. In this case an additional check is added to detect
-  // if the user's Firebase session was revoked, user deleted/disabled, etc.
-  admin.auth().verifySessionCookie(
-    sessionCookie, true /** checkRevoked */)
-    .then((decodedClaims) => {
-      res.json({status: 'success'});
-    }).catch(function(error) {
+  protect(req, res, () => {
+    res.json({status: 'success'});
+  }, (error) => {
       res.status(401).send('UNAUTHORIZED REQUEST!');
       console.log(error);
-    });
+  });
 });
 
 app.post('/api/auth', (req, res) => {
