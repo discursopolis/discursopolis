@@ -5,6 +5,8 @@ const render = require('preact-render-to-string');
 
 const express = require('express');
 const app = express();
+const cookies = require("cookie-parser");
+app.use(cookies());
 
 import {generateUrlName} from './utils/utils';
 
@@ -214,6 +216,50 @@ app.post('/api/tags/new', (req, res) => {
     }
     return true;
   }).catch(err => console.log(err));
+});
+
+app.get('/api/auth', (req, res) => {
+  const sessionCookie = req.cookies.session || '';
+  // Verify the session cookie. In this case an additional check is added to detect
+  // if the user's Firebase session was revoked, user deleted/disabled, etc.
+  admin.auth().verifySessionCookie(
+    sessionCookie, true /** checkRevoked */)
+    .then((decodedClaims) => {
+      res.json({status: 'success'});
+    }).catch(function(error) {
+      res.status(401).send('UNAUTHORIZED REQUEST!');
+      console.log(error);
+    });
+});
+
+app.post('/api/auth', (req, res) => {
+  const idToken = req.body.idToken;
+  admin.auth().verifyIdToken(idToken).then(decodedToken => {
+    db.collection('users').doc(decodedToken.email).get().then(user => {
+      if (user.data().admin) {
+        const expiresIn = 60 * 60 * 24 * 5 * 1000;
+
+        admin.auth().createSessionCookie(idToken, {expiresIn})
+          .then((sessionCookie) => {
+            const options = {maxAge: expiresIn, httpOnly: true};
+            res.cookie('session', sessionCookie, options);
+            res.json({status: 'success'});
+          }, error => {
+            console.log(error);
+            res.status(401).send('UNAUTHORIZED REQUEST!');
+          });
+
+      } else {
+        console.log('User is not admin');
+        res.status(401).send('UNAUTHORIZED REQUEST!');
+      }
+    }).catch(function(error) {
+      console.log(error);
+      res.status(401).send('UNAUTHORIZED REQUEST!');
+    });
+  }).catch(function(error) {
+    console.log(error);
+  });
 });
 
 app.get('**', (req, res) => {

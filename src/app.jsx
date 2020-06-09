@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 class App extends Component {
   componentWillMount(props, state) {
     AppStore.setSSR(this.props.ssr);
+    AppStore.checkAuth();
     this.classes = useStyles();
   }
 
