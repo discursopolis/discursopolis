@@ -39,7 +39,7 @@ const html = content => `<!doctype html>
                   </body>
                 </html>`;
 
-const protect = (req, res, sucessFnc, errorFnc) => {
+const protect = (req, res, successFnc, errorFnc) => {
   const sessionCookie = req.cookies.session || '';
   admin.auth().verifySessionCookie(
     sessionCookie, true /** checkRevoked */)
