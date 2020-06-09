@@ -10,6 +10,7 @@ import Tags from './tags';
 import TagView from './tag-view';
 import About from './about';
 import Contribute from './contribute';
+import Auth from './auth';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -42,6 +43,7 @@ class App extends Component {
                 <Tags path="/tags/" />
                 <About path="/about/" />
                 <Contribute path="/contribute/" />
+                <Auth path="/admin/" />
               </Router>
           </Container>
       </div>

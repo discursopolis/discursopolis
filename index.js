@@ -28,6 +28,8 @@ const html = content => `<!doctype html>
                     <!-- TODO: Add SDKs for Firebase products that you want to use
                          https://firebase.google.com/docs/web/setup#available-libraries -->
                     <script src="/__/firebase/7.15.0/firebase-analytics.js"></script>
+                    <script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+                    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
 
                     <!-- Initialize Firebase -->
                     <script src="/__/firebase/init.js"></script>
