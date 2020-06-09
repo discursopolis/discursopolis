@@ -42,8 +42,8 @@ app.put('/api/texts/:docId', (req, res) => {
     text: req.body.text,
     intro: req.body.intro || '',
     conclusion: req.body.conclusion || '',
-    tags: req.body.tags,
-    tagIds: req.body.tags.map(tag => tag.id),
+    tags: req.body.tags || [],
+    tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
     notes: req.body.notes,
     timestamp_update: admin.firestore.FieldValue.serverTimestamp()
   }).then(() => {
