@@ -23,29 +23,30 @@ class Auth extends Component {
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
-        // Avoid redirects after sign-in.
-        signInSuccessWithAuthResult: this.handleSuccessfulSignIn
+        signInSuccessWithAuthResult: () => false
       }
     };
   }
 
   componentWillMount(props, state) {
     AppStore.addChangeListener(this.bindedOnChange);
+    this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(this.handleAuthStateChange.bind(this));
   }
 
   componentWillUnmount(props, state) {
     AppStore.removeChangeListener(this.bindedOnChange);
+    this.unregisterAuthObserver();
   }
 
   onChange() {
     this.setState(AppStore.getState())
   }
 
-  async handleSuccessfulSignIn(res) {
-    const idToken = await res.user.getIdToken();
+  async handleAuthStateChange(user) {
+    if (!user) return;
+    const idToken = await user.getIdToken();
     await AppStore.postAuth(idToken);
     await firebase.auth().signOut();
-    return false;
   }
 
   render(props, state) {
