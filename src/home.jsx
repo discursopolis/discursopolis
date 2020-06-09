@@ -33,7 +33,7 @@ class Home extends Component {
 
     return <Grid container spacing={4}>
         <Grid item xs={12}>
-          <Typography variant="h1">
+          <Typography variant={window.innerWidth < 600 ? 'h3' : 'h1'}>
              Discursópolis
           </Typography>
           <Typography variant="h4" gutterBottom>
