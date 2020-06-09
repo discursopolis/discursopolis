@@ -79,7 +79,7 @@ class TextView extends Component {
         const offset = notes.
           filter(n => n.to <= lb).
           map(n => n.to - n.from).
-          reduce((prev, next) => prev + next);
+          reduce((prev, next) => prev + next, 0);
         words.splice(lb + i - offset, 0, <br/>)
       }
     );
