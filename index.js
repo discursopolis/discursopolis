@@ -40,9 +40,8 @@ const html = content => `<!doctype html>
                 </html>`;
 
 const protect = (req, res, successFnc, errorFnc) => {
-  const sessionCookie = req.cookies.session || '';
+  const sessionCookie = req.cookies.__session || '';
   console.log('req.cookies:',req.cookies);
-  console.log('sessionCookie;', sessionCookie);
   admin.auth().verifySessionCookie(
     sessionCookie, true /** checkRevoked */)
     .then((decodedClaims) => {
@@ -265,7 +264,7 @@ app.post('/api/auth', (req, res) => {
         admin.auth().createSessionCookie(idToken, {expiresIn})
           .then((sessionCookie) => {
             const options = {maxAge: expiresIn, httpOnly: true};
-            res.cookie('session', sessionCookie, options);
+            res.cookie('__session', sessionCookie, options);
             res.json({status: 'success'});
           }, error => {
             console.log(error);
