@@ -45,7 +45,7 @@ const About = (props) => {
                 </Link>.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Además, participan analistas del discurso de distintas instituciones de Latinoamérica y el mundo. Nuestro objetivo es dar a conocer lo que hay detrás de los enunciados que leemos todos los días. Deconstruyendo discursos, construimos igualdad.
+                Además, Discursópolis está abierta a los aportes de lingüistas y analistas del discurso de diferentes instituciones y procedencias. Queremos dar a conocer lo que hay detrás de los enunciados que leemos y oímos todos los días. Deconstruyendo discursos, construimos igualdad.
               </Typography>
             </Grid>
           </Grid>
