@@ -18,6 +18,7 @@ const TextList = (props) => {
                 <Chip component="a"
                   label={tag.name}
                   color="primary"
+                  size="small"
                   clickable
                   href={`/tags/${tag.id}`}
                   style={{margin:'2px'}}
