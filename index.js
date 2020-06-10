@@ -41,7 +41,6 @@ const html = content => `<!doctype html>
 
 const protect = (req, res, successFnc, errorFnc) => {
   const sessionCookie = req.cookies.__session || '';
-  console.log('req.cookies:',req.cookies);
   admin.auth().verifySessionCookie(
     sessionCookie, true /** checkRevoked */)
     .then((decodedClaims) => {
