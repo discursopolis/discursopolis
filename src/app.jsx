@@ -24,16 +24,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.bindedOnChange = this.onChange.bind(this);
+  }
+
   componentWillMount(props, state) {
     AppStore.setSSR(this.props.ssr);
     AppStore.checkAuth();
     this.classes = useStyles();
+    AppStore.addChangeListener(this.bindedOnChange);
   }
 
-  render(props) {
+  componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
+  }
+
+  onChange() {
+    this.setState({admin: AppStore.getState().admin})
+  }
+
+  render(props, state) {
     return (
       <div>
-        <TopAppBar />
+        <TopAppBar admin={state.admin}/>
           <Container maxWidth="sm" className={this.classes.root}>
               <Router>
                 <Home path="/" />
