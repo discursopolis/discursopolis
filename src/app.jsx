@@ -30,10 +30,10 @@ class App extends Component {
   }
 
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     AppStore.setSSR(this.props.ssr);
     AppStore.checkAuth();
     this.classes = useStyles();
-    AppStore.addChangeListener(this.bindedOnChange);
   }
 
   componentWillUnmount(props, state) {
