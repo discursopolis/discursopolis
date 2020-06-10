@@ -1,9 +1,7 @@
 import { Component, h } from 'preact';
 
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -42,10 +40,10 @@ class TextView extends Component {
     const notes = [...this.props.notes];
     const words = this.props.text.split(this.regex.space).map((word, i) =>
       <span className='word' onClick={() => {this.setState({selected:null})}}>
-        {this.props.edit ? word :
+        {this.props.showWordsIndex ?
           <Tooltip title={`Word ${i}`}>
             <span>{word}</span>
-          </Tooltip>
+          </Tooltip> : word
         }
       </span>
     );
@@ -124,17 +122,6 @@ class TextView extends Component {
             {props.conclusion}
           </Typography>
         </Grid>}
-      {props.docId &&
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={this.props.edit ? <EditIcon /> : null}
-            href={`/texts/${props.docId}/${this.props.edit ? 'edit/' : ''}`}
-          >
-          { this.props.edit ? 'Edit' : 'Back' }
-          </Button>
-        </Grid> }
         <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl}>
           <Card elevation={3} style={{maxWidth:'800px'}}>
             <CardHeader style={{paddingBottom:0,height:0}} action={
