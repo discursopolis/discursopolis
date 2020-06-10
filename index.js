@@ -197,6 +197,20 @@ app.get('/api/tags/:tagId', (req, res) => {
   }).catch(err => console.log(err));
 });
 
+app.delete('/api/tags/:tagId', (req, res) => {
+  protect(req, res, () => {
+    db.collection('tags').doc(req.params.tagId).delete().then(() => {
+      res.json({
+        deleted: true
+      });
+      return true;
+    }).catch(err => console.log(err));
+  }, (error) => {
+    res.status(401).json({_error: 'Unauthorized!'});
+    console.log(error);
+  });
+});
+
 app.get('/api/tags', (req, res) => {
   db.collection('tags').get().then(snapshot => {
     const tags = snapshot.docs.map(doc => {
