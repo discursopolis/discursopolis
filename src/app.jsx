@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import { Router } from 'preact-router';
+import { Router, route } from 'preact-router';
 
 import AppStore from './stores/app-store';
 
@@ -44,12 +44,21 @@ class App extends Component {
     this.setState({admin: AppStore.getState().admin})
   }
 
+  // This method will also prevent to load the auth pages directly in
+  // the first load, even if the user is authenticated.
+  async handleRoute(e) {
+    const authRoutes = [/\/texts\/.*\/edit/, /\/texts\/new/];
+    if (authRoutes.some(r => r.test(e.url)) && !this.state.admin) {
+      route('/', true);
+    }
+  }
+
   render(props, state) {
     return (
       <div>
         <TopAppBar admin={state.admin}/>
           <Container maxWidth="sm" className={this.classes.root}>
-              <Router>
+              <Router onChange={this.handleRoute.bind(this)}>
                 <Home path="/" />
                 <Text path="/texts/:docId" />
                 <TextEdit path="/texts/:docId/edit" />
