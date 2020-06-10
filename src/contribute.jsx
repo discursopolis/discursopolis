@@ -14,7 +14,7 @@ const Contribute = (props) => {
         <Grid item xs={12}>
           <Typography variant="body1" paragraph={true}>
             Si sos analista del discurso y querés aportar tu análisis, comunicate por Twitter con <Link
-              target="_blank" href="https://twitter.com/paulularia">@paulularia</Link> o por mail a <Link href="mailto:accionendiscurso@gmail.com">accionendiscurso@gmail.com</Link>.
+              target="_blank" href="https://twitter.com/paulularia">@paulularia</Link> o por mail a <Link href="mailto:discursopolis@gmail.com">discursopolis@gmail.com</Link>.
           </Typography>
         </Grid>
     </Grid>
