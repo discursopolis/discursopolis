@@ -9,13 +9,13 @@ span.word:last-child{
 
 span.words-note {
   cursor:default;
-  background-color:rgba(0,0,0,0.1);
   border-bottom: 1px dotted black;
-  margin:0 5px;
+  margin-right:5px;
 }
+
 span.words-note:hover{
   cursor:pointer;
-  background-color:#e6e6e6;
+  background-color:#e6e6e6 !important;
 }
 
 body {margin:0}
