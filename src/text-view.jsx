@@ -125,7 +125,7 @@ class TextView extends Component {
             />
          )}
         </Grid>}
-        <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl}>
+        <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl} placement='top'>
           <Card elevation={3} style={{maxWidth:'800px'}}>
             <CardHeader style={{paddingBottom:0,height:0}} action={
               <IconButton aria-label="close" size="small" onClick={() => this.setState({selected:null})}>
@@ -133,7 +133,7 @@ class TextView extends Component {
               </IconButton>
             } />
             <CardContent>
-              <Typography variant="h5" >
+              <Typography variant="body1" >
                 <span innerHTML={this.state.selected && this.state.selected.replace(this.regex.line,'<br />')}/>
               </Typography>
             </CardContent>
