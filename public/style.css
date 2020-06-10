@@ -1,9 +1,10 @@
 span.word {
   display:inline-block;
+  margin-right:5px;
 }
 
-span.word + span.word {
-  margin-left:5px;
+span.word:last-child{
+  margin-right:0;
 }
 
 span.words-note {
