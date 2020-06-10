@@ -69,3 +69,5 @@ node_modules/
 /functions/index.*
 /functions/components
 /functions/utils
+
+/service-accounts

@@ -1,4 +1,6 @@
 import { Component, h } from 'preact';
+
+import AppStore from './stores/app-store';
 import TextsStore from './stores/texts-store';
 
 import TextList from './text-list';
@@ -16,16 +18,21 @@ class Home extends Component {
   }
 
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     TextsStore.addChangeListener(this.bindedOnChange);
     TextsStore.loadData();
   }
 
   componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
     TextsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TextsStore.getState())
+    this.setState({
+      ...TextsStore.getState(),
+      ...{admin: AppStore.getState().admin}
+    });
   }
 
   render(props, state) {
@@ -43,9 +50,10 @@ class Home extends Component {
         <Grid item xs={12}>
           <TextList texts={state.texts} />
         </Grid>
+        {state.admin &&
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
-        </Grid>
+        </Grid>}
       </Grid>
   }
 }

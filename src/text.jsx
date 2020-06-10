@@ -1,5 +1,8 @@
 import { Component, h } from 'preact';
+
+import AppStore from './stores/app-store';
 import TextStore from './stores/text-store';
+
 import TextView from './text-view';
 import Progress from './progress';
 
@@ -7,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 class Text extends Component {
   constructor(props) {
@@ -17,16 +22,21 @@ class Text extends Component {
   }
 
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     TextStore.addChangeListener(this.bindedOnChange);
     TextStore.loadData(this.props.docId);
   }
 
   componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
     TextStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TextStore.getState())
+    this.setState({
+      ...TextStore.getState(),
+      ...{admin: AppStore.getState().admin}
+    });
   }
 
   render(props, state) {
@@ -49,10 +59,20 @@ class Text extends Component {
             conclusion={state.conclusion}
             notes={state.notes}
             tags={state.tags}
-            edit={true}
-            docId={props.docId}
+            showWordsIndex={false}
           />
         </Grid>
+        {state.admin &&
+        <Grid item xs={12}>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<EditIcon />}
+            href={`/texts/${props.docId}/edit/`}
+          >
+          Edit
+          </Button>
+        </Grid>}
       </Grid>
   }
 }

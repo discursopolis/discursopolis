@@ -1,4 +1,6 @@
 import { Component, h } from 'preact';
+
+import AppStore from './stores/app-store';
 import TagsStore from './stores/tags-store';
 
 import List from '@material-ui/core/List';
@@ -23,16 +25,21 @@ class Tags extends Component {
   }
 
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     TagsStore.addChangeListener(this.bindedOnChange);
     TagsStore.loadData();
   }
 
   componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
     TagsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TagsStore.getState())
+    this.setState({
+      ...TagsStore.getState(),
+      ...{admin: AppStore.getState().admin}
+    });
   }
 
   handleChangeNewTagName(e) {
@@ -65,7 +72,7 @@ class Tags extends Component {
         </Grid>
         <Grid item xs={12}>
           <TagList tags={state.tagList} />
-        </Grid>
+        </Grid> {state.admin &&
         <Grid item xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -78,7 +85,7 @@ class Tags extends Component {
               </Button>
             </Grid>
           </Grid>
-        </Grid>
+        </Grid>}
         <Snackbar open={this.state._error}><Alert severity="error" onClose={this.handleCloseError.bind(this)} elevation={6} variant="filled">{state._error}</Alert></Snackbar>
         <Snackbar open={this.state._success}><Alert severity="success" onClose={this.handleCloseSuccess.bind(this)} elevation={6} variant="filled">{state._success}</Alert></Snackbar>
       </Grid>

@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -54,6 +55,11 @@ class TopBar extends Component {
           <Typography variant="h6" className={this.classes.title}>
             Discursópolis
           </Typography>
+          {this.props.admin &&
+            <Button color="inherit">
+            Admin
+            </Button>
+          }
         </Toolbar>
         <Drawer anchor='left' open={state.openMenu}>
           <div className={this.classes.drawerHeader}>

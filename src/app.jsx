@@ -1,5 +1,5 @@
 import { Component, h } from 'preact';
-import { Router } from 'preact-router';
+import { Router, route } from 'preact-router';
 
 import AppStore from './stores/app-store';
 
@@ -10,6 +10,7 @@ import Tags from './tags';
 import TagView from './tag-view';
 import About from './about';
 import Contribute from './contribute';
+import Auth from './auth';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -23,17 +24,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.bindedOnChange = this.onChange.bind(this);
+  }
+
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     AppStore.setSSR(this.props.ssr);
+    AppStore.checkAuth();
     this.classes = useStyles();
   }
 
-  render(props) {
+  componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
+  }
+
+  onChange() {
+    this.setState({admin: AppStore.getState().admin})
+  }
+
+  // This method will also prevent to load the auth pages directly in
+  // the first load, even if the user is authenticated.
+  async handleRoute(e) {
+    const authRoutes = [/\/texts\/.*\/edit/, /\/texts\/new/];
+    if (authRoutes.some(r => r.test(e.url)) && !this.state.admin) {
+      route('/', true);
+    }
+  }
+
+  render(props, state) {
     return (
       <div>
-        <TopAppBar />
+        <TopAppBar admin={state.admin}/>
           <Container maxWidth="sm" className={this.classes.root}>
-              <Router>
+              <Router onChange={this.handleRoute.bind(this)}>
                 <Home path="/" />
                 <Text path="/texts/:docId" />
                 <TextEdit path="/texts/:docId/edit" />
@@ -42,6 +67,7 @@ class App extends Component {
                 <Tags path="/tags/" />
                 <About path="/about/" />
                 <Contribute path="/contribute/" />
+                <Auth path="/admin/" />
               </Router>
           </Container>
       </div>

@@ -234,10 +234,19 @@ class TextEdit extends Component {
           conclusion={state.conclusion}
           notes={state.notes}
           tags={state.tags}
-          edit={false}
-          docId={props.docId}
+          showWordsIndex={true}
         />
       </Grid>
+      {props.docId &&
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          color="secondary"
+          href={`/texts/${props.docId}/`}
+        >
+        Back
+        </Button>
+      </Grid>}
       <Snackbar open={this.state._error}><Alert severity="error" onClose={this.handleCloseError.bind(this)} elevation={6} variant="filled">{state._error}</Alert></Snackbar>
       <Snackbar open={this.state._success}><Alert severity="success" onClose={this.handleCloseSuccess.bind(this)} elevation={6} variant="filled">{state._success}</Alert></Snackbar>
     </Grid>;

@@ -34,6 +34,8 @@ const TextStore = {...Store, ...{
   },
 
   async createText(data) {
+    this.state.id = null;
+
     const res = await fetch(`${this.baseUrl}/new`, {
       method: 'POST',
       body: JSON.stringify(data),
