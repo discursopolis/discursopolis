@@ -91,19 +91,10 @@ class TextView extends Component {
           <Typography variant="h3" gutterBottom>
             {props.name}
           </Typography>
-         {this.props.tags && this.props.tags.map(tag =>
-              <Chip component="a"
-                label={tag.name}
-                color="primary"
-                clickable
-                href={`/tags/${tag.id}`}
-                style={{margin:'2px'}}
-              />)
-         }
         </Grid>
        {this.props.intro &&
         <Grid item xs={12}>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" style={{whiteSpace:'pre-line'}} gutterBottom>
             {props.intro}
           </Typography>
         </Grid>}
@@ -118,9 +109,21 @@ class TextView extends Component {
         </Grid>
       {this.props.conclusion &&
         <Grid item xs={12}>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" style={{whiteSpace:'pre-line'}} gutterBottom>
             {props.conclusion}
           </Typography>
+        </Grid>}
+      {this.props.tags &&
+        <Grid item xs={12} style={{textAlign:'right'}}>
+         {this.props.tags.map(tag =>
+            <Chip component="a"
+              label={tag.name}
+              color="primary"
+              clickable
+              href={`/tags/${tag.id}`}
+              style={{margin:'2px'}}
+            />
+         )}
         </Grid>}
         <Popper open={this.state.selected} anchorEl={this.state.selectedAnchorEl}>
           <Card elevation={3} style={{maxWidth:'800px'}}>
