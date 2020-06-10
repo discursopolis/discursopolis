@@ -1,5 +1,8 @@
 import { Component, h } from 'preact';
+
+import AppStore from './stores/app-store';
 import TextStore from './stores/text-store';
+
 import TextView from './text-view';
 import Progress from './progress';
 
@@ -19,16 +22,21 @@ class Text extends Component {
   }
 
   componentWillMount(props, state) {
+    AppStore.addChangeListener(this.bindedOnChange);
     TextStore.addChangeListener(this.bindedOnChange);
     TextStore.loadData(this.props.docId);
   }
 
   componentWillUnmount(props, state) {
+    AppStore.removeChangeListener(this.bindedOnChange);
     TextStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
-    this.setState(TextStore.getState())
+    this.setState({
+      ...TextStore.getState(),
+      ...{admin: AppStore.getState().admin}
+    });
   }
 
   render(props, state) {
@@ -54,6 +62,7 @@ class Text extends Component {
             showWordsIndex={false}
           />
         </Grid>
+        {state.admin &&
         <Grid item xs={12}>
           <Button
             variant="contained"
@@ -63,7 +72,7 @@ class Text extends Component {
           >
           Edit
           </Button>
-        </Grid>
+        </Grid>}
       </Grid>
   }
 }
