@@ -136,6 +136,21 @@ app.post('/api/texts/new', (req, res) => {
   });
 });
 
+app.delete('/api/texts/:docId', (req, res) => {
+  protect(req, res, () => {
+    const doc = db.collection("texts").doc(req.params.docId);
+    doc.delete().then(() => {
+      res.json({
+        deleted: true
+      });
+      return true;
+    }).catch(err => console.log(err));
+  }, (error) => {
+    res.status(401).json({_error: 'Unauthorized!'});
+    console.log(error);
+  });
+});
+
 app.get('/api/texts/:docId', (req, res) => {
   db.collection('texts').doc(req.params.docId).get().then(doc => {
     res.json({

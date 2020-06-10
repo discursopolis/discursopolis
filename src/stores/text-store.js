@@ -46,7 +46,16 @@ const TextStore = {...Store, ...{
     const json = await res.json();
     this.state = {...this.state, ...json};
     this.emitChangeEvent();
-  }
+  },
+
+  async deleteText(docId) {
+    const res = await fetch(`${this.baseUrl}/${docId}`, {
+      method: 'DELETE'
+    });
+    const json = await res.json();
+    this.state = {...json};
+    this.emitChangeEvent();
+  },
 }};
 
 export default TextStore

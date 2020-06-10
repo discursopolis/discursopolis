@@ -21,6 +21,7 @@ import Chip from '@material-ui/core/Chip';
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import DeleteDialog from './delete-dialog';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -133,6 +134,8 @@ class TextEdit extends Component {
   componentWillUpdate(nextProps, nextState) {
     if (nextState.id && nextState.id != this.state.id && !this.props.docId) {
       route(`/texts/${nextState.id}`);
+    } else if (nextState.deleted) {
+      route('/');
     }
   }
 
@@ -146,6 +149,25 @@ class TextEdit extends Component {
 
   handleTagsChange(e,newVal) {
     this.setState({tags: newVal, _submitDisabled:false});
+  }
+
+  showDeleteDialog() {
+    this.setState({
+      showDeleteDialog: true,
+    })
+  }
+
+  handleDeleteCancel() {
+    this.setState({
+      showDeleteDialog: null,
+    })
+  }
+
+  handleDeleteOk() {
+    const docId = this.state.textIdToDelete;
+    this.setState({
+      showDeleteDialog: null,
+    }, () => TextStore.deleteText(this.props.docId))
   }
 
   render(props, state) {
@@ -219,6 +241,24 @@ class TextEdit extends Component {
             <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={this.updateText.bind(this)} disabled={state._submitDisabled || this.emptyMandatoryFields()}>
             {props.docId ? 'Update' : 'Create'}
             </Button>
+            {props.docId &&
+              <div style={{float:'right'}}>
+                <Button
+                  variant="contained"
+                  startIcon={<DeleteIcon />}
+                  onClick={this.showDeleteDialog.bind(this)}
+                >
+                Eliminar
+                </Button>
+                <DeleteDialog
+                  open={state.showDeleteDialog}
+                  title={'Shall we proceed?'}
+                  body={'Are you sure that you want to delete this text?'}
+                  onOk={this.handleDeleteOk.bind(this)}
+                  onCancel={this.handleDeleteCancel.bind(this)}
+                />
+              </div>
+            }
           </Grid>
         </Grid>
       </Grid>
