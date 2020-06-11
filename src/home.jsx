@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Progress from './progress';
+import MetaTags from './meta-tags';
 
 class Home extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class Home extends Component {
     if (!state.texts) return <Progress />
 
     return <Grid container spacing={4}>
+        <MetaTags />
         <Grid item xs={12}>
           <Typography variant={window.innerWidth < 600 ? 'h3' : 'h1'}>
              Discursópolis

@@ -7,6 +7,8 @@ import AppStore from './stores/app-store';
 
 import TextList from './text-list';
 import Progress from './progress';
+import MetaTags from './meta-tags';
+
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
@@ -78,6 +80,7 @@ class TagView extends Component {
     if (!state.name) return <Progress />
 
     return <Grid container spacing={3}>
+        <MetaTags title={state.name} />
         <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/tags">

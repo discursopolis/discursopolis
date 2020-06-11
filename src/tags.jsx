@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import Progress from './progress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
+import MetaTags from './meta-tags';
 
 class Tags extends Component {
   constructor(props) {
@@ -65,6 +66,7 @@ class Tags extends Component {
     if (!state.tagList) return <Progress />
 
     return <Grid container spacing={3}>
+        <MetaTags title='Categorías'/>
         <Grid item xs={12}>
           <Typography variant="h3" gutterBottom>
             {'Categorías'}
