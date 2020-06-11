@@ -41,7 +41,9 @@ const html = content => `<!doctype html>
                     <script src="/__/firebase/init.js"></script>
                     <script type="text/javascript">
                       // Init analytics
-                      firebase.analytics()
+                      if (window.location.hostname != 'localhost') {
+                        firebase.analytics();
+                      }
                     </script>
                     <script type="text/javascript" src="/bundle.js"></script>
                   </body>
