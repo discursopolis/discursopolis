@@ -3,6 +3,7 @@ import CustomFirebaseAuth from './custom-firebase-auth';
 import Grid from '@material-ui/core/Grid';
 import AppStore from './stores/app-store';
 import Typography from '@material-ui/core/Typography';
+import MetaTags from './meta-tags';
 
 class Auth extends Component {
   constructor(props) {
@@ -51,6 +52,7 @@ class Auth extends Component {
 
   render(props, state) {
     return <Grid container spacing={3}>
+        <MetaTags title='Login' />
         <Grid item xs={12}>
            <CustomFirebaseAuth uiConfig={this.uiConfig} firebaseAuth={firebase.auth()}/>
         </Grid>

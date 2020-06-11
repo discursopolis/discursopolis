@@ -5,6 +5,7 @@ import TextStore from './stores/text-store';
 
 import TextView from './text-view';
 import Progress from './progress';
+import MetaTags from './meta-tags';
 
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -43,6 +44,7 @@ class Text extends Component {
     if (!state.name) return <Progress />
 
     return <Grid container spacing={3}>
+        <MetaTags title={state.name}/>
         <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">

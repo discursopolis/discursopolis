@@ -37,6 +37,7 @@
     "preact-render-to-string": "^5.1.9",
     "preact-router": "^3.2.1",
     "react-firebaseui": "^4.1.0",
+    "react-helmet": "^6.1.0",
     "webpack": "^4.43.0"
   },
   "devDependencies": {

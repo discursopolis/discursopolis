@@ -4,6 +4,7 @@ import TextStore from './stores/text-store';
 import TagsStore from './stores/tags-store';
 
 import TextView from './text-view';
+import MetaTags from './meta-tags';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -174,6 +175,7 @@ class TextEdit extends Component {
     if (!state) return '';
 
     return <Grid container spacing={3}>
+      <MetaTags title={state.name}/>
       <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">

@@ -3,9 +3,11 @@ import { Component, h } from 'preact';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import MetaTags from './meta-tags';
 
 const About = (props) => {
     return <Grid container spacing={3}>
+        <MetaTags title={`Acerca de`}/>
         <Grid item xs={12}>
           <Typography variant="h3" gutterBottom>
             Acerca de
