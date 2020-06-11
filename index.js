@@ -39,6 +39,10 @@ const html = content => `<!doctype html>
 
                     <!-- Initialize Firebase -->
                     <script src="/__/firebase/init.js"></script>
+                    <script type="text/javascript">
+                      // Init analytics
+                      firebase.analytics()
+                    </script>
                     <script type="text/javascript" src="/bundle.js"></script>
                   </body>
                 </html>`;
