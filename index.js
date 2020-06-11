@@ -18,8 +18,8 @@ const html = content => `<!doctype html>
                   <head>
                     <title>Discursópolis</title>
                     <meta property="og:title" content="Discursópolis"/>
-                    <meta name="description" content="" />
-                    <meta property="og:description" content="" />
+                    <meta name="description" content="Deconstruyendo discursos, construyendo igualdad." />
+                    <meta property="og:description" content="Deconstruyendo discursos, construyendo igualdad." />
 
                     <meta name="viewport"  content="minimum-scale=1, initial-scale=1, width=device-width" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
