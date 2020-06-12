@@ -20,13 +20,13 @@ const About = (props) => {
                 {'¿Qué hacemos?'}
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Discursópolis es un sitio dedicado al Análisis del Discurso. Esta rama de la Lingüística permite encontrar en los discursos los sentidos que son opacos, difíciles de hallar a simple vista, incluso para lxs hablantes.
+                Discursópolis es un sitio dedicado al Análisis del Discurso. Esta rama de la Lingüística permite encontrar los sentidos que son opacos, difíciles de hallar a simple vista, incluso para lxs hablantes.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Discursópolis es la ciudad de los discursos analizados. En otras palabras, reúne análisis de distintos discursos que circulan en nuestra vida cotidiana, en diferentes ámbitos: medios de comunicación, redes sociales, conversaciones privadas, eventos institucionales, etc.
+                Los discursos son lugares donde se encuentran el lenguaje, la historia y la ideología. Tuits, posts, noticias, afiches, mails, conversaciones, propagandas, cartas abiertas, y la lista sigue. Los usos del lenguaje expresan relaciones de poder. En Discursópolis, las mostramos.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Desde el Análisis del Discurso, sabemos que la forma de decir es tan importante como lo dicho... y lo no dicho. Con un abordaje interpretativo e interdisciplinario, deconstruimos discursos para encontrar las desigualdades que se producen y reproducen en las palabras y, con ello, en nuestra sociedad.
+                Estamos deconstruyendo discursos, estamos construyendo igualdad.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Conocé más sobre el Análisis del Discurso en la charla TEDx  <Link
@@ -47,7 +47,10 @@ const About = (props) => {
                 </Link>.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Además, Discursópolis está abierta a los aportes de lingüistas y analistas del discurso de diferentes instituciones y procedencias. Queremos dar a conocer lo que hay detrás de los enunciados que leemos y oímos todos los días. Deconstruyendo discursos, construimos igualdad.
+                Además, Discursópolis está abierta a los aportes de lingüistas y analistas de diferentes instituciones y procedencias.
+              </Typography>
+              <Typography variant="body1" paragraph={true}>
+                Queremos mostrar eso que se dice más allá de lo dicho. Queremos transmitir una forma de interpretar los discursos que des-cubre las ideologías de nuestra vida cotidiana.
               </Typography>
             </Grid>
           </Grid>
