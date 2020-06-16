@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "babel": "babel src --out-dir functions/components && babel index.js --out-dir functions && babel utils.js --out-dir functions/utils",
     "build_client": "webpack --config webpack.config.js",

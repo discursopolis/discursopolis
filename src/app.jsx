@@ -9,7 +9,7 @@ import TextEdit from './text-edit';
 import Tags from './tags';
 import TagView from './tag-view';
 import About from './about';
-import Contribute from './contribute';
+import Contact from './contact';
 import Auth from './auth';
 
 import TopAppBar from './topbar';
@@ -66,7 +66,7 @@ class App extends Component {
                 <TagView path="/tags/:tagId" />
                 <Tags path="/tags/" />
                 <About path="/about/" />
-                <Contribute path="/contribute/" />
+                <Contact path="/contact/" />
                 <Auth path="/admin/" />
               </Router>
           </Container>

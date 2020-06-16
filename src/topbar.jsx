@@ -86,8 +86,8 @@ class TopBar extends Component {
               </ListItemLink>
             </ListItem>
             <ListItem>
-              <ListItemLink href='/contribute'>
-                <ListItemText primary='Subí tu análisis' />
+              <ListItemLink href='/contact'>
+                <ListItemText primary='Contacto' />
               </ListItemLink>
             </ListItem>
           </List>
