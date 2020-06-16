@@ -85,6 +85,24 @@ class TextView extends Component {
     return words;
   }
 
+  buildNote() {
+    const note = this.state.selected.
+      replace(this.regex.line,'<br />').
+
+      // Hacks to avoid line breaks in and around lists
+      replace(/<\/li><br \/><li>/g,'</li><li>').
+      replace(/<ul><br \/>/g,'<ul>').
+      replace(/<ol><br \/>/g,'<ol>').
+      replace(/<\/ul><br \/>/g,'</ul>').
+      replace(/<\/ol><br \/>/g,'</ol>').
+      replace(/<br \/><ul>/g,'<ul>').
+      replace(/<br \/><ol>/g,'<ol>').
+      replace(/<br \/><\/ul>/g,'</ul>').
+      replace(/<br \/><\/ol>/g,'</ol>');
+
+    return note;
+  }
+
   render(props, state){
     return <Grid container spacing={3}>
         <Grid item xs={12}>
@@ -134,7 +152,7 @@ class TextView extends Component {
             } />
             <CardContent>
               <Typography variant="body1" >
-                <span innerHTML={this.state.selected && this.state.selected.replace(this.regex.line,'<br />')}/>
+                <span innerHTML={this.state.selected && this.buildNote()}/>
               </Typography>
             </CardContent>
           </Card>
