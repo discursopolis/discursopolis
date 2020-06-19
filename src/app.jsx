@@ -11,6 +11,7 @@ import TagView from './tag-view';
 import About from './about';
 import Contact from './contact';
 import Auth from './auth';
+import ComingSoon from './coming-soon';
 
 import TopAppBar from './topbar';
 import Container from '@material-ui/core/Container';
@@ -51,6 +52,13 @@ class App extends Component {
     if (authRoutes.some(r => r.test(e.url)) && !this.state.admin) {
       route('/', true);
     }
+
+    /* Hack to block all pages if admin is not logged in, before lunch */
+    const validRoutes = [/\/admin/, /\/comingsoon/];
+    if (!validRoutes.some(r => r.test(e.url)) && !this.state.admin) {
+      route ('/comingsoon')
+    }
+    /*****************************************************/
   }
 
   render(props, state) {
@@ -68,6 +76,7 @@ class App extends Component {
                 <About path="/about/" />
                 <Contact path="/contact/" />
                 <Auth path="/admin/" />
+                <ComingSoon path="/comingsoon/" />
               </Router>
           </Container>
       </div>
