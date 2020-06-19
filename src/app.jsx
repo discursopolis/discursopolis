@@ -14,13 +14,16 @@ import Auth from './auth';
 import ComingSoon from './coming-soon';
 
 import TopAppBar from './topbar';
+import Footer from './footer';
+
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(18),
-    paddingBottom: theme.spacing(15)
+    paddingBottom: theme.spacing(15),
+    minHeight: '100vh'
   }
 }));
 
@@ -79,6 +82,7 @@ class App extends Component {
                 <ComingSoon path="/comingsoon/" />
               </Router>
           </Container>
+        <Footer />
       </div>
     );
   }
