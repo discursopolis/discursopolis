@@ -7,16 +7,13 @@ import Container from '@material-ui/core/Container';
 
 import MailIcon from '@material-ui/icons/Mail';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import Link from '@material-ui/core/Link';
+import IconButton from '@material-ui/core/IconButton';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   copyright: {
     flexGrow: 1,
-  },
-  social: {
-    padding: theme.spacing(0,1)
   }
 }));
 
@@ -40,14 +37,13 @@ class Footer extends Component {
             <Toolbar>
               <Typography variant="body1" color="inherit" className={this.classes.copyright}>
       &copy; 2020 Discursópolis.com
-            </Typography>
-              <Link target="_blank" href="mailto:discursopolis@gmail.com" color="inherit" className={this.classes.social}>
+              </Typography>
+              <IconButton target="_top" href="mailto:discursopolis@gmail.com" color="inherit">
                 <MailIcon />
-              </Link>
-
-              <Link target="_blank" href="https://twitter.com/paulularia" color="inherit" className={this.classes.social}>
+              </IconButton>
+              <IconButton target="_blank" href="https://twitter.com/paulularia" color="inherit">
                 <TwitterIcon />
-              </Link>
+              </IconButton>
             </Toolbar>
           </Container>
         </AppBar>
