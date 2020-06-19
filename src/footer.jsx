@@ -32,7 +32,7 @@ class Footer extends Component {
     return (
         <AppBar
           ref={ (divElement) => { this.divElement = divElement } }
-          position="static" color="default" style={{marginTop:-this.state.height}}>
+          position="static" color="default" style={{marginTop:-this.state.height, flexGrow:1}}>
           <Container maxWidth="md">
             <Toolbar>
               <Typography variant="body1" color="inherit" className={this.classes.copyright}>
