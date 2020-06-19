@@ -8,6 +8,7 @@ import AppStore from './stores/app-store';
 import TextList from './text-list';
 import Progress from './progress';
 import MetaTags from './meta-tags';
+import SocialButtons from './social-buttons';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -98,6 +99,9 @@ class TagView extends Component {
         <Grid item xs={12}>
           <TextList texts={state.texts} />
         </Grid>}
+        <Grid item xs={12}>
+          <SocialButtons name={state.name} url={`https://discursopolis.com/tags/${props.tagId}`}/>
+        </Grid>
         {state.admin && state.texts && state.texts.length == 0 &&
           <Grid item xs={12}>
             <div style={{float:'right'}}>

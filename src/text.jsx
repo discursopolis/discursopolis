@@ -67,7 +67,7 @@ class Text extends Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <SocialButtons name={state.name} url={`https://discursopolis.com/text/${props.docId}`}/>
+          <SocialButtons name={state.name} url={`https://discursopolis.com/texts/${props.docId}`}/>
         </Grid>
         {state.admin &&
         <Grid item xs={12}>
