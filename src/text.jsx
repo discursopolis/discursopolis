@@ -14,6 +14,8 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
+import SocialButtons from './social-buttons';
+
 class Text extends Component {
   constructor(props) {
     super(props);
@@ -63,6 +65,9 @@ class Text extends Component {
             tags={state.tags}
             showWordsIndex={false}
           />
+        </Grid>
+        <Grid item xs={12}>
+          <SocialButtons name={state.name} url={`https://discursopolis.com/text/${props.docId}`}/>
         </Grid>
         {state.admin &&
         <Grid item xs={12}>
