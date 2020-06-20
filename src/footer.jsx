@@ -36,7 +36,7 @@ class Footer extends Component {
           <Container maxWidth="md">
             <Toolbar>
               <Typography variant="body1" color="inherit" className={this.classes.copyright}>
-      &copy; 2020 Discursópolis.com
+      &copy; 2020 Discursópolis
               </Typography>
               <IconButton target="_top" href="mailto:discursopolis@gmail.com" color="inherit">
                 <MailIcon />
