@@ -42,11 +42,20 @@ class Home extends Component {
     return <Grid container spacing={4}>
         <MetaTags />
         <Grid item xs={12}>
-          <Typography variant={window.innerWidth < 600 ? 'h3' : 'h1'}>
+          <Typography variant={window.innerWidth < 600 ? 'h3' : 'h2'} align="left"
+    style={{marginLeft: window.innerWidth < 600 ? '-0.02em' : '-0.04em'}}>
              Discursópolis
           </Typography>
-          <Typography variant="h4" gutterBottom>
+          <Typography variant="h4" gutterBottom align="left">
             Deconstruyendo discursos.
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" align="justify" paragraph={true}>
+      Analizar discursos no es solo interpretar lo que estos dicen, sino también lo que no dicen y cómo dicen.
+          </Typography>
+          <Typography variant="h5" gutterBottom align="justify" paragraph={true}>
+      Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
           </Typography>
         </Grid>
         <Grid item xs={12}>
