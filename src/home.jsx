@@ -51,11 +51,11 @@ class Home extends Component {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h5" align="justify" paragraph={true}>
+          <Typography variant="h6" align="justify" paragraph={true} color="textSecondary">
       Analizar discursos no es solo interpretar lo que estos dicen, sino también lo que<i> no</i> dicen 
       y <i>cómo</i> dicen.
           </Typography>
-          <Typography variant="h5" gutterBottom align="justify" paragraph={true}>
+          <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
           </Typography>
         </Grid>
