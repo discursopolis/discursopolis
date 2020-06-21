@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
 
 import MailIcon from '@material-ui/icons/Mail';
 import TwitterIcon from '@material-ui/icons/Twitter';
@@ -38,11 +39,13 @@ class Footer extends Component {
               <Typography variant="body1" color="inherit" className={this.classes.copyright}>
       &copy; 2020 Discursópolis
               </Typography>
+              <Typography variant="body1">
+                <Link color="inherit" href="/contact" >
+                  Contactanos
+                </Link>
+              </Typography>
               <IconButton target="_top" href="mailto:discursopolis@gmail.com" color="inherit">
                 <MailIcon />
-              </IconButton>
-              <IconButton target="_blank" href="https://twitter.com/paulularia" color="inherit">
-                <TwitterIcon />
               </IconButton>
             </Toolbar>
           </Container>
