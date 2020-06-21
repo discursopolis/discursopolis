@@ -21,6 +21,17 @@ const html = content => `<!doctype html>
                     <meta name="description" content="Deconstruyendo discursos, construyendo igualdad." />
                     <meta property="og:description" content="Deconstruyendo discursos, construyendo igualdad." />
 
+                    <meta name="twitter:card" content="summary" />
+                    <meta name="twitter:site" content="Discursópolis" />
+                    <meta name="twitter:creator" content="Discursópolis"/>
+                    <meta name="twitter:title" content="Discursópolis"/>
+                    <meta name="twitter:description" content="Deconstruyendo discursos, construyendo igualdad." />
+                    <meta name="twitter:image" content="https://discursopolis.com/logo_192x192.png" />
+
+                    <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
+                    <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />
+                    <link rel="icon" type="image/png" href="/logo_16x16.png" sizes="16x16" />
+
                     <meta name="viewport"  content="minimum-scale=1, initial-scale=1, width=device-width" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
                     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
