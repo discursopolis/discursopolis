@@ -52,7 +52,8 @@ class Home extends Component {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" align="justify" paragraph={true}>
-      Analizar discursos no es solo interpretar lo que estos dicen, sino también lo que no dicen y cómo dicen.
+      Analizar discursos no es solo interpretar lo que estos dicen, sino también lo que<i> no</i> dicen 
+      y <i>cómo</i> dicen.
           </Typography>
           <Typography variant="h5" gutterBottom align="justify" paragraph={true}>
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
