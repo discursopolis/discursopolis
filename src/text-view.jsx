@@ -15,7 +15,7 @@ class TextView extends Component {
   constructor(props) {
     super(props);
     this.colors = [
-      '#03DAC6',
+      '#BB86FC',
       '#CCFF00'
     ]
 
