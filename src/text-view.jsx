@@ -16,8 +16,7 @@ class TextView extends Component {
     super(props);
     this.colors = [
       '#03DAC6',
-      '#CCFF00',
-      '#BB86FC'
+      '#CCFF00'
     ]
 
     this.regex = {
@@ -69,7 +68,7 @@ class TextView extends Component {
         </span>
       )
       offset += note.to - note.from;
-      colorIndex = colorIndex == 2 ? 0 : colorIndex + 1;
+      colorIndex = colorIndex == this.colors.length - 1 ? 0 : colorIndex + 1;
     });
 
     // Add line breaks
