@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 import MailIcon from '@material-ui/icons/Mail';
-import TwitterIcon from '@material-ui/icons/Twitter';
 import IconButton from '@material-ui/core/IconButton';
 
 class Footer extends Component {
