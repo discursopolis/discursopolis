@@ -10,18 +10,9 @@ import MailIcon from '@material-ui/icons/Mail';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import IconButton from '@material-ui/core/IconButton';
 
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-  copyright: {
-    flexGrow: 1,
-  }
-}));
-
 class Footer extends Component {
   constructor(props) {
     super(props);
-    this.classes = useStyles();
   }
 
   componentDidMount() {
@@ -33,10 +24,10 @@ class Footer extends Component {
     return (
         <AppBar
           ref={ (divElement) => { this.divElement = divElement } }
-          position="static" color="default" style={{marginTop:-this.state.height, flexGrow:1}}>
+          position="static" color="default" style={{marginTop:-this.state.height}}>
           <Container maxWidth="md">
             <Toolbar>
-              <Typography variant="body1" color="inherit" className={this.classes.copyright}>
+              <Typography variant="body1" color="inherit" style={{flexGrow:1}}>
       &copy; 2020 Discursópolis
               </Typography>
               <Typography variant="body1">
