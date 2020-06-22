@@ -2,18 +2,20 @@ import { Component, h } from 'preact';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemLink from './list-item-link';
-import ListItemText from '@material-ui/core/ListItemText';
 import Chip from '@material-ui/core/Chip';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 
 const TextList = (props) => {
   return (
         <List component="nav">
           { props.texts.map(el =>
             <ListItem>
-              <ListItemLink href={'/texts/' + el.id}>
-                <ListItemText primary={el.name} />
-              </ListItemLink>
+              <Link href={'/texts/' + el.id} style={{flexGrow: 1}} color="secondary">
+                <Typography variant="body1">
+                  {el.name}
+                </ Typography>
+              </Link>
               { el.tags && el.tags.map(tag =>
                 <Chip component="a"
                   label={tag.name}
