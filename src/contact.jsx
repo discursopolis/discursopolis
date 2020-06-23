@@ -15,7 +15,7 @@ const Contact = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" paragraph={true}>
-            Si querés hacer comentarios, sugerencias, proponer discursos o proponer análisis, comunicate por Twitter con <Link
+            Si querés hacer comentarios, sugerencias, proponer discursos o aportar análisis, comunicate por Twitter con <Link
               target="_blank" href="https://twitter.com/paulularia">@paulularia</Link> o por mail a <Link href="mailto:discursopolis@gmail.com">discursopolis@gmail.com</Link>.
           </Typography>
         </Grid>
