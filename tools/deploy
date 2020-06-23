@@ -1,2 +1,2 @@
-tools/build
+tools/build_production
 firebase deploy
