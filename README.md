@@ -1,7 +1,7 @@
 # Discursópolis
 
 ## Stack
-Backend: Firebase Hosting. A node/express app runs on a Firebase Function instance.
+Backend: Firebase Hosting. A node/express app runs on a Firebase Function instance. Data is stored in a Firestore db.
 
 Frontend: SPA using Preact and Material UI components.
 
