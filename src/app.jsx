@@ -62,6 +62,12 @@ class App extends Component {
       route ('/comingsoon')
     }
     /*****************************************************/
+
+    // Track pageview
+    if (e.url != e.previous) {
+      firebase.analytics().setCurrentScreen(e.url);
+      firebase.analytics().logEvent('screen_view');
+    }
   }
 
   render(props, state) {
