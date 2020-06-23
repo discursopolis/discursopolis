@@ -34,6 +34,7 @@ class App extends Component {
   }
 
   componentWillMount(props, state) {
+    this.loadAnalytics();
     AppStore.addChangeListener(this.bindedOnChange);
     AppStore.setSSR(this.props.ssr);
     AppStore.checkAuth();
@@ -42,6 +43,13 @@ class App extends Component {
 
   componentWillUnmount(props, state) {
     AppStore.removeChangeListener(this.bindedOnChange);
+  }
+
+  loadAnalytics() {
+    if (process.env.NODE_ENV === 'production') {
+      // firebase is defined in the global scope
+      firebase.analytics();
+    }
   }
 
   onChange() {
