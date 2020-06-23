@@ -1,4 +1,4 @@
-# Discursópoli
+# Discursópolis
 
 ## Stack
 Backend: Firebase Hosting. A node/express app runs on a Firebase Function instance.
