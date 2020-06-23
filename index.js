@@ -18,14 +18,14 @@ const html = content => `<!doctype html>
                   <head>
                     <title>Discursópolis</title>
                     <meta property="og:title" content="Discursópolis"/>
-                    <meta name="description" content="Deconstruyendo discursos, construyendo igualdad." />
-                    <meta property="og:description" content="Deconstruyendo discursos, construyendo igualdad." />
+                    <meta name="description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
+                    <meta property="og:description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
 
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:site" content="Discursópolis" />
                     <meta name="twitter:creator" content="Discursópolis"/>
                     <meta name="twitter:title" content="Discursópolis"/>
-                    <meta name="twitter:description" content="Deconstruyendo discursos, construyendo igualdad." />
+                    <meta name="twitter:description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
                     <meta name="twitter:image" content="https://discursopolis.com/logo_192x192.png" />
 
                     <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
