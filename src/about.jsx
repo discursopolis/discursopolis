@@ -20,13 +20,13 @@ const About = (props) => {
                 {'¿Qué hacemos?'}
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Discursópolis es un sitio dedicado al Análisis del Discurso. Esta rama de la Lingüística permite encontrar los sentidos que son opacos, difíciles de hallar a simple vista, incluso para lxs hablantes.
+              Discursópolis es un sitio dedicado a difundir el Análisis del Discurso. Esta rama de la Lingüística permite encontrar los sentidos que son opacos, difíciles de hallar a simple vista, incluso para lxs hablantes.
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Los discursos son lugares donde se encuentran el lenguaje, la historia y la ideología. Tuits, posts, noticias, afiches, mails, conversaciones, propagandas, cartas abiertas, y la lista sigue. Los usos del lenguaje expresan relaciones de poder. En Discursópolis, las mostramos.
+              ¿De qué hablamos cuando hablamos de “discurso”? Desde nuestra mirada, los discursos son lugares donde se encuentran el lenguaje, la historia y la ideología: tuits, posts, noticias, afiches, mails, conversaciones, propagandas, cartas abiertas, y la lista sigue. 
               </Typography>
               <Typography variant="body1" paragraph={true}>
-                Estamos deconstruyendo discursos, estamos construyendo igualdad.
+              Los usos del lenguaje expresan relaciones de poder. En Discursópolis, las mostramos. Estamos deconstruyendo discursos, estamos construyendo igualdad. 
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Conocé más sobre el Análisis del Discurso en la charla TEDx  <Link
