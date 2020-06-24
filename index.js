@@ -17,9 +17,11 @@ const db = admin.firestore();
 const html = content => `<!doctype html>
                   <head>
                     <title>Discursópolis</title>
-                    <meta property="og:title" content="Discursópolis"/>
                     <meta name="description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
+                    <meta property="og:title" content="Discursópolis"/>
                     <meta property="og:description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
+                    <meta property="og:image" content="https://discursopolis.com/logo_192x192.png" />
+                    <meta property="og:url" content="https://discursopolis.com" />
 
                     <meta name="twitter:card" content="summary" />
                     <meta name="twitter:site" content="Discursópolis" />
