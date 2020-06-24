@@ -44,8 +44,6 @@ class TopBar extends Component {
     return (
       <AppBar position="fixed">
         <Toolbar>
-          { /* Hack to hide menu button before lunch */
-            this.props.admin &&
           <IconButton
               edge="start"
               color="inherit"
@@ -54,7 +52,6 @@ class TopBar extends Component {
             >
             <MenuIcon />
           </IconButton>
-          }
           <Typography variant="h6" className={this.classes.title}>
             Discursópolis
           </Typography>
