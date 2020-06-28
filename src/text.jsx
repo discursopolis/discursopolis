@@ -60,6 +60,7 @@ class Text extends Component {
             name={state.name}
             author={state.author}
             authorURL={state.authorURL}
+            authorDescription={state.authorDescription}
             intro={state.intro}
             text={state.text}
             conclusion={state.conclusion}

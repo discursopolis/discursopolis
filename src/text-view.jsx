@@ -121,6 +121,10 @@ class TextView extends Component {
           <Typography variant="body2" style={{whiteSpace:'pre-line', textAlign:'right'}} gutterBottom>
             Análisis por {props.authorURL ? <Link href={this.props.authorURL}>{this.props.author}</Link> : props.author}
           </Typography>
+          {this.props.authorDescription &&
+          <Typography variant="body2" style={{whiteSpace:'pre-line', textAlign:'right'}} gutterBottom>
+            {this.props.authorDescription}
+          </Typography>}
         </Grid>}
         <Grid item xs={12}>
           <Card>
