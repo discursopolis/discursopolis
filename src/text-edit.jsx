@@ -111,9 +111,12 @@ class TextEdit extends Component {
     this.setState({_submitDisabled:true}, () => {
       const data = {
         name: this.state.name.trim(),
+        author: this.state.author || null,
+        authorURL: this.state.authorURL || null,
+        authorDescription: this.state.authorDescription || null,
         text: this.state.text.trim(),
-        intro: this.state.intro,
-        conclusion: this.state.conclusion,
+        intro: this.state.intro || null,
+        conclusion: this.state.conclusion || null,
         tags: this.state.tags,
         notes: this.state.notes
       }
@@ -196,6 +199,9 @@ class TextEdit extends Component {
           <Grid item xs={12}>
             <TextField fullWidth label="Title" margin="normal" value={state.name} onInput={((e) => this.handleChangeField(e, 'name')).bind(this)}
               required error={!(state.name &&  state.name.trim() != '')} />
+            <TextField margin="normal" label="Author (optional)" value={state.author} onInput={((e) => this.handleChangeField(e, 'author')).bind(this)} />
+            <TextField margin="normal" label="Author URL (optional)" value={state.authorURL} onInput={((e) => this.handleChangeField(e, 'authorURL')).bind(this)} />
+            <TextField margin="normal" label="Author bio (optional)" value={state.authorDescription} onInput={((e) => this.handleChangeField(e, 'authorDescription')).bind(this)} />
             <TextField fullWidth margin="normal" multiline={true} label="Intro (optional)" value={state.intro} rows="3" onInput={((e) => this.handleChangeField(e, 'intro')).bind(this)} />
             <TextField fullWidth margin="normal" multiline={true} label="Text" value={state.text} rows="10" onInput={((e) => this.handleChangeField(e, 'text')).bind(this)}
               required error={!(state.text &&  state.text.trim() != '')} />
@@ -271,6 +277,9 @@ class TextEdit extends Component {
         </Typography>
         <TextView
           name={state.name}
+          author={state.author}
+          authorURL={state.authorURL}
+          authorDescription={state.authorDescription}
           intro={state.intro}
           text={state.text}
           conclusion={state.conclusion}

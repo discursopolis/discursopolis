@@ -72,9 +72,12 @@ app.put('/api/texts/:docId', (req, res) => {
     const doc = db.collection("texts").doc(req.params.docId);
     doc.update({
       name: req.body.name,
+      author: req.body.author,
+      authorURL: req.body.authorURL,
+      authorDescription: req.body.authorDescription,
       text: req.body.text,
-      intro: req.body.intro || '',
-      conclusion: req.body.conclusion || '',
+      intro: req.body.intro,
+      conclusion: req.body.conclusion,
       tags: req.body.tags || [],
       tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
       notes: req.body.notes,
@@ -84,6 +87,9 @@ app.put('/api/texts/:docId', (req, res) => {
         res.json({
           id: doc.id,
           name: doc.data().name,
+          author: doc.data().author,
+          authorURL: doc.data().authorURL,
+          authorDescription: doc.data().authorDescription,
           text: doc.data().text,
           intro: doc.data().intro,
           conclusion: doc.data().conclusion,
@@ -109,9 +115,12 @@ app.post('/api/texts/new', (req, res) => {
       if (doc.exists) {
         res.status(409).json({
           name: req.body.name,
+          author: req.body.author,
+          authorURL: req.body.authorURL,
+          authorDescription: req.body.authorDescription,
           text: req.body.text,
-          intro: req.body.intro || '',
-          conclusion: req.body.conclusion || '',
+          intro: req.body.intro,
+          conclusion: req.body.conclusion,
           tags: req.body.tags,
           notes: req.body.notes,
           _error:'Document already exists'
@@ -121,9 +130,12 @@ app.post('/api/texts/new', (req, res) => {
 
         docRef.set({
           name: req.body.name,
+          author: req.body.author,
+          authorURL: req.body.authorURL,
+          authorDescription: req.body.authorDescription,
           text: req.body.text,
-          intro: req.body.intro || '',
-          conclusion: req.body.conclusion || '',
+          intro: req.body.intro,
+          conclusion: req.body.conclusion,
           notes: req.body.notes,
           tags: req.body.tags,
           tagIds: req.body.tags.map(tag => tag.id),
@@ -134,6 +146,9 @@ app.post('/api/texts/new', (req, res) => {
             res.json({
               id: doc.id,
               name: doc.data().name,
+              author: doc.data().author,
+              authorURL: doc.data().authorURL,
+              authorDescription: doc.data().authorDescription,
               text: doc.data().text,
               intro: doc.data().intro,
               conclusion: doc.data().conclusion,
@@ -173,6 +188,9 @@ app.get('/api/texts/:docId', (req, res) => {
     res.json({
       id: doc.id,
       name: doc.data().name,
+      author: doc.data().author,
+      authorURL: doc.data().authorURL,
+      authorDescription: doc.data().authorDescription,
       text: doc.data().text,
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
