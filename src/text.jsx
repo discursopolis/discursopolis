@@ -58,6 +58,8 @@ class Text extends Component {
         <Grid item xs={12}>
           <TextView
             name={state.name}
+            author={state.author}
+            authorURL={state.authorURL}
             intro={state.intro}
             text={state.text}
             conclusion={state.conclusion}

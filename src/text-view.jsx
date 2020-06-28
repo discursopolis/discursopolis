@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Popper from '@material-ui/core/Popper';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
+import Link from '@material-ui/core/Link';
 
 class TextView extends Component {
   constructor(props) {
@@ -113,6 +114,12 @@ class TextView extends Component {
         <Grid item xs={12}>
           <Typography variant="body1" style={{whiteSpace:'pre-line'}} gutterBottom>
             {props.intro}
+          </Typography>
+        </Grid>}
+        {this.props.author &&
+        <Grid item xs={12}>
+          <Typography variant="body2" style={{whiteSpace:'pre-line', textAlign:'right'}} gutterBottom>
+            Análisis por {props.authorURL ? <Link href={this.props.authorURL}>{this.props.author}</Link> : props.author}
           </Typography>
         </Grid>}
         <Grid item xs={12}>
