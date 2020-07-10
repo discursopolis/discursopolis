@@ -90,6 +90,12 @@ class TopBar extends Component {
                 <ListItemText primary='Contacto' />
               </ListItemLink>
             </ListItem>
+            <Divider />
+            <ListItem>
+              <ListItemLink href='https://docs.google.com/forms/d/1xnXa_udvtIjOaoooZBzZ_pb5UaKE9bktWNEC1lx17ng/edit' target='_blank'>
+                <ListItemText primary='¡Proponé tu discurso!' />
+              </ListItemLink>
+            </ListItem>
           </List>
         </Drawer>
       </AppBar>
