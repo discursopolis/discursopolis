@@ -14,47 +14,57 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 const db = admin.firestore();
 
-const html = content => `<!doctype html>
-                  <head>
-                    <title>Discursópolis</title>
-                    <meta name="description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
-                    <meta property="og:title" content="Discursópolis"/>
-                    <meta property="og:description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
-                    <meta property="og:image" content="https://discursopolis.com/logo_192x192.png" />
-                    <meta property="og:url" content="https://discursopolis.com" />
+const html = (content) => {
+  content = content || {};
+  const title = content.title || 'Discursópolis';
+  let description = content.description || 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
+  description = description.slice(0,160);
+  const url = content.url || 'https://discursopolis.com';
+  const body = content.body || '';
 
-                    <meta name="twitter:card" content="summary" />
-                    <meta name="twitter:site" content="Discursópolis" />
-                    <meta name="twitter:creator" content="Discursópolis"/>
-                    <meta name="twitter:title" content="Discursópolis"/>
-                    <meta name="twitter:description" content="Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad." />
-                    <meta name="twitter:image" content="https://discursopolis.com/logo_192x192.png" />
+  return `<!doctype html>
+            <head>
+              <title>${title}</title>
+              <meta name="description" content="${description}" />
+              <meta property="og:title" content="${title}"/>
+              <meta property="og:description" content="${description}" />
+              <meta property="og:image" content="https://discursopolis.com/logo_192x192.png" />
+              <meta property="og:url" content="${url}" />
+              <meta property="og:site_name" content="Discursópolis" />
 
-                    <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
-                    <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />
-                    <link rel="icon" type="image/png" href="/logo_16x16.png" sizes="16x16" />
+              <meta name="twitter:card" content="summary" />
+              <meta name="twitter:site" content="Discursópolis" />
+              <meta name="twitter:creator" content="Discursópolis"/>
+              <meta name="twitter:title" content="${title}"/>
+              <meta name="twitter:description" content="${description}" />
+              <meta name="twitter:image" content="https://discursopolis.com/logo_192x192.png" />
 
-                    <meta name="viewport"  content="minimum-scale=1, initial-scale=1, width=device-width" />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-                    <link rel="stylesheet" href="/style.css">
-                  </head>
-                  <body>
-                    <div id='root'>${content}</div>
-                    <!-- The core Firebase JS SDK is always required and must be listed first -->
-                    <script src="/__/firebase/7.15.0/firebase-app.js"></script>
+              <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
+              <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />
+              <link rel="icon" type="image/png" href="/logo_16x16.png" sizes="16x16" />
 
-                    <!-- TODO: Add SDKs for Firebase products that you want to use
-                         https://firebase.google.com/docs/web/setup#available-libraries -->
-                    <script src="/__/firebase/7.15.0/firebase-analytics.js"></script>
-                    <script src="/__/firebase/7.15.0/firebase-auth.js"></script>
-                    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+              <meta name="viewport"  content="minimum-scale=1, initial-scale=1, width=device-width" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+              <link rel="stylesheet" href="/style.css">
+            </head>
+            <body>
+              <div id='root'>${body}</div>
+              <!-- The core Firebase JS SDK is always required and must be listed first -->
+              <script src="/__/firebase/7.15.0/firebase-app.js"></script>
 
-                    <!-- Initialize Firebase -->
-                    <script src="/__/firebase/init.js"></script>
-                    <script type="text/javascript" src="/bundle.js"></script>
-                  </body>
-                </html>`;
+              <!-- TODO: Add SDKs for Firebase products that you want to use
+                   https://firebase.google.com/docs/web/setup#available-libraries -->
+              <script src="/__/firebase/7.15.0/firebase-analytics.js"></script>
+              <script src="/__/firebase/7.15.0/firebase-auth.js"></script>
+              <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+
+              <!-- Initialize Firebase -->
+              <script src="/__/firebase/init.js"></script>
+              <script type="text/javascript" src="/bundle.js"></script>
+            </body>
+          </html>`
+};
 
 const protect = (req, res, successFnc, errorFnc) => {
   const sessionCookie = req.cookies.__session || '';
@@ -347,8 +357,30 @@ app.post('/api/auth', (req, res) => {
   });
 });
 
+// For each text, we pre-render title, description and URL
+app.get('/texts/:docId', (req, res) => {
+  db.collection('texts').doc(req.params.docId).get().then(doc => {
+    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+    res.status(200).send(html({title: doc.data().name, description: doc.data().intro || doc.data().text, url: url}));
+  }).catch(function(error) {
+    console.log(error);
+    res.status(404).send(html());
+  });
+});
+
+// For each tag, we pre-render title, description and URL
+app.get('/tags/:tagId', (req, res) => {
+  db.collection('tags').doc(req.params.tagId).get().then(doc => {
+    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
+    res.status(200).send(html({title: doc.data().name, url: url}));
+  }).catch(error => {
+    console.log(error);
+    res.status(404).send(html());
+  });
+});
+
 app.get('**', (req, res) => {
-  res.status(200).send(html(''));
+  res.status(200).send(html());
 });
 
 exports.index = functions.https.onRequest(app);
