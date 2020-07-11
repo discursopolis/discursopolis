@@ -19,7 +19,7 @@ const html = (content) => {
   const title = content.title || 'Discursópolis';
   const description = content.description ?
     content.description.slice(0, 160) : 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
-  const url = content.url || 'https://discursopolis.com';
+  const url = 'https://discursopolis.com' + (content.relativeURL || '');
   const body = content.body || '';
 
   return `<!doctype html>
@@ -363,7 +363,6 @@ app.post('/api/auth', (req, res) => {
 // For each text, we pre-render title, description and URL
 app.get('/texts/:docId', (req, res) => {
   db.collection('texts').doc(req.params.docId).get().then(doc => {
-    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
     const state = {
       id: doc.id,
       name: doc.data().name,
@@ -376,7 +375,7 @@ app.get('/texts/:docId', (req, res) => {
       notes: doc.data().notes,
       tags: doc.data().tags
     };
-    res.status(200).send(html({title: state.name, description: state.intro || state.text, url: url, state: state}));
+    res.status(200).send(html({title: state.name, description: state.intro || state.text, relativeURL: req.url, state: state}));
   }).catch(function(error) {
     console.log(error);
     res.status(404).send(html());
@@ -386,12 +385,11 @@ app.get('/texts/:docId', (req, res) => {
 // For each tag, we pre-render title, description and URL
 app.get('/tags/:tagId', (req, res) => {
   db.collection('tags').doc(req.params.tagId).get().then(doc => {
-    const url = req.protocol + '://' + req.get('host') + req.originalUrl;
     const state = {
       id: doc.id,
       name: doc.data().name
     }
-    res.status(200).send(html({title: state.name, url: url, state: state}));
+    res.status(200).send(html({title: state.name, relativeURL: req.url, state: state}));
   }).catch(error => {
     console.log(error);
     res.status(404).send(html());
