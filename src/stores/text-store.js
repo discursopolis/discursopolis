@@ -9,6 +9,14 @@ const TextStore = {...Store, ...{
     return this.state;
   },
 
+  loadPrerenderedState() {
+    if (window.state) {
+      this.state = window.state;
+      delete window.state;
+    }
+    return this.state;
+  },
+
   async loadData(docId) {
     if (AppStore.isSSR()) return;
 

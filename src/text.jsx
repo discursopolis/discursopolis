@@ -20,7 +20,8 @@ class Text extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = TextStore.loadPrerenderedState();
+
     this.bindedOnChange = this.onChange.bind(this);
   }
 
