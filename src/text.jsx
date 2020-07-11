@@ -47,7 +47,7 @@ class Text extends Component {
     if (!state.name) return <Progress />
 
     return <Grid container spacing={3}>
-        <MetaTags title={state.name} description={state.intro}/>
+        <MetaTags title={state.name} />
         <Grid item xs={12}>
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">
