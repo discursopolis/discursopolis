@@ -23,7 +23,7 @@ class TagView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = TagStore.loadPrerenderedState();
     this.bindedOnChange = this.onChange.bind(this);
   }
 

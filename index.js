@@ -61,6 +61,9 @@ const html = (content) => {
 
               <!-- Initialize Firebase -->
               <script src="/__/firebase/init.js"></script>
+              <script type="text/javascript">
+                ${ content.state && 'window.state=' + JSON.stringify(content.state) + ';' }
+              </script>
               <script type="text/javascript" src="/bundle.js"></script>
             </body>
           </html>`
@@ -361,7 +364,19 @@ app.post('/api/auth', (req, res) => {
 app.get('/texts/:docId', (req, res) => {
   db.collection('texts').doc(req.params.docId).get().then(doc => {
     const url = req.protocol + '://' + req.get('host') + req.originalUrl;
-    res.status(200).send(html({title: doc.data().name, description: doc.data().intro || doc.data().text, url: url}));
+    const state = {
+      id: doc.id,
+      name: doc.data().name,
+      author: doc.data().author,
+      authorURL: doc.data().authorURL,
+      authorDescription: doc.data().authorDescription,
+      text: doc.data().text,
+      intro: doc.data().intro,
+      conclusion: doc.data().conclusion,
+      notes: doc.data().notes,
+      tags: doc.data().tags
+    };
+    res.status(200).send(html({title: state.name, description: state.intro || state.text, url: url, state: state}));
   }).catch(function(error) {
     console.log(error);
     res.status(404).send(html());
@@ -372,7 +387,11 @@ app.get('/texts/:docId', (req, res) => {
 app.get('/tags/:tagId', (req, res) => {
   db.collection('tags').doc(req.params.tagId).get().then(doc => {
     const url = req.protocol + '://' + req.get('host') + req.originalUrl;
-    res.status(200).send(html({title: doc.data().name, url: url}));
+    const state = {
+      id: doc.id,
+      name: doc.data().name
+    }
+    res.status(200).send(html({title: state.name, url: url, state: state}));
   }).catch(error => {
     console.log(error);
     res.status(404).send(html());
