@@ -17,8 +17,8 @@ const db = admin.firestore();
 const html = (content) => {
   content = content || {};
   const title = content.title || 'Discursópolis';
-  let description = content.description || 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
-  description = description.slice(0,160);
+  const description = content.description ?
+    content.description.slice(0, 160) : 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
   const url = content.url || 'https://discursopolis.com';
   const body = content.body || '';
 
