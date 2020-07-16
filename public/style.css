@@ -19,3 +19,8 @@ span.words-note:hover{
 }
 
 body {margin:0}
+
+img.logo-landing {
+  width: 120%;
+  margin-left: -12%;
+}

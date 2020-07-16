@@ -28,7 +28,7 @@ const html = (content) => {
               <meta name="description" content="${description}" />
               <meta property="og:title" content="${title}"/>
               <meta property="og:description" content="${description}" />
-              <meta property="og:image" content="https://discursopolis.com/logo_192x192.png" />
+              <meta property="og:image" content="https://discursopolis.com/logo_meta_og.png" />
               <meta property="og:url" content="${url}" />
               <meta property="og:site_name" content="Discursópolis" />
 
@@ -37,7 +37,7 @@ const html = (content) => {
               <meta name="twitter:creator" content="Discursópolis"/>
               <meta name="twitter:title" content="${title}"/>
               <meta name="twitter:description" content="${description}" />
-              <meta name="twitter:image" content="https://discursopolis.com/logo_192x192.png" />
+              <meta name="twitter:image" content="https://discursopolis.com/logo_meta_twitter.png" />
 
               <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
               <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />

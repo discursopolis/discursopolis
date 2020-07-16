@@ -42,13 +42,7 @@ class Home extends Component {
     return <Grid container spacing={4}>
         <MetaTags />
         <Grid item xs={12}>
-          <Typography variant={window.innerWidth < 600 ? 'h3' : 'h2'} align="left"
-    style={{marginLeft: window.innerWidth < 600 ? '-0.02em' : '-0.04em'}}>
-             Discursópolis
-          </Typography>
-          <Typography variant="h4" gutterBottom align="left">
-            Deconstruyendo discursos.
-          </Typography>
+          <img src="logo_landing.png" className="logo-landing"></img>
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6" align="justify" paragraph={true} color="textSecondary">
@@ -57,6 +51,9 @@ class Home extends Component {
           </Typography>
           <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
+          </Typography>
+          <Typography variant="h6" gutterBottom align="left">
+            Deconstruyendo discursos, construyendo igualdad.
           </Typography>
         </Grid>
         <Grid item xs={12}>
