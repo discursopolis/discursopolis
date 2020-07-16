@@ -37,7 +37,7 @@ const html = (content) => {
               <meta name="twitter:creator" content="Discursópolis"/>
               <meta name="twitter:title" content="${title}"/>
               <meta name="twitter:description" content="${description}" />
-              <meta name="twitter:image" content="https://discursopolis.com/logo_meta_twitter.png" />
+              <meta name="twitter:image" content="https://discursopolis.com/logo_meta_og.png" />
 
               <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
               <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />
