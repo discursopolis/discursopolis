@@ -45,15 +45,15 @@ class Home extends Component {
           <img src="logo_landing.png" className="logo-landing"></img>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" align="justify" paragraph={true} color="textSecondary">
+          <Typography variant="h6" align="justify" paragraph={true} color="textSecondary" style={{fontSize:'1.23rem'}}>
       Analizar discursos no es solo interpretar lo que estos dicen, sino también lo que<i> no</i> dicen 
       y <i>cómo</i> dicen.
           </Typography>
-          <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
+          <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary" style={{fontSize:'1.23rem'}}>
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
           </Typography>
-          <Typography variant="h6" gutterBottom align="left">
-            Deconstruyendo discursos, construyendo igualdad.
+          <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary" style={{fontSize:'1.23rem'}}>
+            Estamos deconstruyendo discursos y construyendo igualdad.
           </Typography>
         </Grid>
         <Grid item xs={12}>
