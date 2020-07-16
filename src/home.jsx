@@ -52,6 +52,9 @@ class Home extends Component {
           <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
           </Typography>
+          <Typography variant="h6" gutterBottom align="left">
+            Deconstruyendo discursos, construyendo igualdad.
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <TextList texts={state.texts} />
