@@ -20,7 +20,7 @@ const Contact = (props) => {
           </Typography>
           <Typography variant="body1" paragraph={true}>
             Si querés proponer un discurso, llená <Link
-              target="_blank" href="https://docs.google.com/forms/d/1xnXa_udvtIjOaoooZBzZ_pb5UaKE9bktWNEC1lx17ng/edit">este formulario</Link>.
+              target="_blank" href="https://forms.gle/SdrusUq3nq9jES4cA">este formulario</Link>.
           </Typography>
         </Grid>
     </Grid>

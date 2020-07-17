@@ -91,7 +91,7 @@ class TopBar extends Component {
             </ListItem>
             <Divider />
             <ListItem>
-              <ListItemLink href='https://docs.google.com/forms/d/1xnXa_udvtIjOaoooZBzZ_pb5UaKE9bktWNEC1lx17ng/edit' target='_blank'>
+              <ListItemLink href='https://forms.gle/SdrusUq3nq9jES4cA' target='_blank'>
                 <ListItemText primary='¡Proponé tu discurso!' />
               </ListItemLink>
             </ListItem>
