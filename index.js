@@ -403,21 +403,17 @@ app.get('/fix-docs', (req, res) => {
     const doc2Ref = db.collection('texts').doc('libertad-de-prensa-#2');
     const newDoc2Ref = db.collection('texts').doc('libertad-de-prensa-2');
 
-    db.runTransaction(t => {
-      t.get(doc1Ref).then(doc => {
-        t.set(newDoc1Ref, doc.data());
+      doc1Ref.get().then(doc => {
+        newDoc1Ref.set(doc.data());
 
-          t.get(doc2Ref).then(doc => {
-            t.set(newDoc2Ref, doc.data())
+          doc2Ref.get().then(doc2 => {
+            newDoc2Ref.set(doc2.data())
           }).catch(error => {
             console.log(error)
           });
       }).catch(error => {
         console.log(error)
       });
-    }).catch(error => {
-      console.log(error)
-    });
   }, (error) => {
       res.status(401).send('UNAUTHORIZED REQUEST!');
       console.log(error);
