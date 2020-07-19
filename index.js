@@ -396,30 +396,6 @@ app.get('/tags/:tagId', (req, res) => {
   });
 });
 
-app.get('/fix-docs', (req, res) => {
-  protect(req, res, () => {
-    const doc1Ref = db.collection('texts').doc('libertad-de-prensa-#1');
-    const newDoc1Ref = db.collection('texts').doc('libertad-de-prensa-1');
-    const doc2Ref = db.collection('texts').doc('libertad-de-prensa-#2');
-    const newDoc2Ref = db.collection('texts').doc('libertad-de-prensa-2');
-
-      doc1Ref.get().then(doc => {
-        newDoc1Ref.set(doc.data());
-
-          doc2Ref.get().then(doc2 => {
-            newDoc2Ref.set(doc2.data())
-          }).catch(error => {
-            console.log(error)
-          });
-      }).catch(error => {
-        console.log(error)
-      });
-  }, (error) => {
-      res.status(401).send('UNAUTHORIZED REQUEST!');
-      console.log(error);
-  });
-});
-
 app.get('**', (req, res) => {
   res.status(200).send(html());
 });
