@@ -405,13 +405,22 @@ app.get('/fix-docs', (req, res) => {
 
     db.runTransaction(t => {
       t.get(doc1Ref).then(doc => {
-        t.set(newDoc1Ref, doc.data())
-      });
+        t.set(newDoc1Ref, doc.data());
 
-      t.get(doc2Ref).then(doc => {
-        t.set(newDoc2Ref, doc.data())
+          t.get(doc2Ref).then(doc => {
+            t.set(newDoc2Ref, doc.data())
+          }).catch(error => {
+            console.log(error)
+          });
+      }).catch(error => {
+        console.log(error)
       });
+    }).catch(error => {
+      console.log(error)
     });
+  }, (error) => {
+      res.status(401).send('UNAUTHORIZED REQUEST!');
+      console.log(error);
   });
 });
 
