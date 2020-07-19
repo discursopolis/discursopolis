@@ -398,10 +398,10 @@ app.get('/tags/:tagId', (req, res) => {
 
 app.get('/fix-docs', (req, res) => {
   protect(req, res, () => {
-    doc1Ref = db.collection('texts').doc('libertad-de-prensa-#1');
-    newDoc1Ref = db.collection('texts').doc('libertad-de-prensa-1');
-    doc2Ref = db.collection('texts').doc('libertad-de-prensa-#2');
-    newDoc2Ref = db.collection('texts').doc('libertad-de-prensa-2');
+    const doc1Ref = db.collection('texts').doc('libertad-de-prensa-#1');
+    const newDoc1Ref = db.collection('texts').doc('libertad-de-prensa-1');
+    const doc2Ref = db.collection('texts').doc('libertad-de-prensa-#2');
+    const newDoc2Ref = db.collection('texts').doc('libertad-de-prensa-2');
 
     db.runTransaction(t => {
       t.get(doc1Ref).then(doc => {
