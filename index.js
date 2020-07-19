@@ -396,6 +396,25 @@ app.get('/tags/:tagId', (req, res) => {
   });
 });
 
+app.get('/fix-docs', (req, res) => {
+  protect(req, res, () => {
+    doc1Ref = db.collection('texts').doc('libertad-de-prensa-#1');
+    newDoc1Ref = db.collection('texts').doc('libertad-de-prensa-1');
+    doc2Ref = db.collection('texts').doc('libertad-de-prensa-#2');
+    newDoc2Ref = db.collection('texts').doc('libertad-de-prensa-2');
+
+    db.runTransaction(t => {
+      t.get(doc1Ref).then(doc => {
+        t.set(newDoc1Ref, doc.data())
+      });
+
+      t.get(doc2Ref).then(doc => {
+        t.set(newDoc2Ref, doc.data())
+      });
+    });
+  });
+});
+
 app.get('**', (req, res) => {
   res.status(200).send(html());
 });
