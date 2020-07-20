@@ -15,8 +15,8 @@ const Contact = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="body1" paragraph={true}>
-            Si querés hacer comentarios, sugerencias o aportar análisis, comunicate por Twitter con <Link
-              target="_blank" href="https://twitter.com/paulularia">@paulularia</Link> o por mail a <Link href="mailto:discursopolis@gmail.com">discursopolis@gmail.com</Link>.
+            Si querés hacer comentarios, sugerencias o aportar análisis, comunicate por <Link
+              target="_blank" href="https://twitter.com/discursopolis">Twitter</Link> o <Link target="_blank" href="https://www.instagram.com/discursopolis/">Instagram</Link> con @discursopolis, por mail a <Link href="mailto:discursopolis@gmail.com">discursopolis@gmail.com</Link> o visitá <Link target="_blank" href="https://www.facebook.com/Discurs%C3%B3polis-111560823960946">nuestra página de Facebook</Link>.
           </Typography>
           <Typography variant="body1" paragraph={true}>
             Si querés proponer un discurso, llená <Link
