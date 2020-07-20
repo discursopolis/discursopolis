@@ -13,17 +13,17 @@ const SocialButtons = (props) => {
   const liURL = `https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`;
 
   return <span style={{float:'right'}}>
-      <IconButton target="_top" href={mailURL}>
+      <IconButton size="small" target="_top" href={mailURL}>
         <MailIcon />
       </IconButton>
-      <IconButton target="_blank" href={fbURL}>
+      <IconButton size="small" target="_blank" href={fbURL}>
         <FbIcon />
       </IconButton>
-      <IconButton target="_blank" href={twURL}>
-        <TwitterIcon />
-      </IconButton>
-      <IconButton target="_blank" href={liURL}>
+      <IconButton size="small" target="_blank" href={liURL}>
         <LinkedInIcon />
+      </IconButton>
+      <IconButton size="small" target="_blank" href={twURL}>
+        <TwitterIcon />
       </IconButton>
     </span>;
 }
