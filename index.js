@@ -97,6 +97,7 @@ app.put('/api/texts/:docId', (req, res) => {
       tags: req.body.tags || [],
       tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
       notes: req.body.notes,
+      hidden: req.body.hidden,
       timestamp_update: admin.firestore.FieldValue.serverTimestamp()
     }).then(() => {
       doc.get().then(doc => {
@@ -111,6 +112,7 @@ app.put('/api/texts/:docId', (req, res) => {
           conclusion: doc.data().conclusion,
           notes: doc.data().notes,
           tags: doc.data().tags,
+          hidden: doc.data().hidden,
           _success: 'Document updated'
         });
         return true;
@@ -136,6 +138,7 @@ app.post('/api/texts/new', (req, res) => {
           conclusion: req.body.conclusion,
           tags: req.body.tags,
           notes: req.body.notes,
+          hidden: req.body.hidden,
           _error:'Document already exists'
         });
       } else {
@@ -152,6 +155,7 @@ app.post('/api/texts/new', (req, res) => {
           notes: req.body.notes,
           tags: req.body.tags,
           tagIds: req.body.tags.map(tag => tag.id),
+          hidden: req.body.hidden,
           timestamp_update: timestamp,
           timestamp: timestamp
         }).then(() => {
@@ -167,6 +171,7 @@ app.post('/api/texts/new', (req, res) => {
               conclusion: doc.data().conclusion,
               notes: doc.data().notes,
               tags: doc.data().tags,
+              hidden: doc.data().hidden
             });
             return true;
           }).catch(err => console.log(err));
@@ -381,7 +386,8 @@ app.get('/texts/:docId', (req, res) => {
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
       notes: doc.data().notes,
-      tags: doc.data().tags
+      tags: doc.data().tags,
+      hidden: doc.data().hidden
     };
     res.status(200).send(html({title: state.name, description: state.intro || state.text, relativeURL: req.url, state: state}));
   }).catch(function(error) {

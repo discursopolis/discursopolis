@@ -23,6 +23,10 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import DeleteDialog from './delete-dialog';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -118,7 +122,8 @@ class TextEdit extends Component {
         intro: this.state.intro || null,
         conclusion: this.state.conclusion || null,
         tags: this.state.tags,
-        notes: this.state.notes
+        notes: this.state.notes,
+        hidden: this.state.hidden
       }
 
       if (!this.props.docId) {
@@ -172,6 +177,13 @@ class TextEdit extends Component {
     this.setState({
       showDeleteDialog: null,
     }, () => TextStore.deleteText(this.props.docId))
+  }
+
+  handleUpdateVisibility() {
+    this.setState({
+      hidden: !this.state.hidden,
+      _submitDisabled: false
+    });
   }
 
   render(props, state) {
@@ -246,9 +258,17 @@ class TextEdit extends Component {
               </Grid> }
           </Grid>
           <Grid item xs={12}>
+            <Divider />
+          </Grid>
+          <Grid item xs={12}>
             <Button startIcon={<SaveIcon />} variant="contained" color="primary" onClick={this.updateText.bind(this)} disabled={state._submitDisabled || this.emptyMandatoryFields()}>
             {props.docId ? 'Update' : 'Create'}
             </Button>
+            <FormControlLabel
+              control={<Checkbox icon={<VisibilityOutlinedIcon />} checkedIcon={<VisibilityIcon />} checked={!state.hidden} onChange={this.handleUpdateVisibility.bind(this)}/>}
+              label={state.hidden ? 'Not published' : 'Published'}
+              style={{paddingLeft:'20px'}}
+            />
             {props.docId &&
               <div style={{float:'right'}}>
                 <Button
@@ -272,6 +292,8 @@ class TextEdit extends Component {
       </Grid>
       <Grid item xs={12}>
         <Divider />
+      </Grid>
+      <Grid item xs={12}>
         <Typography gutterBottom variant="h6">
           Preview
         </Typography>
@@ -285,6 +307,7 @@ class TextEdit extends Component {
           conclusion={state.conclusion}
           notes={state.notes}
           tags={state.tags}
+          hidden={state.hidden}
           showWordsIndex={true}
         />
       </Grid>
