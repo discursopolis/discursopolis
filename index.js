@@ -69,12 +69,15 @@ const html = (content) => {
           </html>`
 };
 
-const protect = (req, res, successFnc) => {
+const protect = (req, res, successFnc, errorFnc) => {
   const sessionCookie = req.cookies.__session || '';
   admin.auth().verifySessionCookie(sessionCookie, true)
     .then((decodedClaims) => {
       successFnc(decodedClaims);
     }).catch(function(error) {
+      if (typeof errorFnc === 'function') {
+        return errorFnc(error);
+      };
       res.status(401).json({_error: 'Unauthorized!'});
       console.log(error);
     });
@@ -210,7 +213,7 @@ app.get('/api/texts', (req, res) => {
   let col = db.collection('texts').orderBy("timestamp", "desc");
 
   if (tags) {
-    col = col.where('tagIds','array-contains-any', tags)
+    col = col.where('tagIds','array-contains-any', tags);
   }
 
   col.get().then(snapshot => {
@@ -219,10 +222,18 @@ app.get('/api/texts', (req, res) => {
         id: doc.id,
         name: doc.data().name,
         tags: doc.data().tags,
+        hidden: doc.data().hidden
       }
     });
-    res.json({texts: texts});
-    return true;
+
+    protect(req, res, () => {
+      res.json({texts: texts});
+      return true;
+    }, (error) => {
+      // Non-admin users get only the visible texts
+      res.json({texts: texts.filter(text => !text.hidden || text.hidden == false)});
+      return true;
+    });
   }).catch(err => console.log(err));
 });
 
