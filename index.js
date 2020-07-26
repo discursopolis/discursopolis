@@ -71,12 +71,15 @@ const html = (content) => {
 
 const protect = (req, res, successFnc, errorFnc) => {
   const sessionCookie = req.cookies.__session || '';
-  admin.auth().verifySessionCookie(
-    sessionCookie, true /** checkRevoked */)
+  admin.auth().verifySessionCookie(sessionCookie, true)
     .then((decodedClaims) => {
       successFnc(decodedClaims);
     }).catch(function(error) {
-      errorFnc(error);
+      if (typeof errorFnc === 'function') {
+        return errorFnc(error);
+      };
+      res.status(401).json({_error: 'Unauthorized!'});
+      console.log(error);
     });
 }
 
@@ -94,6 +97,7 @@ app.put('/api/texts/:docId', (req, res) => {
       tags: req.body.tags || [],
       tagIds: req.body.tags ? req.body.tags.map(tag => tag.id) : [],
       notes: req.body.notes,
+      hidden: req.body.hidden,
       timestamp_update: admin.firestore.FieldValue.serverTimestamp()
     }).then(() => {
       doc.get().then(doc => {
@@ -108,15 +112,13 @@ app.put('/api/texts/:docId', (req, res) => {
           conclusion: doc.data().conclusion,
           notes: doc.data().notes,
           tags: doc.data().tags,
+          hidden: doc.data().hidden,
           _success: 'Document updated'
         });
         return true;
       }).catch(err => console.log(err));
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -136,6 +138,7 @@ app.post('/api/texts/new', (req, res) => {
           conclusion: req.body.conclusion,
           tags: req.body.tags,
           notes: req.body.notes,
+          hidden: req.body.hidden,
           _error:'Document already exists'
         });
       } else {
@@ -152,6 +155,7 @@ app.post('/api/texts/new', (req, res) => {
           notes: req.body.notes,
           tags: req.body.tags,
           tagIds: req.body.tags.map(tag => tag.id),
+          hidden: req.body.hidden,
           timestamp_update: timestamp,
           timestamp: timestamp
         }).then(() => {
@@ -167,6 +171,7 @@ app.post('/api/texts/new', (req, res) => {
               conclusion: doc.data().conclusion,
               notes: doc.data().notes,
               tags: doc.data().tags,
+              hidden: doc.data().hidden
             });
             return true;
           }).catch(err => console.log(err));
@@ -175,9 +180,6 @@ app.post('/api/texts/new', (req, res) => {
       }
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -190,15 +192,12 @@ app.delete('/api/texts/:docId', (req, res) => {
       });
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
 app.get('/api/texts/:docId', (req, res) => {
   db.collection('texts').doc(req.params.docId).get().then(doc => {
-    res.json({
+    const docContent = {
       id: doc.id,
       name: doc.data().name,
       author: doc.data().author,
@@ -208,10 +207,25 @@ app.get('/api/texts/:docId', (req, res) => {
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
       notes: doc.data().notes,
-      tags: doc.data().tags
+      tags: doc.data().tags,
+      hidden: doc.data().hidden
+    };
+
+    protect(req, res, () => {
+      res.json(docContent);
+      return true;
+    }, (error) => {
+      if (!docContent.hidden) {
+        res.json(docContent);
+        return true;
+      }
+      res.status(404).json({_error: 'Text not found!'});
+      return false;
     });
-    return true;
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    res.status(404).json({_error: 'Text not found!'});
+  });
 });
 
 app.get('/api/texts', (req, res) => {
@@ -219,7 +233,7 @@ app.get('/api/texts', (req, res) => {
   let col = db.collection('texts').orderBy("timestamp", "desc");
 
   if (tags) {
-    col = col.where('tagIds','array-contains-any', tags)
+    col = col.where('tagIds','array-contains-any', tags);
   }
 
   col.get().then(snapshot => {
@@ -228,10 +242,18 @@ app.get('/api/texts', (req, res) => {
         id: doc.id,
         name: doc.data().name,
         tags: doc.data().tags,
+        hidden: doc.data().hidden
       }
     });
-    res.json({texts: texts});
-    return true;
+
+    protect(req, res, () => {
+      res.json({texts: texts});
+      return true;
+    }, (error) => {
+      // Non-admin users get only the visible texts
+      res.json({texts: texts.filter(text => !text.hidden)});
+      return true;
+    });
   }).catch(err => console.log(err));
 });
 
@@ -253,9 +275,6 @@ app.delete('/api/tags/:tagId', (req, res) => {
       });
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -315,18 +334,12 @@ app.post('/api/tags/new', (req, res) => {
       }
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
 app.get('/api/auth', (req, res) => {
   protect(req, res, () => {
     res.json({status: 'success'});
-  }, (error) => {
-      res.status(401).send('UNAUTHORIZED REQUEST!');
-      console.log(error);
   });
 });
 
@@ -373,8 +386,12 @@ app.get('/texts/:docId', (req, res) => {
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
       notes: doc.data().notes,
-      tags: doc.data().tags
+      tags: doc.data().tags,
+      hidden: doc.data().hidden
     };
+    if (state.hidden) {
+      res.status(404).send(html());
+    }
     res.status(200).send(html({title: state.name, description: state.intro || state.text, relativeURL: req.url, state: state}));
   }).catch(function(error) {
     console.log(error);

@@ -24,3 +24,11 @@ img.logo-landing {
   width: 110%;
   margin-left: -10%;
 }
+
+.hidden-text-icon + a {
+  margin-left: 10px !important;
+}
+
+h3 .hidden-text-icon {
+  margin-left: 10px;
+}

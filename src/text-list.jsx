@@ -5,6 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const TextList = (props) => {
   return (
@@ -16,6 +17,7 @@ const TextList = (props) => {
                   {el.name}
                 </ Typography>
               </Link>
+              { el.hidden && <VisibilityOffIcon className='hidden-text-icon'/> }
               { el.tags && el.tags.map(tag =>
                 <Chip component="a"
                   label={tag.name}
