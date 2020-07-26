@@ -26,7 +26,7 @@ import DeleteDialog from './delete-dialog';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOffOutlinedIcon from '@material-ui/icons/VisibilityOffOutlined';
 
 class TextEdit extends Component {
   constructor(props) {
@@ -123,7 +123,7 @@ class TextEdit extends Component {
         conclusion: this.state.conclusion || null,
         tags: this.state.tags,
         notes: this.state.notes,
-        hidden: this.state.hidden
+        hidden: this.state.hidden || false
       }
 
       if (!this.props.docId) {
@@ -265,7 +265,7 @@ class TextEdit extends Component {
             {props.docId ? 'Update' : 'Create'}
             </Button>
             <FormControlLabel
-              control={<Checkbox icon={<VisibilityOutlinedIcon />} checkedIcon={<VisibilityIcon />} checked={!state.hidden} onChange={this.handleUpdateVisibility.bind(this)}/>}
+              control={<Checkbox icon={<VisibilityOffOutlinedIcon />} checkedIcon={<VisibilityIcon />} checked={!state.hidden} onChange={this.handleUpdateVisibility.bind(this)}/>}
               label={state.hidden ? 'Not published' : 'Published'}
               style={{paddingLeft:'20px'}}
             />

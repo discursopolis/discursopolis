@@ -24,3 +24,7 @@ img.logo-landing {
   width: 110%;
   margin-left: -10%;
 }
+
+.hidden-text-list + a {
+  margin-left: 10px !important;
+}
