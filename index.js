@@ -69,14 +69,14 @@ const html = (content) => {
           </html>`
 };
 
-const protect = (req, res, successFnc, errorFnc) => {
+const protect = (req, res, successFnc) => {
   const sessionCookie = req.cookies.__session || '';
-  admin.auth().verifySessionCookie(
-    sessionCookie, true /** checkRevoked */)
+  admin.auth().verifySessionCookie(sessionCookie, true)
     .then((decodedClaims) => {
       successFnc(decodedClaims);
     }).catch(function(error) {
-      errorFnc(error);
+      res.status(401).json({_error: 'Unauthorized!'});
+      console.log(error);
     });
 }
 
@@ -114,9 +114,6 @@ app.put('/api/texts/:docId', (req, res) => {
       }).catch(err => console.log(err));
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -175,9 +172,6 @@ app.post('/api/texts/new', (req, res) => {
       }
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -190,9 +184,6 @@ app.delete('/api/texts/:docId', (req, res) => {
       });
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -253,9 +244,6 @@ app.delete('/api/tags/:tagId', (req, res) => {
       });
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
@@ -315,18 +303,12 @@ app.post('/api/tags/new', (req, res) => {
       }
       return true;
     }).catch(err => console.log(err));
-  }, (error) => {
-    res.status(401).json({_error: 'Unauthorized!'});
-    console.log(error);
   });
 });
 
 app.get('/api/auth', (req, res) => {
   protect(req, res, () => {
     res.json({status: 'success'});
-  }, (error) => {
-      res.status(401).send('UNAUTHORIZED REQUEST!');
-      console.log(error);
   });
 });
 
