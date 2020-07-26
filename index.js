@@ -192,7 +192,7 @@ app.delete('/api/texts/:docId', (req, res) => {
 
 app.get('/api/texts/:docId', (req, res) => {
   db.collection('texts').doc(req.params.docId).get().then(doc => {
-    res.json({
+    const docContent = {
       id: doc.id,
       name: doc.data().name,
       author: doc.data().author,
@@ -202,10 +202,25 @@ app.get('/api/texts/:docId', (req, res) => {
       intro: doc.data().intro,
       conclusion: doc.data().conclusion,
       notes: doc.data().notes,
-      tags: doc.data().tags
+      tags: doc.data().tags,
+      hidden: doc.data().hidden
+    };
+
+    protect(req, res, () => {
+      res.json(docContent);
+      return true;
+    }, (error) => {
+      if (!docContent.hidden) {
+        res.json(docContent);
+        return true;
+      }
+      res.status(404).json({_error: 'Text not found!'});
+      return false;
     });
-    return true;
-  }).catch(err => console.log(err));
+  }).catch(err => {
+    console.log(err);
+    res.status(404).json({_error: 'Text not found!'});
+  });
 });
 
 app.get('/api/texts', (req, res) => {
@@ -231,7 +246,7 @@ app.get('/api/texts', (req, res) => {
       return true;
     }, (error) => {
       // Non-admin users get only the visible texts
-      res.json({texts: texts.filter(text => !text.hidden || text.hidden == false)});
+      res.json({texts: texts.filter(text => !text.hidden)});
       return true;
     });
   }).catch(err => console.log(err));
