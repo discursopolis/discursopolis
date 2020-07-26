@@ -17,7 +17,7 @@ const TextList = (props) => {
                   {el.name}
                 </ Typography>
               </Link>
-              { el.hidden ? <VisibilityOffIcon className='hidden-text-list'/> : '' }
+              { el.hidden && <VisibilityOffIcon className='hidden-text-icon'/> }
               { el.tags && el.tags.map(tag =>
                 <Chip component="a"
                   label={tag.name}

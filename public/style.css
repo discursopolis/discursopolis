@@ -25,6 +25,10 @@ img.logo-landing {
   margin-left: -10%;
 }
 
-.hidden-text-list + a {
+.hidden-text-icon + a {
   margin-left: 10px !important;
+}
+
+h3 .hidden-text-icon {
+  margin-left: 10px;
 }

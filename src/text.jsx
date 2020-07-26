@@ -67,6 +67,7 @@ class Text extends Component {
             conclusion={state.conclusion}
             notes={state.notes}
             tags={state.tags}
+            hidden={state.hidden}
             showWordsIndex={false}
           />
         </Grid>

@@ -11,6 +11,7 @@ import Popper from '@material-ui/core/Popper';
 import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import Link from '@material-ui/core/Link';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 class TextView extends Component {
   constructor(props) {
@@ -108,6 +109,7 @@ class TextView extends Component {
         <Grid item xs={12}>
           <Typography variant="h3" gutterBottom>
             {props.name}
+            { props.hidden && <VisibilityOffIcon className='hidden-text-icon'/> }
           </Typography>
         </Grid>
        {this.props.intro &&
