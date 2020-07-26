@@ -43,7 +43,7 @@ class TextEdit extends Component {
       TextStore.loadData(this.props.docId);
       TagsStore.loadData();
     } else {
-      this.setState({name:'', notes:[], text:'', tags:[], tagList:[]});
+      this.setState({name:'', notes:[], text:'', tags:[], tagList:[], hidden: true});
     }
   }
 
