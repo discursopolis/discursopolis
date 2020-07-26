@@ -389,6 +389,9 @@ app.get('/texts/:docId', (req, res) => {
       tags: doc.data().tags,
       hidden: doc.data().hidden
     };
+    if (state.hidden) {
+      res.status(404).send(html());
+    }
     res.status(200).send(html({title: state.name, description: state.intro || state.text, relativeURL: req.url, state: state}));
   }).catch(function(error) {
     console.log(error);
