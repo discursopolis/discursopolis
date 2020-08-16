@@ -69,7 +69,7 @@ class Home extends Component {
         { state.areRemainingTexts &&
         <Grid item xs={12}>
           <Button onClick={this.loadMore.bind(this)}>
-            Cargar más
+            Ver más
           </Button>
         </Grid> }
         {state.admin &&
