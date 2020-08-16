@@ -17,14 +17,14 @@ class Home extends Component {
     this.bindedOnChange = this.onChange.bind(this);
     this.state = {};
 
-    this.initialNumberOfTexts = 1;
-    this.addMoreNumberOfTexts = 1;
+    this.INITIAL_NO_OF_TEXTS = 8;
+    this.ADDMORE_NO_OF_TEXTS = 4;
   }
 
   componentWillMount(props, state) {
     AppStore.addChangeListener(this.bindedOnChange);
     TextsStore.addChangeListener(this.bindedOnChange);
-    TextsStore.loadData({limit: this.initialNumberOfTexts});
+    TextsStore.loadData({limit: this.INITIAL_NO_OF_TEXTS});
   }
 
   componentWillUnmount(props, state) {
@@ -40,7 +40,7 @@ class Home extends Component {
   }
 
   loadMore() {
-    TextsStore.loadData({limit: this.addMoreNumberOfTexts, startAfter: this.state.lastTs});
+    TextsStore.loadData({limit: this.ADDMORE_NO_OF_TEXTS, startAfter: this.state.lastTs});
   }
 
   render(props, state) {
