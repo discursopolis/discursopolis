@@ -16,12 +16,15 @@ class Home extends Component {
 
     this.bindedOnChange = this.onChange.bind(this);
     this.state = {};
+
+    this.initialNumberOfTexts = 1;
+    this.addMoreNumberOfTexts = 1;
   }
 
   componentWillMount(props, state) {
     AppStore.addChangeListener(this.bindedOnChange);
     TextsStore.addChangeListener(this.bindedOnChange);
-    TextsStore.loadData();
+    TextsStore.loadData({limit: this.initialNumberOfTexts});
   }
 
   componentWillUnmount(props, state) {
@@ -34,6 +37,10 @@ class Home extends Component {
       ...TextsStore.getState(),
       ...{admin: AppStore.getState().admin}
     });
+  }
+
+  loadMore() {
+    TextsStore.loadData({limit: this.addMoreNumberOfTexts, startAfter: this.state.lastTs});
   }
 
   render(props, state) {
@@ -59,6 +66,12 @@ class Home extends Component {
         <Grid item xs={12}>
           <TextList texts={state.texts} />
         </Grid>
+        { state.areRemainingTexts &&
+        <Grid item xs={12}>
+          <Button onClick={this.loadMore.bind(this)}>
+            Cargar más
+          </Button>
+        </Grid> }
         {state.admin &&
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>

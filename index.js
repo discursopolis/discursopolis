@@ -250,7 +250,7 @@ app.get('/api/texts', (req, res) => {
   }
 
   col.get().then(snapshot => {
-    let texts = snapshot.docs.map(doc => {
+    const texts = snapshot.docs.map(doc => {
       return {
         id: doc.id,
         name: doc.data().name,
@@ -261,12 +261,12 @@ app.get('/api/texts', (req, res) => {
     });
 
     protect(req, res, () => {
-      res.json({texts: texts, lastTs: lastTs(texts)});
+      res.json({texts: texts, lastTs: lastTs(texts), areRemainingTexts: texts.length != 0});
       return true;
     }, (error) => {
       // Non-admin users get only the visible texts
-      texts = texts.filter(text => !text.hidden);
-      res.json({texts: texts, lastTs: lastTs(texts)});
+      const filtered = texts.filter(text => !text.hidden);
+      res.json({texts: filtered, lastTs: lastTs(texts), areRemainingTexts: filtered.length != 0 || texts.length != 0});
       return true;
     });
   }).catch(err => console.log(err));
