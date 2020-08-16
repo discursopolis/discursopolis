@@ -2,11 +2,14 @@ import { Component, h } from 'preact';
 
 import AppStore from './stores/app-store';
 import TextsStore from './stores/texts-store';
+import TagsStore from './stores/tags-store';
 
-import TextList from './text-list';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Chip from '@material-ui/core/Chip';
+
+import TextList from './text-list';
 import Progress from './progress';
 import MetaTags from './meta-tags';
 
@@ -24,17 +27,22 @@ class Home extends Component {
   componentWillMount(props, state) {
     AppStore.addChangeListener(this.bindedOnChange);
     TextsStore.addChangeListener(this.bindedOnChange);
+    TagsStore.addChangeListener(this.bindedOnChange);
+
     TextsStore.loadData({limit: this.INITIAL_NO_OF_TEXTS});
+    TagsStore.loadData();
   }
 
   componentWillUnmount(props, state) {
     AppStore.removeChangeListener(this.bindedOnChange);
     TextsStore.removeChangeListener(this.bindedOnChange);
+    TagsStore.removeChangeListener(this.bindedOnChange);
   }
 
   onChange() {
     this.setState({
       ...TextsStore.getState(),
+      ...TagsStore.getState(),
       ...{admin: AppStore.getState().admin}
     });
   }
@@ -76,6 +84,17 @@ class Home extends Component {
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
         </Grid>}
+        <Grid item xs={12}>
+         {state.tagList && state.tagList.map(tag =>
+            <Chip component="a"
+              label={tag.name}
+              color="primary"
+              clickable
+              href={`/tags/${tag.id}`}
+              style={{margin:'5px'}}
+            />
+         )}
+        </Grid>
       </Grid>
   }
 }
