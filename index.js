@@ -267,8 +267,7 @@ app.get('/api/texts', (req, res) => {
       return true;
     }, (error) => {
       // Non-admin users get only the visible texts
-      const filtered = texts.filter(text => !text.hidden);
-      res.json({texts: filtered, lastTs: lastTs(texts), areRemainingTexts: areRemainingTexts});
+      res.json({texts: texts.filter(text => !text.hidden), lastTs: lastTs(texts), areRemainingTexts: areRemainingTexts});
       return true;
     });
   }).catch(err => console.log(err));
