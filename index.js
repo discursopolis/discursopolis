@@ -228,30 +228,45 @@ app.get('/api/texts/:docId', (req, res) => {
   });
 });
 
+const lastTs = (texts) => texts.length > 0 ? texts[texts.length - 1].timestamp : null;
+
 app.get('/api/texts', (req, res) => {
   const tags =  req.query.tags ? req.query.tags.split(',') : null;
+  const limit = req.query.limit ? parseInt(req.query.limit) : null;
+  const startAfter = req.query.startAfter || null;
+
   let col = db.collection('texts').orderBy("timestamp", "desc");
 
   if (tags) {
     col = col.where('tagIds','array-contains-any', tags);
   }
 
+  if (startAfter) {
+    col = col.startAfter(admin.firestore.Timestamp.fromMillis(startAfter));
+  }
+
+  if (limit) {
+    col = col.limit(limit);
+  }
+
   col.get().then(snapshot => {
-    const texts = snapshot.docs.map(doc => {
+    let texts = snapshot.docs.map(doc => {
       return {
         id: doc.id,
         name: doc.data().name,
         tags: doc.data().tags,
-        hidden: doc.data().hidden
+        hidden: doc.data().hidden,
+        timestamp: doc.data().timestamp.toMillis()
       }
     });
 
     protect(req, res, () => {
-      res.json({texts: texts});
+      res.json({texts: texts, lastTs: lastTs(texts)});
       return true;
     }, (error) => {
       // Non-admin users get only the visible texts
-      res.json({texts: texts.filter(text => !text.hidden)});
+      texts = texts.filter(text => !text.hidden);
+      res.json({texts: texts, lastTs: lastTs(texts)});
       return true;
     });
   }).catch(err => console.log(err));
