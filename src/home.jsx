@@ -91,7 +91,7 @@ class Home extends Component {
               color="primary"
               clickable
               href={`/tags/${tag.id}`}
-              style={{marginRight:'10px'}}
+              style={{marginRight:'10px', marginBottom:'5px'}}
             />
          )}
         </Grid>
