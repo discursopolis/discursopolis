@@ -32,3 +32,8 @@ img.logo-landing {
 h3 .hidden-text-icon {
   margin-left: 10px;
 }
+
+a[disabled], a[disabled]:hover {
+   pointer-events: none;
+   color: #757575;
+}

@@ -19,7 +19,7 @@ class Home extends Component {
     super(props);
 
     this.bindedOnChange = this.onChange.bind(this);
-    this.state = {};
+    this.state = {loading: true};
 
     this.INITIAL_NO_OF_TEXTS = 10;
     this.ADDMORE_NO_OF_TEXTS = 4;
@@ -50,7 +50,9 @@ class Home extends Component {
 
   loadMore(e) {
     e.preventDefault();
-    TextsStore.loadData({limit: this.ADDMORE_NO_OF_TEXTS, startAfter: this.state.lastTs});
+    this.setState({loading: true}, () => {
+      TextsStore.loadData({limit: this.ADDMORE_NO_OF_TEXTS, startAfter: this.state.lastTs});
+    });
   }
 
   render(props, state) {
@@ -77,7 +79,7 @@ class Home extends Component {
           <TextList texts={state.texts} />
           { state.areRemainingTexts &&
             <Typography style={{margin:'16px 8px'}}>
-              <Link href="" onClick={this.loadMore.bind(this)} style={{margin:'8px'}}>
+              <Link href="" onClick={this.loadMore.bind(this)} style={{margin:'8px'}} disabled={state.loading}>
                 Ver más
               </Link>
             </Typography>}

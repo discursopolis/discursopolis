@@ -34,7 +34,7 @@ const TextsStore = {...Store, ...{
       json.texts = this.state.texts.concat(json.texts);
     }
 
-    this.state = {...json};
+    this.state = {...json, loading: false};
     this.emitChangeEvent();
   }
 }};
