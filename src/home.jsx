@@ -67,19 +67,17 @@ class Home extends Component {
           <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
       Entrá al discurso que quieras, cliqueá en las frases subrayadas y encontrá nuevos sentidos.
           </Typography>
-          <Typography variant="h6" gutterBottom align="justify" paragraph={true} color="textSecondary">
+          <Typography variant="h6" gutterBottom align="justify" color="textSecondary">
             Deconstruyendo discursos, construimos igualdad.
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{padding:'16px 5px'}}>
           <TextList texts={state.texts} />
+          { state.areRemainingTexts &&
+            <Button onClick={this.loadMore.bind(this)} style={{margin:'8px'}}>
+              Ver más
+            </Button> }
         </Grid>
-        { state.areRemainingTexts &&
-        <Grid item xs={12}>
-          <Button onClick={this.loadMore.bind(this)}>
-            Ver más
-          </Button>
-        </Grid> }
         {state.admin &&
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
@@ -91,7 +89,7 @@ class Home extends Component {
               color="primary"
               clickable
               href={`/tags/${tag.id}`}
-              style={{margin:'5px'}}
+              style={{marginRight:'10px'}}
             />
          )}
         </Grid>
