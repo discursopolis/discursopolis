@@ -83,6 +83,8 @@ class Home extends Component {
           <Button variant="contained" href='/texts/new'>Add text</Button>
         </Grid>}
         <Grid item xs={12}>
+        </Grid>
+        <Grid item xs={12}>
          {state.tagList && state.tagList.map(tag =>
             <Chip component="a"
               label={tag.name}
