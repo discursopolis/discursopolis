@@ -17,8 +17,23 @@ const TextsStore = {...Store, ...{
       url += `?tags=${opts.tags.join(',')}`;
     }
 
+    if (opts && opts.limit) {
+      const art = url.indexOf('?') != -1 ? '&' : '?';
+      url += `${art}limit=${opts.limit}`;
+    }
+
+    if (opts && opts.startAfter) {
+      const art = url.indexOf('?') != -1 ? '&' : '?';
+      url += `${art}startAfter=${opts.startAfter}`;
+    }
+
     const res = await fetch(url)
-    const json = await res.json();
+    let json = await res.json();
+
+    if(opts && opts.startAfter) {
+      json.texts = this.state.texts.concat(json.texts);
+    }
+
     this.state = {...json};
     this.emitChangeEvent();
   }
