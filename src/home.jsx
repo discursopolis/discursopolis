@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
+import Link from '@material-ui/core/Link';
 
 import TextList from './text-list';
 import Progress from './progress';
@@ -20,7 +21,7 @@ class Home extends Component {
     this.bindedOnChange = this.onChange.bind(this);
     this.state = {};
 
-    this.INITIAL_NO_OF_TEXTS = 8;
+    this.INITIAL_NO_OF_TEXTS = 10;
     this.ADDMORE_NO_OF_TEXTS = 4;
   }
 
@@ -47,7 +48,8 @@ class Home extends Component {
     });
   }
 
-  loadMore() {
+  loadMore(e) {
+    e.preventDefault();
     TextsStore.loadData({limit: this.ADDMORE_NO_OF_TEXTS, startAfter: this.state.lastTs});
   }
 
@@ -74,9 +76,11 @@ class Home extends Component {
         <Grid item xs={12} style={{padding:'16px 5px'}}>
           <TextList texts={state.texts} />
           { state.areRemainingTexts &&
-            <Button onClick={this.loadMore.bind(this)} style={{margin:'8px'}}>
-              Ver más
-            </Button> }
+            <Typography style={{margin:'16px 8px'}}>
+              <Link href="" onClick={this.loadMore.bind(this)} style={{margin:'8px'}}>
+                Ver más
+              </Link>
+            </Typography>}
         </Grid>
         {state.admin &&
         <Grid item xs={12}>
