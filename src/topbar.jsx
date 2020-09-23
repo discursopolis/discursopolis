@@ -58,10 +58,10 @@ class TopBar extends Component {
             >
             <MenuIcon />
           </IconButton>
+          <div className={this.classes.filler} />
           <IconButton href="/">
             <img src="/logo_topbar_full_white.png" className={this.classes.logo}></img>
           </IconButton>
-          <div className={this.classes.filler} />
           {this.props.admin &&
             <Button color="inherit">
             Admin
