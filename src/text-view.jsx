@@ -29,6 +29,18 @@ class TextView extends Component {
     this.state = {};
   }
 
+  handleNoteClick(e, note) {
+    firebase.analytics().logEvent('note_click', {
+      textTitle: this.props.name,
+      note: note.note
+    });
+
+    this.setState({
+      selected: note.note,
+      selectedAnchorEl: e.currentTarget
+    });
+  }
+
   buildAnotatedText() {
     if (!this.props.text) return;
 
@@ -61,10 +73,7 @@ class TextView extends Component {
         <span
           className='words-note'
           style={{backgroundColor: this.colors[colorIndex]}}
-          onClick={(e) => this.setState({
-            selected: note.note,
-            selectedAnchorEl: e.currentTarget
-          })}
+          onClick={(e) => this.handleNoteClick(e, note)}
         >
         {highlight}
         </span>
