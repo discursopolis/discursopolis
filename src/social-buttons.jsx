@@ -1,18 +1,35 @@
 import { h } from 'preact';
 
+import { makeStyles } from '@material-ui/core/styles';
 import FbIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import IconButton from '@material-ui/core/IconButton';
 import MailIcon from '@material-ui/icons/Mail';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import ShareIcon from '@material-ui/icons/Share';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    float: 'right'
+  },
+  share: {
+    padding: '3px',
+    display: 'inline-flex',
+    color: 'rgba(0, 0, 0, 0.30)',
+    verticalAlign: 'middle'
+  }
+}));
 
 const SocialButtons = (props) => {
+  const classes = useStyles();
+
   const twURL = `https://twitter.com/intent/tweet?text=${props.name}&url=${props.url}`;
   const fbURL = `https://www.facebook.com/sharer/sharer.php?t=${props.name}&u=${props.url}`;
   const mailURL = `mailto:?subject=${props.name}&body=${props.name}, ${props.url}`;
   const liURL = `https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`;
 
-  return <span style={{float:'right'}}>
+  return <span className={classes.root}>
+      <span className={classes.share}><ShareIcon /></span>
       <IconButton size="small" target="_top" href={mailURL}>
         <MailIcon />
       </IconButton>
