@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link';
 import TextList from './text-list';
 import Progress from './progress';
 import MetaTags from './meta-tags';
+import SocialButtons from './social-buttons';
 
 class Home extends Component {
   constructor(props) {
@@ -100,6 +101,9 @@ class Home extends Component {
               style={{marginRight:'10px', marginBottom:'5px'}}
             />
          )}
+        </Grid>
+        <Grid item xs={12}>
+          <SocialButtons name={document.title} url="https://discursopolis.com"/>
         </Grid>
       </Grid>
   }
