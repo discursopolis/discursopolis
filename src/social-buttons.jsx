@@ -1,8 +1,9 @@
-import { h } from 'preact';
+import { Component, h } from 'preact';
 
 import { makeStyles } from '@material-ui/core/styles';
 import FbIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MailIcon from '@material-ui/icons/Mail';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
@@ -10,39 +11,47 @@ import ShareIcon from '@material-ui/icons/Share';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    float: 'right'
-  },
-  share: {
-    padding: '3px',
-    display: 'inline-flex',
-    color: 'rgba(0, 0, 0, 0.30)',
-    verticalAlign: 'middle'
+    float: 'right',
   }
 }));
 
-const SocialButtons = (props) => {
-  const classes = useStyles();
+class SocialButtons extends Component {
+  constructor(props) {
+    super(props);
 
-  const twURL = `https://twitter.com/intent/tweet?text=${props.name}&url=${props.url}`;
-  const fbURL = `https://www.facebook.com/sharer/sharer.php?t=${props.name}&u=${props.url}`;
-  const mailURL = `mailto:?subject=${props.name}&body=${props.name}, ${props.url}`;
-  const liURL = `https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`;
+    this.state = {displayButtons: false};
+    this.classes = useStyles();
 
-  return <span className={classes.root}>
-      <span className={classes.share}><ShareIcon /></span>
-      <IconButton size="small" target="_top" href={mailURL}>
-        <MailIcon />
-      </IconButton>
-      <IconButton size="small" target="_blank" href={fbURL}>
-        <FbIcon />
-      </IconButton>
-      <IconButton size="small" target="_blank" href={liURL}>
-        <LinkedInIcon />
-      </IconButton>
-      <IconButton size="small" target="_blank" href={twURL}>
-        <TwitterIcon />
-      </IconButton>
+    this.twURL = `https://twitter.com/intent/tweet?text=${props.name}&url=${props.url}`;
+    this.fbURL = `https://www.facebook.com/sharer/sharer.php?t=${props.name}&u=${props.url}`;
+    this.mailURL = `mailto:?subject=${props.name}&body=${props.name}, ${props.url}`;
+    this.liURL = `https://www.linkedin.com/sharing/share-offsite/?url=${props.url}`;
+  }
+
+  render() {
+    return <span className={this.classes.root}>
+      <Button
+        color="primary"
+        onClick={(e) => this.setState({displayButtons: !this.state.displayButtons})}
+        startIcon={<ShareIcon />}>
+        Compartir
+      </Button>
+      {this.state.displayButtons && <div>
+        <IconButton size="small" target="_top" href={this.mailURL}>
+          <MailIcon />
+        </IconButton>
+        <IconButton size="small" target="_blank" href={this.fbURL}>
+          <FbIcon />
+        </IconButton>
+        <IconButton size="small" target="_blank" href={this.liURL}>
+          <LinkedInIcon />
+        </IconButton>
+        <IconButton size="small" target="_blank" href={this.twURL}>
+          <TwitterIcon />
+        </IconButton>
+      </div>}
     </span>;
+  }
 }
 
 export default SocialButtons
