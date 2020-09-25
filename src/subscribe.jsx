@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     minWidth: '230px',
     marginLeft: '10%'
   },
+  content: {
+    paddingBottom: '16px !important',
+  },
   button: {
     marginTop:'30px'
   }
@@ -56,10 +59,10 @@ class Subscribe extends Component {
 
     return <Grid item xs={12}>
       <Card variant="outlined" className={this.classes.root}>
-        <CardContent>
+        <CardContent className={this.classes.content}>
           {this.state.justSubscribed ?
           <Typography align="center">
-            Subscripción exitosa.
+            Suscripción exitosa.
           </Typography>
             :
           <div>
