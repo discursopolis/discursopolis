@@ -89,6 +89,7 @@ class Home extends Component {
         {state.admin &&
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
+          <Button variant="contained" href='/api/subscribers.csv' target="_blank" style={{marginLeft: '10px'}}download>Subscribers</Button>
         </Grid>}
         <Grid item xs={12}>
         </Grid>
