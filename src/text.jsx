@@ -15,6 +15,7 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 
 import SocialButtons from './social-buttons';
+import Subscribe from './subscribe';
 
 class Text extends Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class Text extends Component {
           Edit
           </Button>
         </Grid>}
+        <Subscribe />
       </Grid>
   }
 }
