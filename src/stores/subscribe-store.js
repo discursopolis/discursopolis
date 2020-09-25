@@ -19,9 +19,8 @@ const SubscribeStore = {...Store, ...{
     });
 
     if (res.status == 200) {
-      const json = await res.json();
       BrowserCookies.set('subscribed', 'yes', {expires: 365, path:'/'});
-      this.state.subscribed = true;
+      this.state.justSubscribed = true;
       this.emitChangeEvent();
     }
   },

@@ -40,7 +40,7 @@ class Subscribe extends Component {
   }
 
   onChange() {
-    this.setState({subscribed: SubscribeStore.getState().subscribed});
+    this.setState({...this.state, ...SubscribeStore.getState()});
   }
 
   onEmailChange(e) {
@@ -57,6 +57,12 @@ class Subscribe extends Component {
     return <Grid item xs={12}>
       <Card variant="outlined" className={this.classes.root}>
         <CardContent>
+          {this.state.justSubscribed ?
+          <Typography align="center">
+            Subscripción exitosa.
+          </Typography>
+            :
+          <div>
           <Typography align="center">
           ¡Suscribite y recibí las novedades de Discursópolis!
           </Typography>
@@ -73,7 +79,7 @@ class Subscribe extends Component {
             size="small"
             className={this.classes.button}
             onClick={this.subscribe.bind(this)}
-          >Suscribirse</Button>
+          >Suscribirse</Button></div>}
         </CardContent>
       </Card>
     </Grid>
