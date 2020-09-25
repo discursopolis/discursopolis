@@ -14,6 +14,7 @@ import TextList from './text-list';
 import Progress from './progress';
 import MetaTags from './meta-tags';
 import SocialButtons from './social-buttons';
+import Subscribe from './subscribe';
 
 class Home extends Component {
   constructor(props) {
@@ -88,6 +89,7 @@ class Home extends Component {
         {state.admin &&
         <Grid item xs={12}>
           <Button variant="contained" href='/texts/new'>Add text</Button>
+          <Button variant="contained" href='/api/subscribers.csv' target="_blank" style={{marginLeft: '10px'}}download>Subscribers</Button>
         </Grid>}
         <Grid item xs={12}>
         </Grid>
@@ -105,6 +107,7 @@ class Home extends Component {
         <Grid item xs={12}>
           <SocialButtons name={document.title} url="https://discursopolis.com"/>
         </Grid>
+        <Subscribe />
       </Grid>
   }
 }

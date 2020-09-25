@@ -6,6 +6,8 @@ const render = require('preact-render-to-string');
 const express = require('express');
 const app = express();
 const cookies = require("cookie-parser");
+const { body, validationResult } = require('express-validator');
+
 app.use(cookies());
 
 import {generateUrlName} from './utils/utils';
@@ -350,6 +352,38 @@ app.post('/api/tags/new', (req, res) => {
       }
       return true;
     }).catch(err => console.log(err));
+  });
+});
+
+app.post('/api/subscriber', [body('email').isEmail().normalizeEmail()], (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const email = req.body.email;
+  const col = db.collection('subscribers');
+  const docRef = col.doc(email);
+
+  docRef.set({
+    timestamp: admin.firestore.FieldValue.serverTimestamp()
+  }).then(() => {
+    res.json({
+      _success: 'Subscribed'
+    });
+    return true;
+  }).catch(err => console.log(err));
+});
+
+app.get('/api/subscribers.csv', (req, res) => {
+  protect(req, res, () => {
+    db.collection('subscribers').get().then(snapshot => {
+      const subscribers = snapshot.docs.map(doc => doc.id);
+      const csv = ['email'].concat(subscribers).join("\n");
+      res.header('Content-Type', 'text/csv');
+      res.attachment('subscribers.csv');
+      res.status(200).send(csv);
+    });
   });
 });
 

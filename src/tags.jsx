@@ -16,6 +16,7 @@ import Progress from './progress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import MetaTags from './meta-tags';
+import Subscribe from './subscribe';
 
 class Tags extends Component {
   constructor(props) {
@@ -88,6 +89,7 @@ class Tags extends Component {
             </Grid>
           </Grid>
         </Grid>}
+        <Subscribe />
         <Snackbar open={this.state._error}><Alert severity="error" onClose={this.handleCloseError.bind(this)} elevation={6} variant="filled">{state._error}</Alert></Snackbar>
         <Snackbar open={this.state._success}><Alert severity="success" onClose={this.handleCloseSuccess.bind(this)} elevation={6} variant="filled">{state._success}</Alert></Snackbar>
       </Grid>

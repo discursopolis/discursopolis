@@ -18,6 +18,7 @@ import Link from '@material-ui/core/Link';
 import DeleteDialog from './delete-dialog';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import Subscribe from './subscribe';
 
 class TagView extends Component {
   constructor(props) {
@@ -122,6 +123,7 @@ class TagView extends Component {
             </div>
           </Grid>
         }
+        <Subscribe />
       </Grid>
   }
 }
