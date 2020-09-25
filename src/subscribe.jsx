@@ -31,6 +31,7 @@ class Subscribe extends Component {
     super(props);
     this.classes = useStyles();
     this.bindedOnChange = this.onChange.bind(this);
+    this.state = {email: ''};
   }
 
   componentWillMount(props, state) {
@@ -52,6 +53,10 @@ class Subscribe extends Component {
 
   subscribe() {
     SubscribeStore.subscribe(this.state.email);
+  }
+
+  isValidEmailAddress(address) {
+    return !! address.match(/.+@.+/);
   }
 
   render(props) {
@@ -82,6 +87,7 @@ class Subscribe extends Component {
             size="small"
             className={this.classes.button}
             onClick={this.subscribe.bind(this)}
+            disabled={!this.isValidEmailAddress(this.state.email)}
           >Suscribirse</Button></div>}
         </CardContent>
       </Card>
