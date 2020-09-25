@@ -19,6 +19,7 @@ const SubscribeStore = {...Store, ...{
     });
 
     if (res.status == 200) {
+      firebase.analytics().logEvent('subscribe');
       BrowserCookies.set('subscribed', 'yes', {expires: 365, path:'/'});
       this.state.justSubscribed = true;
       this.emitChangeEvent();
