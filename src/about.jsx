@@ -59,7 +59,7 @@ const About = (props) => {
               <Typography variant="h5">
                 Panteón de analistas
               </Typography>
-              <Typography variant="body1">
+              <Typography variant="body1" paragraph={true}>
                 <List>
                   <ListItem>
                     <Link href="/texts/reforma-judicial">
