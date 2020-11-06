@@ -3,6 +3,9 @@ import { Component, h } from 'preact';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemLink from './list-item-link';
 import MetaTags from './meta-tags';
 
 const About = (props) => {
@@ -44,7 +47,7 @@ const About = (props) => {
                   target="_blank"
                   href="https://www.linkedin.com/in/paula-salerno-3a8a336a">
                   Paula Salerno
-                </Link>.
+                </Link>. El desarrollador principal es <Link target="_blank" href="https://www.linkedin.com/in/bruno-salerno-b29a8b3/">Bruno Salerno</Link>. Y contamos con dos colaboradoras residentes de lujo. Florentina Guaita es nuestra asistente de producción. <Link target="_blank" href="http://linkedin.com/in/ana-laura-maizels-7aa20793">Ana Maizels</Link> hace la sección mensual de análisis de titulares periodísticos en redes sociales.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Además, Discursópolis está abierta a los aportes de lingüistas y analistas de diferentes instituciones y procedencias.
@@ -52,6 +55,22 @@ const About = (props) => {
               <Typography variant="body1" paragraph={true}>
                 Queremos mostrar eso que se dice más allá de lo dicho. Queremos transmitir una forma de interpretar los discursos que des-cubre las ideologías de nuestra vida cotidiana.
               </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h4">
+                Panteón de analistas
+              </Typography>
+              <List>
+                <ListItemLink href="/texts/reforma-judicial">
+                  <ListItemText primary="Mg. Ana Maizels" />
+                </ListItemLink>
+                <ListItemLink href="/texts/juan-pablo-varsky-y-el-sueno">
+                  <ListItemText primary="Mg. Mónica Baretta" />
+                </ListItemLink>
+                <ListItemLink href="/texts/pedro-cahn-y-la-divulgacion-medica">
+                  <ListItemText primary="Dr. Pablo von Stecher" />
+                </ListItemLink>
+              </List>
             </Grid>
           </Grid>
         </Grid>
