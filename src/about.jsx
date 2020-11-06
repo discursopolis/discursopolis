@@ -3,6 +3,8 @@ import { Component, h } from 'preact';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import MetaTags from './meta-tags';
 
 const About = (props) => {
@@ -44,13 +46,37 @@ const About = (props) => {
                   target="_blank"
                   href="https://www.linkedin.com/in/paula-salerno-3a8a336a">
                   Paula Salerno
-                </Link>.
+                </Link>. El desarrollador principal es <Link target="_blank" href="https://www.linkedin.com/in/bruno-salerno-b29a8b3/">Bruno Salerno</Link>. Y contamos con dos colaboradoras residentes de lujo. Florentina Guaita es nuestra asistente de producción. <Link target="_blank" href="http://linkedin.com/in/ana-laura-maizels-7aa20793">Ana Maizels</Link> hace la sección mensual de análisis de titulares periodísticos.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Además, Discursópolis está abierta a los aportes de lingüistas y analistas de diferentes instituciones y procedencias.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Queremos mostrar eso que se dice más allá de lo dicho. Queremos transmitir una forma de interpretar los discursos que des-cubre las ideologías de nuestra vida cotidiana.
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h5">
+                Panteón de analistas
+              </Typography>
+              <Typography variant="body1" paragraph={true}>
+                <List>
+                  <ListItem>
+                    <Link href="/texts/reforma-judicial">
+                      Mg. Ana Maizels
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link href="/texts/juan-pablo-varsky-y-el-sueno">
+                      Mg. Mónica Barett
+                    </Link>
+                  </ListItem>
+                  <ListItem>
+                    <Link href="/texts/pedro-cahn-y-la-divulgacion-medica">
+                      Dr. Pablo von Stecher
+                    </Link>
+                  </ListItem>
+                </List>
               </Typography>
             </Grid>
           </Grid>
