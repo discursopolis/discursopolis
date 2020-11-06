@@ -68,7 +68,7 @@ const About = (props) => {
                   </ListItem>
                   <ListItem>
                     <Link href="/texts/juan-pablo-varsky-y-el-sueno">
-                      Mg. Mónica Barett
+                      Mg. Mónica Baretta
                     </Link>
                   </ListItem>
                   <ListItem>
