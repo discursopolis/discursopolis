@@ -1,5 +1,9 @@
 import Diacritic from 'diacritic';
 
+const makeHTMLSafeText = (text) => {
+  return text.replace(/"/g, '&quot;');
+}
+
 const generateUrlName = (name) => {
   const urlName = Diacritic.clean(name)
     .toLowerCase()
@@ -10,4 +14,4 @@ const generateUrlName = (name) => {
   return urlName;
 }
 
-export {generateUrlName};
+export {makeHTMLSafeText, generateUrlName};

@@ -10,7 +10,7 @@ const { body, validationResult } = require('express-validator');
 
 app.use(cookies());
 
-import {generateUrlName} from './utils/utils';
+import {makeHTMLSafeText, generateUrlName} from './utils/utils';
 
 const admin = require('firebase-admin');
 admin.initializeApp();
@@ -18,9 +18,9 @@ const db = admin.firestore();
 
 const html = (content) => {
   content = content || {};
-  const title = content.title || 'Discursópolis';
+  const title = content.title ? makeHTMLSafeText(content.title) : 'Discursópolis';
   const description = content.description ?
-    content.description.slice(0, 160) : 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
+    makeHTMLSafeText(content.description.slice(0, 160)) : 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
   const url = 'https://discursopolis.com' + (content.relativeURL || '');
   const body = content.body || '';
 
