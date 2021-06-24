@@ -54,6 +54,9 @@ const About = (props) => {
               <Typography variant="body1" paragraph={true}>
                 Queremos mostrar eso que se dice más allá de lo dicho. Queremos transmitir una forma de interpretar los discursos que des-cubre las ideologías de nuestra vida cotidiana.
               </Typography>
+              <Typography variant="body1" paragraph={true}>
+                Discursópolis es un proyecto de código abierto. Encontrá el repositorio <Link target="_blank" href="https://github.com/discursopolis/discursopolis">acá</Link>.
+              </Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h5">
