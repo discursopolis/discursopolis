@@ -21,7 +21,7 @@ const html = (content) => {
   const title = content.title ? makeHTMLSafeText(content.title) : 'Discursópolis';
   const description = content.description ?
     makeHTMLSafeText(content.description.slice(0, 160)) : 'Un sitio dedicado al Análisis del Discurso. Deconstruyendo discursos, construyendo igualdad.';
-  const url = 'https://discursopolis.com' + (content.relativeURL || '');
+  const url = 'https://discursopolis.org' + (content.relativeURL || '');
   const body = content.body || '';
 
   return `<!doctype html>
@@ -30,7 +30,7 @@ const html = (content) => {
               <meta name="description" content="${description}" />
               <meta property="og:title" content="${title}"/>
               <meta property="og:description" content="${description}" />
-              <meta property="og:image" content="https://discursopolis.com/logo_meta_og.png" />
+              <meta property="og:image" content="https://discursopolis.org/logo_meta_og.png" />
               <meta property="og:url" content="${url}" />
               <meta property="og:site_name" content="Discursópolis" />
 
@@ -39,7 +39,7 @@ const html = (content) => {
               <meta name="twitter:creator" content="Discursópolis"/>
               <meta name="twitter:title" content="${title}"/>
               <meta name="twitter:description" content="${description}" />
-              <meta name="twitter:image" content="https://discursopolis.com/logo_meta_og.png" />
+              <meta name="twitter:image" content="https://discursopolis.org/logo_meta_og.png" />
 
               <link rel="icon" type="image/png" href="/logo_192x192.png" sizes="192x192" />
               <link rel="icon" type="image/png" href="/logo_32x32.png" sizes="32x32" />
