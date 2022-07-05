@@ -101,7 +101,7 @@ class TagView extends Component {
           <TextList texts={state.texts} />
         </Grid>}
         <Grid item xs={12}>
-          <SocialButtons name={state.name} url={`https://discursopolis.com/tags/${props.tagId}`}/>
+          <SocialButtons name={state.name} url={`https://discursopolis.org/tags/${props.tagId}`}/>
         </Grid>
         {state.admin && state.texts && state.texts.length == 0 &&
           <Grid item xs={12}>

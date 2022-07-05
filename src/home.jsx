@@ -105,7 +105,7 @@ class Home extends Component {
          )}
         </Grid>
         <Grid item xs={12}>
-          <SocialButtons name={document.title} url="https://discursopolis.com"/>
+          <SocialButtons name={document.title} url="https://discursopolis.org"/>
         </Grid>
         <Subscribe />
       </Grid>
