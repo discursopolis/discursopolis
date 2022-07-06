@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "npm": "^10.24.1"
+  },
   "scripts": {
     "babel": "babel src --out-dir functions/components && babel index.js --out-dir functions && babel utils.js --out-dir functions/utils",
     "build_client": "webpack --config webpack.config.js",
@@ -34,6 +37,7 @@
     "firebase": "^7.14.6",
     "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.6.2",
+    "node": "^10.24.1",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.9",
     "preact-router": "^3.2.1",
