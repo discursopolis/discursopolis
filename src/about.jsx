@@ -46,7 +46,7 @@ const About = (props) => {
                   target="_blank"
                   href="https://www.linkedin.com/in/paula-salerno-3a8a336a">
                   Paula Salerno
-                </Link>. El desarrollador principal es <Link target="_blank" href="https://www.linkedin.com/in/bruno-salerno-b29a8b3/">Bruno Salerno</Link>. Y contamos con dos colaboradoras residentes de lujo. Florentina Guaita es nuestra asistente de producción. <Link target="_blank" href="http://linkedin.com/in/ana-laura-maizels-7aa20793">Ana Maizels</Link> hace la sección mensual de análisis de titulares periodísticos.
+                </Link>. El desarrollador principal es <Link target="_blank" href="https://www.linkedin.com/in/bruno-salerno-b29a8b3/">Bruno Salerno</Link>. Y contamos con dos colaboradoras residentes de lujo. Florentina Guaita es nuestra asistente de producción.
               </Typography>
               <Typography variant="body1" paragraph={true}>
                 Además, Discursópolis está abierta a los aportes de lingüistas y analistas de diferentes instituciones y procedencias.
@@ -69,6 +69,8 @@ const About = (props) => {
                       Mg. Ana Maizels
                     </Link>
                   </ListItem>
+                  <ListItem>Dra. Aniela Ventura</ListItem>
+                  <ListItem>Dra. María Sofía Vasallo</ListItem>
                   <ListItem>
                     <Link href="/texts/juan-pablo-varsky-y-el-sueno">
                       Mg. Mónica Baretta
