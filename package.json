@@ -33,7 +33,7 @@
     "browser-cookies": "^1.2.0",
     "cookie-parser": "^1.4.5",
     "diacritic": "0.0.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "firebase": "^7.14.6",
     "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.6.2",
