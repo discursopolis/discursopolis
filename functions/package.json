@@ -16,7 +16,7 @@
     "@babel/plugin-transform-react-jsx": "^7.10.1",
     "cookie-parser": "^1.4.5",
     "diacritic": "0.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-validator": "^6.6.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",
