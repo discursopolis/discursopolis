@@ -28,7 +28,7 @@
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.55",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.3.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "browser-cookies": "^1.2.0",
     "cookie-parser": "^1.4.5",
@@ -43,14 +43,14 @@
     "preact-router": "^3.2.1",
     "react-firebaseui": "^4.1.0",
     "react-helmet": "^6.1.0",
-    "webpack": "^4.43.0"
+    "webpack": "^5.75.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.10.1",
     "@babel/plugin-transform-modules-commonjs": "^7.10.1",
     "babel-core": "^7.0.0-bridge.0",
-    "css-loader": "^3.5.3",
+    "css-loader": "^6.7.3",
     "style-loader": "^1.2.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^5.0.1"
   }
 }
