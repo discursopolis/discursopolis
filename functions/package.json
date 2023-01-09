@@ -18,7 +18,7 @@
     "diacritic": "0.0.2",
     "express": "^4.17.1",
     "express-validator": "^6.6.1",
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^11.4.1",
     "firebase-functions": "^3.6.1",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.9",
